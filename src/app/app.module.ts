@@ -3,6 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AuthentificatyModule} from "./authentificaty/authentificaty.module";
+import {HttpClientModule} from "@angular/common/http";
+import {LoginService} from "./service/LoginService";
+import {FormsModule} from "@angular/forms";
+import {ToastrModule, ToastrService} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -10,9 +16,16 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    AuthentificatyModule,
+    HttpClientModule,
+    FormsModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    LoginService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

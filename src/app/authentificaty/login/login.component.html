@@ -1,0 +1,10 @@
+<div class="loginbox"> <img src="https://i.imgur.com/ZYzTdD0.png" class="avatar">
+  <h1>Login Here</h1>
+  <div>
+    <p>Username</p> <input type="text" [(ngModel)]="loginuser.login" placeholder="Login">
+    <p>Password</p> <input type="password" [(ngModel)]="loginuser.password"  placeholder="Enter Password">
+    <button type="submit" (click)="login()" class="btn btn-success" [disabled]="isLoading==true">Login
+    <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
