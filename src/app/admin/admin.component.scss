@@ -1,23 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  list-style: none;
-  font-family: 'Montserrat', sans-serif
-}
-
-.body {
-  padding: 10px
-}
 
 .topnav {
   background-color: #ffff;
   overflow: hidden
 }
 
-.far.fa-user-circle {
+.fa.fa-user-circle {
   font-size: 29px;
   color: #726f6f;
   padding-top: 10px
@@ -29,7 +16,7 @@
   font-weight: 600
 }
 
-.fas.fa-search {
+.fa.fa-search {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -155,7 +142,7 @@ form.example::after {
   color: white
 }
 
-.fas.fa-bars {
+.fa.fa-bars {
   color: white
 }
 
@@ -179,7 +166,7 @@ ul#navbar-items li {
   align-items: center
 }
 
-ul li .fas {
+ul li .fa {
   font-size: 16px
 }
 
@@ -188,7 +175,7 @@ ul#navbar-items li:hover {
   color: white
 }
 
-ul li:hover .fas {
+ul li:hover .fa {
   color: #f7910c
 }
 
@@ -205,11 +192,11 @@ ul li:hover .fas {
   color: white
 }
 
-.fas.fa-times {
+.fa.fa-times {
   color: red
 }
 
-.fas.fa-check {
+.fa.fa-check {
   color: greenyellow
 }
 
