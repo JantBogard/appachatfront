@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -8,7 +9,8 @@ import {AuthentificatyModule} from "./authentificaty/authentificaty.module";
 import {HttpClientModule} from "@angular/common/http";
 import {LoginService} from "./service/LoginService";
 import {FormsModule} from "@angular/forms";
-import {ToastrModule, ToastrService} from "ngx-toastr";
+import {ToastrModule} from "ngx-toastr";
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import {ToastrModule, ToastrService} from "ngx-toastr";
     HttpClientModule,
     FormsModule,
     ToastrModule.forRoot(),
+    AdminModule,
+    ModalModule.forRoot()
   ],
   providers: [
     LoginService,

@@ -1,3 +1,4 @@
+import { UtilisateursComponent } from './admin/utilisateurs/utilisateurs.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AuthentificatyComponent} from "./authentificaty/authentificaty.component";
@@ -16,10 +17,10 @@ const routes: Routes = [
     ]
   },
   {
-    path:'',
+    path:'admin',
     component:AdminComponent,
     children:[
-      {path:'admin',component:AdminComponent},
+      {path:'utilisateur',component: UtilisateursComponent},
       {path:'register',component:RegisterComponent}
     ]
   }

@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.isLoading=true;
+    console.log(this.loginuser);
     this.loginService.login(this.loginuser).subscribe(
       data => {
         let jwt = data.headers.get('Authorization');

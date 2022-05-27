@@ -19,7 +19,7 @@
           </div>
           <h4>Hello! let's get started</h4>
           <h6 class="font-weight-light">Sign in to continue.</h6>
-          <form class="pt-3">
+          <div class="pt-3">
             <div class="form-group">
               <input type="text" [(ngModel)]="loginuser.login" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
             </div>
@@ -43,9 +43,9 @@
               <button type="button" class="btn btn-block btn-facebook auth-form-btn">
                 <i class="mdi mdi-facebook me-2"></i>Connect using facebook </button>
             </div>
-            <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.html" class="text-primary">Create</a>
+            <div class="text-center mt-4 font-weight-light"> Don't have an account? <a routerLink="/register" class="text-primary">Create</a>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

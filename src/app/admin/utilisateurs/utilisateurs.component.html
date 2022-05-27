@@ -1,0 +1,77 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-10">
+        <h4 class="card-title">Utilisateur</h4>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-gradient-primary btn-icon-text">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
+      </div>
+    </div>
+    <p class="card-description"> Add class <code>.table-hover</code>
+    </p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>Telephone</th>
+          <th>Email</th>
+          <th>Fonction</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="utilisateurService.utilisateurs.length != 0; else emptyTable">
+          <tr *ngFor="let utilisateur of utilisateurService.utilisateurs">
+            <td>{{ utilisateur.nom }}</td>
+            <td>{{ utilisateur.prenom }}</td>
+            <td>{{ utilisateur.telephone }}</td>
+            <td>{{ utilisateur.email }}</td>
+            <td>{{ utilisateur.fonction }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #emptyTable>
+  <tr>
+    <td class="text-center" colspan="5">Aucun utilisateur enregistrer 😥!</td>
+  </tr>
+</ng-template>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="forms-sample">
+      <div class="form-group">
+        <label for="exampleInputUsername1">Nom</label>
+        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Prenom</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputConfirmPassword1">Confirm Password</label>
+        <input type="password" class="form-control" id="exampleInputConfirmPassword1" placeholder="Password">
+      </div>
+      <div class="form-check form-check-flat form-check-primary">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input"> Remember me </label>
+      </div>
+      <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+      <button class="btn btn-light">Cancel</button>
+    </form>
+  </div>
+</ng-template>
