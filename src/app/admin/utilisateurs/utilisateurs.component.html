@@ -5,7 +5,7 @@
         <h4 class="card-title">Utilisateur</h4>
       </div>
       <div class="col-2">
-        <button class="btn btn-gradient-primary btn-icon-text">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
+        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addUser)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
       </div>
     </div>
     <p class="card-description"> Add class <code>.table-hover</code>
@@ -41,37 +41,50 @@
   </tr>
 </ng-template>
 
-<ng-template #template>
+<ng-template #addUser>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
+    <h4 class="modal-title pull-left">Ajouter un Utilisateur</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form class="forms-sample">
+    <form class="forms-sample" [formGroup]="formAddUser" (ngSubmit)="onSaveUser()">
       <div class="form-group">
         <label for="exampleInputUsername1">Nom</label>
-        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+        <input formControlName="nom" type="text" class="form-control" id="exampleInputUsername1" placeholder="Nom">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Prenom</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+        <input formControlName="prenom" type="email" class="form-control" id="exampleInputEmail1" placeholder="Prenom">
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label for="exampleInputEmail1">Telephone</label>
+        <input formControlName="telephone" type="text" class="form-control" id="exampleInputEmail1" placeholder="Telephone">
       </div>
       <div class="form-group">
-        <label for="exampleInputConfirmPassword1">Confirm Password</label>
-        <input type="password" class="form-control" id="exampleInputConfirmPassword1" placeholder="Password">
+        <label for="exampleInputEmail1">Email</label>
+        <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
       </div>
-      <div class="form-check form-check-flat form-check-primary">
-        <label class="form-check-label">
-          <input type="checkbox" class="form-check-input"> Remember me </label>
+      <div class="form-group">
+        <label for="exampleInputEmail1">login</label>
+        <input formControlName="login" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
       </div>
-      <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
-      <button class="btn btn-light">Cancel</button>
+      <div class="form-group">
+        <label for="exampleSelectGender">Fonction</label>
+        <select formControlName="fonction" class="form-control" id="exampleSelectGender">
+          <option></option>
+          <option value="DIRECTEUR ACHAT">DIRECTEUR ACHAT</option>
+          <option value="ADMIN">ADMIN</option>
+          <option value="ACHETEUR METIER">ACHETEUR METIER</option>
+          <option value="RESPONSABLE STOCK">RESPONSABLE STOCK</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-gradient-primary me-2">
+        Enregistrer
+        <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      </button>
+      <button class="btn btn-light">Annuler</button>
     </form>
   </div>
 </ng-template>

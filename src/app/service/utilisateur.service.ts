@@ -1,3 +1,4 @@
+import { RegisterDto } from './../Model/RegisterDto.model';
 import { Utilisateur } from './../Model/Utilisateur';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -16,7 +17,7 @@ export class UtilisateurService {
     return this.httpClient.get<Utilisateur[]>(Adresse.host + 'utilisateur/all');
   }
 
-  saveUtilisateur(utilisateur: Utilisateur) {
-    return this.httpClient.post(Adresse.host + 'utilisateur/save', utilisateur, { observe: 'response' });
+  saveUtilisateur(utilisateur: RegisterDto) {
+    return this.httpClient.post<RegisterDto>(Adresse.host + 'utilisateur/save', utilisateur, { observe: 'response' });
   }
 }

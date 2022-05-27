@@ -1,8 +1,10 @@
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,7 +15,9 @@ import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class AdminModule { }
