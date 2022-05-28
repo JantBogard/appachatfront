@@ -18,6 +18,7 @@
           <th>Telephone</th>
           <th>Email</th>
           <th>Fonction</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -28,6 +29,10 @@
             <td>{{ utilisateur.telephone }}</td>
             <td>{{ utilisateur.email }}</td>
             <td>{{ utilisateur.fonction }}</td>
+            <td>
+              <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editUser, utilisateur)"> <i class="mdi mdi-pencil"></i></button>
+              <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deleteUser, utilisateur)"><i class="mdi mdi-delete-forever"></i></button>
+            </td>
           </tr>
         </ng-container>
       </tbody>
@@ -37,7 +42,7 @@
 
 <ng-template #emptyTable>
   <tr>
-    <td class="text-center" colspan="5">Aucun utilisateur enregistrer 😥!</td>
+    <td class="text-center" colspan="6">Aucun utilisateur enregistrer 😥!</td>
   </tr>
 </ng-template>
 
@@ -84,7 +89,57 @@
         Enregistrer
         <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </button>
-      <button class="btn btn-light">Annuler</button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
     </form>
   </div>
 </ng-template>
+
+<ng-template #editUser>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modifier un Utilisateur</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="forms-sample">
+      <div class="form-group">
+        <label for="exampleInputUsername1">Nom</label>
+        <input [(ngModel)]="utilisateur.nom" type="text" class="form-control" id="exampleInputUsername1" placeholder="Nom">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Prenom</label>
+        <input [(ngModel)]="utilisateur.prenom" type="email" class="form-control" id="exampleInputEmail1" placeholder="Prenom">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Telephone</label>
+        <input [(ngModel)]="utilisateur.telephone" type="text" class="form-control" id="exampleInputEmail1" placeholder="Telephone">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email</label>
+        <input [(ngModel)]="utilisateur.email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">login</label>
+        <input [(ngModel)]="utilisateur.login" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="exampleSelectGender">Fonction</label>
+        <select [(ngModel)]="utilisateur.fonction" class="form-control" id="exampleSelectGender">
+          <option></option>
+          <option value="DIRECTEUR ACHAT">DIRECTEUR ACHAT</option>
+          <option value="ADMIN">ADMIN</option>
+          <option value="ACHETEUR METIER">ACHETEUR METIER</option>
+          <option value="RESPONSABLE STOCK">RESPONSABLE STOCK</option>
+        </select>
+      </div>
+      <button (click)="onUpdate()" class="btn btn-gradient-primary me-2">
+        Enregistrer
+        <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      </button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #deleteUser></ng-template>
+

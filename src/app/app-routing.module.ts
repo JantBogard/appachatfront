@@ -1,3 +1,4 @@
+import { PeriodeBudgetaireComponent } from './admin/periode-budgetaire/periode-budgetaire.component';
 import { UtilisateursComponent } from './admin/utilisateurs/utilisateurs.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -21,7 +22,7 @@ const routes: Routes = [
     component:AdminComponent,
     children:[
       {path:'utilisateur',component: UtilisateursComponent},
-      {path:'register',component:RegisterComponent}
+      {path:'periode-budgetaire',component: PeriodeBudgetaireComponent}
     ]
   }
 ];

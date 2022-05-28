@@ -1,4 +1,4 @@
-import { RegisterDto } from './../../Model/RegisterDto.model';
+import { Utilisateur } from './../../Model/Utilisateur';
 import { LoginService } from './../../service/LoginService';
 import { UtilisateurService } from './../../service/utilisateur.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
@@ -14,6 +14,7 @@ export class UtilisateursComponent implements OnInit {
 
   public modalRef?: BsModalRef;
   public formAddUser!: FormGroup;
+  public utilisateur!: Utilisateur;
   isLoading: boolean=false;
 
   constructor(
@@ -50,13 +51,16 @@ export class UtilisateursComponent implements OnInit {
     )
   }
 
-  openModal(template: TemplateRef<any>) {
+  openModal(template: TemplateRef<any>, utilisateur?: Utilisateur) {
+    if (utilisateur) {
+      this.utilisateur = utilisateur;
+    }
     this.modalRef = this.modalService.show(template);
   }
 
   onSaveUser() {
     this.isLoading=true;
-    let user: RegisterDto;
+    let user: Utilisateur;
     if (this.formAddUser.invalid) {
       this.loginService.toastr.error('Veuillez verifier les champs');
       this.isLoading=false;
@@ -64,11 +68,13 @@ export class UtilisateursComponent implements OnInit {
     }
     user = this.formAddUser.value;
     user.password = '123456';
-    user.password = 'User' + user.login + this.utilisateurService.utilisateurs.length;
+    user.matricule = 'User' + user.login + this.utilisateurService.utilisateurs.length;
     this.utilisateurService.saveUtilisateur(user).subscribe(
       data => {
         this.isLoading = false;
+        console.log(data);
         this.getAllUtilisateur();
+        this.loginService.toastr.success('Utilisateur ajouté avec succès');
         this.modalRef?.hide();
       }, error => {
         this.isLoading = false;
@@ -76,6 +82,17 @@ export class UtilisateursComponent implements OnInit {
         this.loginService.toastr.error('Erreur de sauvegarde des utilisateurs');
       }
     )
+  }
+
+  onUpdate() {
+    this.isLoading = true;
+    if (this.utilisateur.nom === '' || this.utilisateur.prenom === '' || this.utilisateur.email === '' || this.utilisateur.telephone === '' || this.utilisateur.login === '' || this.utilisateur.fonction === '') {
+      this.isLoading = false;
+      this.loginService.toastr.error('Veuillez verifier les champs');
+      return;
+    }
+
+    console.log('update comming soon ...');
   }
 
 }

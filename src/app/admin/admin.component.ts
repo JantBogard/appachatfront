@@ -1,3 +1,4 @@
+import { LoginService } from './../service/LoginService';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(public loginService: LoginService) { }
 
   ngOnInit(): void {
   }

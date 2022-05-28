@@ -5,13 +5,15 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PeriodeBudgetaireComponent } from './periode-budgetaire/periode-budgetaire.component';
 
 
 
 @NgModule({
   declarations: [
     AdminComponent,
-    UtilisateursComponent
+    UtilisateursComponent,
+    PeriodeBudgetaireComponent
   ],
   imports: [
     CommonModule,
