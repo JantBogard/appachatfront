@@ -16,10 +16,6 @@ export class UtilisateurService {
     return this.httpClient.get<Utilisateur[]>(Adresse.host + 'utilisateur/all');
   }
 
-  getUtilisateur(login: string) {
-    return this.httpClient.get<Utilisateur>(Adresse.host + 'get/' + login);
-  }
-
   saveUtilisateur(utilisateur: Utilisateur) {
     return this.httpClient.post<Utilisateur>(Adresse.host + 'utilisateur/save', utilisateur, { observe: 'response' });
   }

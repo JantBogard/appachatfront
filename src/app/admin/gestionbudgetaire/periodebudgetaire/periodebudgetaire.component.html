@@ -10,27 +10,27 @@
     </div>
     <table class="table table-hover">
       <thead>
-        <tr>
-          <th>Date</th>
-          <th>Année Budgetaire</th>
-          <th>statut</th>
-          <th>montant</th>
-          <th>Action</th>
-        </tr>
+      <tr>
+        <th>Date</th>
+        <th>Année Budgetaire</th>
+        <th>statut</th>
+        <th>montant</th>
+        <th>Action</th>
+      </tr>
       </thead>
       <tbody>
-        <ng-container *ngIf="periodeBudgetaireService.periodeBudgetaires.length != 0; else emptyTable">
-          <tr *ngFor="let periodeBudgetaire of periodeBudgetaireService.periodeBudgetaires">
-            <td>{{ periodeBudgetaire.date }}</td>
-            <td>{{ periodeBudgetaire.anneeBugetaire }}</td>
-            <td>{{ periodeBudgetaire.statut }}</td>
-            <td>{{ periodeBudgetaire.montant }}</td>
-            <td>
-              <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editPeriodeBudgetaire, periodeBudgetaire)"> <i class="mdi mdi-pencil"></i></button>
-              <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deletePeriodeBudgetaire, periodeBudgetaire)"><i class="mdi mdi-delete-forever"></i></button>
-            </td>
-          </tr>
-        </ng-container>
+      <ng-container *ngIf="periodeBudgetaireService.periodeBudgetaires.length != 0; else emptyTable">
+        <tr *ngFor="let periodeBudgetaire of periodeBudgetaireService.periodeBudgetaires">
+          <td>{{ periodeBudgetaire.date }}</td>
+          <td>{{ periodeBudgetaire.anneeBugetaire }}</td>
+          <td>{{ periodeBudgetaire.statut }}</td>
+          <td>{{ periodeBudgetaire.montant }}</td>
+          <td>
+            <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editPeriodeBudgetaire, periodeBudgetaire)"> <i class="mdi mdi-pencil"></i></button>
+            <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deletePeriodeBudgetaire, periodeBudgetaire)"><i class="mdi mdi-delete-forever"></i></button>
+          </td>
+        </tr>
+      </ng-container>
       </tbody>
     </table>
   </div>
@@ -53,7 +53,7 @@
     <form class="forms-sample" [formGroup]="formAddPeriodeBudgetaire" (ngSubmit)="onAddPeriodeBudgetaire()">
       <div class="form-group">
         <label for="exampleInputUsername1">Date</label>
-        <input formControlName="Date" type="date" class="form-control" id="exampleInputUsername1" placeholder="Date">
+        <input formControlName="Date" type="date" class="form-control" value="{{ date | date:'yyyy-MM-dd' }}" id="exampleInputUsername1" placeholder="Date">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Année Budgetaire</label>
@@ -91,16 +91,16 @@
   <div class="modal-body">
     <div class="forms-sample">
       <div class="form-group">
-        <label for="exampleInputUsername1">Date</label>
-        <input [(ngModel)]="periodeBudgetaire.date" type="date" class="form-control" id="exampleInputUsername1" placeholder="Date">
+        <label >Date</label>
+        <input [(ngModel)]="periodeBudgetaire.date" type="date" class="form-control"  placeholder="Date">
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">Année Budgetaire</label>
-        <input [(ngModel)]="periodeBudgetaire.anneeBugetaire" type="text" class="form-control" id="exampleInputEmail1" placeholder="Année Budgetaire">
+        <label>Année Budgetaire</label>
+        <input [(ngModel)]="periodeBudgetaire.anneeBugetaire" type="text" class="form-control"  placeholder="Année Budgetaire">
       </div>
       <div class="form-group">
-        <label for="exampleSelectGender">Statut</label>
-        <select [(ngModel)]="periodeBudgetaire.statut" class="form-control" id="exampleSelectGender">
+        <label>Statut</label>
+        <select [(ngModel)]="periodeBudgetaire.statut" class="form-control">
           <option></option>
           <option value="NON VALIDE">NON VALIDE</option>
           <option value="VALIDE">VALIDE</option>
@@ -108,8 +108,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">Montant</label>
-        <input [(ngModel)]="periodeBudgetaire.montant" type="text" class="form-control" id="exampleInputEmail1" placeholder="Montant">
+        <label>Montant</label>
+        <input [(ngModel)]="periodeBudgetaire.montant" type="text" class="form-control" placeholder="Montant">
       </div>
       <button (click)="onUpdatePeriodeBudgetaire()" class="btn btn-gradient-primary me-2">
         Enregistrer

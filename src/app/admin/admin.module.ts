@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PeriodeBudgetaireComponent } from './periode-budgetaire/periode-budgetaire.component';
+import {GestionbudgetaireComponent} from "./gestionbudgetaire/gestionbudgetaire.component";
+import {GestionbudgetaireModule} from "./gestionbudgetaire/gestionbudgetaire.module";
 
 
 
@@ -13,13 +14,13 @@ import { PeriodeBudgetaireComponent } from './periode-budgetaire/periode-budgeta
   declarations: [
     AdminComponent,
     UtilisateursComponent,
-    PeriodeBudgetaireComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    GestionbudgetaireModule,
   ]
 })
 export class AdminModule { }
