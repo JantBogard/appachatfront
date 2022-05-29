@@ -1,3 +1,4 @@
+import { Utilisateur } from './../Model/Utilisateur';
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Loginuser} from "../Model/loginuser";
@@ -8,6 +9,7 @@ import {Router} from "@angular/router";
 @Injectable()
 export class LoginService{
   jwt: string="";
+  utilisateur!: Utilisateur;
   constructor(public http:HttpClient,public toastr: ToastrService,public router:Router) {
   }
 
