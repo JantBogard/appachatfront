@@ -5,7 +5,7 @@
         <h4 class="card-title">Période budgetaire</h4>
       </div>
       <div class="col-2">
-        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addPeriodeBudgetaire)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
+        <button class="btn btn-gradient-primary btn-icon-text rounded-0" (click)="openModaladd(addPeriodeBudgetaireadd)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
       </div>
     </div>
     <table class="table table-hover">
@@ -21,13 +21,14 @@
       <tbody>
       <ng-container *ngIf="periodeBudgetaireService.periodeBudgetaires.length != 0; else emptyTable">
         <tr *ngFor="let periodeBudgetaire of periodeBudgetaireService.periodeBudgetaires">
-          <td>{{ periodeBudgetaire.date }}</td>
-          <td>{{ periodeBudgetaire.anneeBugetaire }}</td>
+          <td>{{ periodeBudgetaire.date | date:'dd/MM/yyyy' }}</td>
+          <td>{{ periodeBudgetaire.anneebugetaire }}</td>
           <td>{{ periodeBudgetaire.statut }}</td>
           <td>{{ periodeBudgetaire.montant }}</td>
           <td>
             <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editPeriodeBudgetaire, periodeBudgetaire)"> <i class="mdi mdi-pencil"></i></button>
             <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deletePeriodeBudgetaire, periodeBudgetaire)"><i class="mdi mdi-delete-forever"></i></button>
+            <button class="btn btn-inverse-success btn-icon" (click)="openModaladdExcel(addlignebudgetaire, periodeBudgetaire)"><i class="mdi mdi-file-excel"></i></button>
           </td>
         </tr>
       </ng-container>
@@ -42,42 +43,68 @@
   </tr>
 </ng-template>
 
-<ng-template #addPeriodeBudgetaire>
+<ng-template #addPeriodeBudgetaireadd>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Ajouter une période Budgetaire</h4>
-    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRefadd?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form class="forms-sample" [formGroup]="formAddPeriodeBudgetaire" (ngSubmit)="onAddPeriodeBudgetaire()">
       <div class="form-group">
-        <label for="exampleInputUsername1">Date</label>
-        <input formControlName="Date" type="date" class="form-control" value="{{ date | date:'yyyy-MM-dd' }}" id="exampleInputUsername1" placeholder="Date">
-      </div>
-      <div class="form-group">
         <label for="exampleInputEmail1">Année Budgetaire</label>
-        <input formControlName="anneeBugetaire" type="text" class="form-control" id="exampleInputEmail1" placeholder="Année Budgetaire">
+        <input formControlName="anneebugetaire" type="text" class="form-control rounded-0" id="exampleInputEmail1" placeholder="Année Budgetaire">
       </div>
       <div class="form-group">
-        <label for="exampleSelectGender">Statut</label>
-        <select formControlName="statut" class="form-control" id="exampleSelectGender">
-          <option></option>
-          <option value="NON VALIDE">NON VALIDE</option>
-          <option value="VALIDE">VALIDE</option>
-          <option value="CLOS">CLOS</option>
-        </select>
+        <label>Montant</label>
+        <input formControlName="montant" type="text" class="form-control rounded-0" placeholder="Montant">
       </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Montant</label>
-        <input formControlName="montant" type="text" class="form-control" id="exampleInputEmail1" placeholder="Montant">
-      </div>
-      <button type="submit" class="btn btn-gradient-primary me-2">
+      <button type="submit" class="btn btn-gradient-primary me-2 rounded-0">
         Enregistrer
         <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </button>
-      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light rounded-0">Annuler</button>
     </form>
+  </div>
+</ng-template>
+
+
+<ng-template #addlignebudgetaire>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Lignes Budgetaires</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRefexcel?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row" *ngIf="lignePeriodebudgetaires.length== 0">
+      <div class="col-md-3"></div>
+      <div class="col-md-3 text-center"><button class="btn btn-success rounded-0" [disabled]="isLoading==true">Via Excel<i class="mdi mdi-file-excel"></i>  <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span></button> </div>
+      <div class="col-md-3 text-center"><button class="btn btn-warning rounded-0" [disabled]="isLoading==true" (click)="saveAllLigneBudgetaire()">Via system<i class="mdi mdi-backup-restore"></i>  <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span></button></div>
+      <div class="col-md-3"></div>
+    </div>
+
+    <table class="table table-hover" *ngIf="lignePeriodebudgetaires.length != 0; else emptyTable">
+      <thead>
+      <tr>
+        <th>denomination</th>
+        <th>montantinitial</th>
+        <th>statut</th>
+        <th>reference</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngIf="lignePeriodebudgetaires.length != 0; else emptyTable">
+        <tr *ngFor="let periodeBudgetaire of lignePeriodebudgetaires">
+          <td>{{ periodeBudgetaire.denomination}}</td>
+          <td>{{ periodeBudgetaire.montantinitial }}</td>
+          <td>{{ periodeBudgetaire.statut }}</td>
+          <td>{{ periodeBudgetaire.reference }}</td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
   </div>
 </ng-template>
 
@@ -96,7 +123,7 @@
       </div>
       <div class="form-group">
         <label>Année Budgetaire</label>
-        <input [(ngModel)]="periodeBudgetaire.anneeBugetaire" type="text" class="form-control"  placeholder="Année Budgetaire">
+        <input [(ngModel)]="periodeBudgetaire.anneebugetaire" type="text" class="form-control"  placeholder="Année Budgetaire">
       </div>
       <div class="form-group">
         <label>Statut</label>
