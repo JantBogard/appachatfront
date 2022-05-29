@@ -20,6 +20,7 @@ export class PeriodebudgetaireComponent implements OnInit {
   public modalRefadd!: BsModalRef;
   public modalRefexcel!: BsModalRef;
   public formAddPeriodeBudgetaire!: FormGroup;
+  public date: Date = new Date();
 
   constructor(
     private modalService: BsModalService,

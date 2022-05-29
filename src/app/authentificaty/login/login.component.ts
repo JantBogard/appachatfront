@@ -1,3 +1,4 @@
+import { UtilisateurService } from './../../service/utilisateur.service';
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from "../../service/LoginService";
 import {Loginuser} from "../../Model/loginuser";
@@ -11,7 +12,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 export class LoginComponent implements OnInit {
   isLoading: boolean=false;
   loginuser:Loginuser=new Loginuser();
-  constructor(public loginService: LoginService) {
+  constructor(public loginService: LoginService, private utilisateurService: UtilisateurService) {
   }
 
   ngOnInit(): void {
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
         if (error.status) this.loginService.toastr.error("Bien vouloir verifier votre mot de passe ou adresse mail");
         this.isLoading = false;
       }, () => {
-
+        
       }
     )
   }
