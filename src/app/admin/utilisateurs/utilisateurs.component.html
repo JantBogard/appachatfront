@@ -54,28 +54,8 @@
   <div class="modal-body">
     <form class="forms-sample" [formGroup]="formAddUser" (ngSubmit)="onSaveUser()">
       <div class="form-group">
-        <label for="exampleInputUsername1">Nom</label>
-        <input formControlName="nom" type="text" class="form-control" placeholder="Nom">
-      </div>
-      <div class="form-group">
-        <label>Prenom</label>
-        <input formControlName="prenom" type="email" class="form-control" placeholder="Prenom">
-      </div>
-      <div class="form-group">
-        <label>Telephone</label>
-        <input formControlName="telephone" type="text" class="form-control"  placeholder="Telephone">
-      </div>
-      <div class="form-group">
-        <label >Email</label>
-        <input formControlName="email" type="email" class="form-control"  placeholder="Email">
-      </div>
-      <div class="form-group">
-        <label>login</label>
-        <input formControlName="login" type="email" class="form-control"  placeholder="Email">
-      </div>
-      <div class="form-group">
         <label for="exampleSelectGender">Fonction</label>
-        <select formControlName="fonction" class="form-control" >
+        <select formControlName="fonction" class="form-control rounded-0" >
           <option></option>
           <option value="DIRECTEUR ACHAT">DIRECTEUR ACHAT</option>
           <option value="ADMIN">ADMIN</option>
@@ -83,7 +63,28 @@
           <option value="RESPONSABLE STOCK">RESPONSABLE STOCK</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-gradient-primary me-2">
+      <div class="form-group">
+        <label for="exampleInputUsername1">Nom</label>
+        <input formControlName="nom" type="text" class="form-control rounded-0" placeholder="Nom">
+      </div>
+      <div class="form-group">
+        <label>Prenom</label>
+        <input formControlName="prenom" type="email" class="form-control rounded-0" placeholder="Prenom">
+      </div>
+      <div class="form-group">
+        <label>Telephone</label>
+        <input formControlName="telephone" type="text" class="form-control rounded-0"  placeholder="Telephone">
+      </div>
+      <div class="form-group">
+        <label >Email</label>
+        <input formControlName="email" type="email" class="form-control rounded-0"  placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label>login</label>
+        <input formControlName="login" type="email" class="form-control rounded-0"  placeholder="Email">
+      </div>
+
+      <button type="submit" class="btn btn-gradient-primary me-2 rounded-0">
         Enregistrer
         <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </button>

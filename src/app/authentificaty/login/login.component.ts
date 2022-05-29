@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
           console.log(jwthelper.decodeToken(jwt));
           if (jwthelper.decodeToken(jwt).roles[0]["authority"]=="ADMIN"){
             this.loginService.router.navigateByUrl("admin")
+          }else if (jwthelper.decodeToken(jwt).roles[0]["authority"]=="DIRECTEUR ACHAT"){
+            this.loginService.router.navigateByUrl("admin/demandeachat")
           }
 
         }
