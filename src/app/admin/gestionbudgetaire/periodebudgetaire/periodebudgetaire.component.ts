@@ -12,9 +12,11 @@ import {LoginService} from "../../../service/LoginService";
 })
 export class PeriodebudgetaireComponent implements OnInit {
 
-  public periodeBudgetaire: PeriodeBudgetaire=new PeriodeBudgetaire();
+  public periodeBudgetaire: PeriodeBudgetaire = new PeriodeBudgetaire();
   public isLoading: boolean = false;
   public modalRef!: BsModalRef;
+  public modalRefadd!: BsModalRef;
+  public modalRefexcel!: BsModalRef;
   public formAddPeriodeBudgetaire!: FormGroup;
 
   constructor(
@@ -22,7 +24,8 @@ export class PeriodebudgetaireComponent implements OnInit {
     private formBuilder: FormBuilder,
     public periodeBudgetaireService: PeriodeBudgetaireService,
     private loginService: LoginService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getAllPeriodeBudgetaires();
@@ -42,21 +45,28 @@ export class PeriodebudgetaireComponent implements OnInit {
 
   initForm() {
     this.formAddPeriodeBudgetaire = this.formBuilder.group({
-      date: ['', [Validators.required]],
-      anneeBudgetaire: ['', [Validators.required]],
-      statut: ['', [Validators.required]],
+      anneebugetaire: ['', [Validators.required]],
       montant: ['', [Validators.required]]
     });
   }
 
-  openModal(template: TemplateRef<any>, periodeBudgetaire?: PeriodeBudgetaire) {
+  openModaladd(template: TemplateRef<any>) {
+    this.modalRefadd = this.modalService.show(template);
+  }
+
+  openModaladdExcel(template: TemplateRef<any>, periodeBudgetaire: PeriodeBudgetaire) {
+    this.periodeBudgetaire = periodeBudgetaire;
+    this.modalRefexcel = this.modalService.show(template,{class:"modal-lg",ignoreBackdropClick:true});
+  }
+
+  openModal(template: TemplateRef<any>, periodeBudgetaire: PeriodeBudgetaire) {
     if (periodeBudgetaire) {
       this.periodeBudgetaire = periodeBudgetaire;
     }
     this.modalRef = this.modalService.show(template);
   }
 
-  public onAddPeriodeBudgetaire () {
+  public onAddPeriodeBudgetaire() {
     this.isLoading = true;
     this.periodeBudgetaireService.savePeriodeBudgetaire(this.formAddPeriodeBudgetaire.value).subscribe(
       data => {
@@ -72,7 +82,7 @@ export class PeriodebudgetaireComponent implements OnInit {
     )
   }
 
-  public onUpdatePeriodeBudgetaire () {
+  public onUpdatePeriodeBudgetaire() {
     this.isLoading = true;
     console.log(this.periodeBudgetaire);
     console.log('update coming soon ...');
