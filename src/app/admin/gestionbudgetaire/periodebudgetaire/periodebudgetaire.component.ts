@@ -1,18 +1,18 @@
-import { LoginService } from './../../service/LoginService';
-import { PeriodeBudgetaireService } from './../../service/periode-budgetaire.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { PeriodeBudgetaire } from './../../Model/periode-budgetaire.model';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
+import {PeriodeBudgetaire} from "../../../Model/periode-budgetaire.model";
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {PeriodeBudgetaireService} from "../../../service/periode-budgetaire.service";
+import {LoginService} from "../../../service/LoginService";
 
 @Component({
-  selector: 'app-periode-budgetaire',
-  templateUrl: './periode-budgetaire.component.html',
-  styleUrls: ['./periode-budgetaire.component.scss']
+  selector: 'app-periodebudgetaire',
+  templateUrl: './periodebudgetaire.component.html',
+  styleUrls: ['./periodebudgetaire.component.scss']
 })
-export class PeriodeBudgetaireComponent implements OnInit {
+export class PeriodebudgetaireComponent implements OnInit {
 
-  public periodeBudgetaire!: PeriodeBudgetaire;
+  public periodeBudgetaire: PeriodeBudgetaire=new PeriodeBudgetaire();
   public isLoading: boolean = false;
   public modalRef!: BsModalRef;
   public formAddPeriodeBudgetaire!: FormGroup;
@@ -77,5 +77,4 @@ export class PeriodeBudgetaireComponent implements OnInit {
     console.log(this.periodeBudgetaire);
     console.log('update coming soon ...');
   }
-
 }

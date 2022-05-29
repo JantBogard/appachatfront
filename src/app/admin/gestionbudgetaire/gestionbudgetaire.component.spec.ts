@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PeriodeBudgetaireComponent } from './periode-budgetaire.component';
+import { GestionbudgetaireComponent } from './gestionbudgetaire.component';
 
-describe('PeriodeBudgetaireComponent', () => {
-  let component: PeriodeBudgetaireComponent;
-  let fixture: ComponentFixture<PeriodeBudgetaireComponent>;
+describe('GestionbudgetaireComponent', () => {
+  let component: GestionbudgetaireComponent;
+  let fixture: ComponentFixture<GestionbudgetaireComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PeriodeBudgetaireComponent ]
+      declarations: [ GestionbudgetaireComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PeriodeBudgetaireComponent);
+    fixture = TestBed.createComponent(GestionbudgetaireComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

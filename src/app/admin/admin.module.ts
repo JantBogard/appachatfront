@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PeriodeBudgetaireComponent } from './periode-budgetaire/periode-budgetaire.component';
-import {GestiondemandeachatModule} from "./gestiondemandeachat/gestiondemandeachat.module";
+import {GestionbudgetaireComponent} from "./gestionbudgetaire/gestionbudgetaire.component";
+import {GestionbudgetaireModule} from "./gestionbudgetaire/gestionbudgetaire.module";
 
 
 
@@ -14,14 +14,13 @@ import {GestiondemandeachatModule} from "./gestiondemandeachat/gestiondemandeach
   declarations: [
     AdminComponent,
     UtilisateursComponent,
-    PeriodeBudgetaireComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    GestiondemandeachatModule
+    GestionbudgetaireModule,
   ]
 })
 export class AdminModule { }

@@ -10,9 +10,8 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 export class AdminComponent implements OnInit {
 
   menu:any[]=[];
-  menuLogin=[
-    {routerLink:"utilisateur",type:"Utilisateurs",icone:"menu-icon"},
-    {routerLink:"periode-budgetaire",type:"Periode budgetaire",icone:"menu-icon"}
+  menuLogindirecteur=[
+    {routerLink:"periodebudgetaire",type:"Periode budgetaire",icone:"menu-icon"}
   ]
   menuLoginadmin=[
     {routerLink:"utilisateur",type:"Utilisateurs",icone:"menu-icon"},
@@ -31,6 +30,8 @@ export class AdminComponent implements OnInit {
         this.loginService.utilisateur=data;
         if (data.fonction=="ADMIN"){
           this.menu=this.menuLoginadmin;
+        }else if (data.fonction=="DIRECTEUR ACHAT"){
+          this.menu=this.menuLogindirecteur
         }
       },error => {
         this.loginService.router.navigateByUrl("/")
