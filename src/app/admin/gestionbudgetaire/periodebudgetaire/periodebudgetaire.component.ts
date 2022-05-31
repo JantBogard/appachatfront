@@ -14,7 +14,7 @@ import {LigneBudgetaire} from "../../../Model/LigneBudgetaire";
 export class PeriodebudgetaireComponent implements OnInit {
 
   public periodeBudgetaire: PeriodeBudgetaire = new PeriodeBudgetaire();
-  lignePeriodebudgetaires!:LigneBudgetaire[];
+  lignePeriodebudgetaires:LigneBudgetaire[]=[];
   public isLoading: boolean = false;
   public modalRef!: BsModalRef;
   public modalRefadd!: BsModalRef;
@@ -113,5 +113,30 @@ export class PeriodebudgetaireComponent implements OnInit {
     this.isLoading = true;
     console.log(this.periodeBudgetaire);
     console.log('update coming soon ...');
+  }
+
+  updateligne(p:LigneBudgetaire) {
+    this.periodeBudgetaireService.updateLigneBudgetaire(p).subscribe(
+      data=>{
+        this.findByActiveIsTrueLigneBudgetaire();
+      }
+    )
+
+  }
+
+  valide() {
+    this.isLoading=true;
+    this.periodeBudgetaireService.validerBudget(this.periodeBudgetaire.reference).subscribe(
+      data=>{
+        this.isLoading=false;
+        let index=this.periodeBudgetaireService.periodeBudgetaires.indexOf(this.periodeBudgetaire);
+        this.periodeBudgetaireService.periodeBudgetaires.splice(index,1);
+        this.periodeBudgetaireService.periodeBudgetaires.push(data);
+        this.modalRefexcel.hide();
+      },error => {
+        this.isLoading=false;
+      }
+    )
+
   }
 }
