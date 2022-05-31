@@ -23,7 +23,7 @@
         <tr *ngFor="let periodeBudgetaire of periodeBudgetaireService.periodeBudgetaires">
           <td>{{ periodeBudgetaire.date | date:'dd/MM/yyyy' }}</td>
           <td>{{ periodeBudgetaire.anneebugetaire }}</td>
-          <td>{{ periodeBudgetaire.statut }}</td>
+          <td><strong [class]="periodeBudgetaire.statut=='VALIDE'?'text-success':'text-danger'">{{ periodeBudgetaire.statut }}</strong></td>
           <td>{{ periodeBudgetaire.montant }}</td>
           <td>
             <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editPeriodeBudgetaire, periodeBudgetaire)"> <i class="mdi mdi-pencil"></i></button>
@@ -88,23 +88,32 @@
     <table class="table table-hover" *ngIf="lignePeriodebudgetaires.length != 0; else emptyTable">
       <thead>
       <tr>
-        <th>denomination</th>
-        <th>montantinitial</th>
-        <th>statut</th>
-        <th>reference</th>
+        <th>Denomination</th>
+        <th>Montant</th>
+        <th>Statut</th>
+        <th>Action</th>
       </tr>
       </thead>
       <tbody>
       <ng-container *ngIf="lignePeriodebudgetaires.length != 0; else emptyTable">
-        <tr *ngFor="let periodeBudgetaire of lignePeriodebudgetaires">
-          <td>{{ periodeBudgetaire.denomination}}</td>
-          <td>{{ periodeBudgetaire.montantinitial }}</td>
-          <td>{{ periodeBudgetaire.statut }}</td>
-          <td>{{ periodeBudgetaire.reference }}</td>
+        <tr *ngFor="let p of lignePeriodebudgetaires">
+          <td>{{ p.denomination}}</td>
+          <td> <input [class]="p.statut=='VALIDE'?'border-0':''" [disabled]="p.statut=='VALIDE'" [(ngModel)]="p.montantinitial"> </td>
+          <td [class]="p.statut=='VALIDE'?'text-success':'text-danger'"><strong>{{ p.statut }}</strong> </td>
+          <td><button [disabled]="p.statut=='VALIDE'" (click)="updateligne(p)" [class]="p.statut=='VALIDE'? 'btn btn-inverse-success':'btn btn-inverse-danger'"><i [class]="p.montantinitial? 'text-success mdi mdi-check': 'text-danger mdi mdi-minus-circle'"></i></button></td>
         </tr>
       </ng-container>
       </tbody>
     </table>
+    <div class="row text-center">
+      <div class="col-4"></div>
+      <div class="col-3"></div>
+      <div class="col">
+        <button *ngIf="!periodeBudgetaire.active" (click)="valide()" [disabled]="isLoading" class="btn btn-success rounded-0 small" >VALIDER LE BUDGET
+          <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
   </div>
 </ng-template>
 

@@ -35,6 +35,13 @@ export class PeriodeBudgetaireService {
     return this.httpClient.get(Adresse.host + 'lignebudgetaire/save/'+referenceperiode);
   }
 
+  updateLigneBudgetaire(ligneBudgetaire: LigneBudgetaire) {
+    return this.httpClient.put(Adresse.host + 'lignebudgetaire/update',ligneBudgetaire);
+  }
+  validerBudget(referencebudget: string) {
+    return this.httpClient.get<PeriodeBudgetaire>(Adresse.host + 'budget/valider/'+referencebudget);
+  }
+
   findByActiveIsTrueLigneBudgetaire() {
     return this.httpClient.get<LigneBudgetaire[]>(Adresse.host + 'lignebudgetaire/allactive/');
   }
