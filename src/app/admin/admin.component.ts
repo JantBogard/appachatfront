@@ -11,7 +11,8 @@ export class AdminComponent implements OnInit {
 
   menu:any[]=[];
   menuLogindirecteur=[
-    {routerLink:"periodebudgetaire",type:"Periode budgetaire",icone:"menu-icon"}
+    {routerLink:"periodebudgetaire",type:"Periode budgetaire",icone:"menu-icon"},
+    { routerLink: "demandeachat", type: "Demande Achat", icone: "menu-icon" },
   ]
   menuLoginadmin=[
     {routerLink:"utilisateur",type:"Utilisateurs",icone:"menu-icon"},

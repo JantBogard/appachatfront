@@ -1,0 +1,87 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-10">
+        <h4 class="card-title">Demande d'achat</h4>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addDemandeAchat)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
+      </div>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Statut</th>
+          <th>Prix estimatif</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="demandeAchatService.demandeAchats.length != 0; else emptyTable">
+          <tr *ngFor="let demandeAchat of demandeAchatService.demandeAchats">
+            <td>{{ demandeAchat.date }}</td>
+            <td><strong [class]="demandeAchat.statut=='VALIDE'?'text-success':'text-danger'">{{ demandeAchat.statut }}</strong></td>
+            <td>{{ demandeAchat.prixestimatif }}</td>
+            <td>
+              <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editDemandeAchat, demandeAchat)"> <i class="mdi mdi-pencil"></i></button>
+              <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deleteDemandeAchat, demandeAchat)"><i class="mdi mdi-delete-forever"></i></button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #emptyTable>
+  <tr>
+    <td class="text-center" colspan="4">Aucun demande d'achat enregistrer 😥!</td>
+  </tr>
+</ng-template>
+
+<ng-template #addDemandeAchat>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Ajouter une demande d'achat</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="forms-sample" [formGroup]="formAddDemandeAchat" (ngSubmit)="onSaveDemandeAchat()">
+      <div class="form-group">
+        <label for="exampleInputUsername1">Prix estimatif</label>
+        <input formControlName="prixestimatif" type="text" class="form-control rounded-0" placeholder="Prix estimatif">
+      </div>
+      <button type="submit" class="btn btn-gradient-primary me-2 rounded-0">
+        Enregistrer
+        <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      </button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #editDemandeAchat>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modifier une demande d'achat</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="forms-sample">
+      <div class="form-group">
+        <label for="exampleInputUsername1">Prix estimatif</label>
+        <input [(ngModel)]="demandeAchat.prixestimatif" type="text" class="form-control" id="exampleInputUsername1" placeholder="Prix estimatif">
+      </div>
+      <button (click)="onUpdate()" class="btn btn-gradient-primary me-2">
+        Enregistrer
+        <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      </button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #deleteDemandeAchat></ng-template>
+

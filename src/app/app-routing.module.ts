@@ -1,3 +1,5 @@
+import { DemandeAchatComponent } from './admin/gestion-demande-achat/demande-achat/demande-achat.component';
+import { GestionDemandeAchatComponent } from './admin/gestion-demande-achat/gestion-demande-achat.component';
 import {UtilisateursComponent} from './admin/utilisateurs/utilisateurs.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
@@ -30,6 +32,13 @@ const routes: Routes = [
           {path:"periodebudgetaire",component:PeriodebudgetaireComponent}
         ]
 
+      },
+      {
+        path: '',
+        component: GestionDemandeAchatComponent,
+        children:[
+          { path: "demandeachat", component: DemandeAchatComponent }
+        ]
       }
     ]
   }
