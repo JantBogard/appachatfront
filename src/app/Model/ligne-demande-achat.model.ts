@@ -1,3 +1,4 @@
+import { Article } from './article.model';
 import { DemandeAchat } from './demande-achat.model';
 export class LigneDemandeAchat {
   id!: number;
@@ -6,5 +7,5 @@ export class LigneDemandeAchat {
   date!: Date;
   reference!: string;
   demandeachat!: DemandeAchat;
-  // article!: Article;
+  article!: Article;
 }
