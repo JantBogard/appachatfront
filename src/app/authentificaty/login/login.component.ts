@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
             this.loginService.router.navigateByUrl("admin")
           }else if (jwthelper.decodeToken(jwt).roles[0]["authority"]=="DIRECTEUR ACHAT"){
             this.loginService.router.navigateByUrl("admin/periodebudgetaire")
+          } else if (jwthelper.decodeToken(jwt).roles[0]["authority"]=="ACHETEUR METIER"){
+            this.loginService.router.navigateByUrl("admin/demandeachat")
           }
 
         }
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
         if (error.status) this.loginService.toastr.error("Bien vouloir verifier votre mot de passe ou adresse mail");
         this.isLoading = false;
       }, () => {
-        
+
       }
     )
   }

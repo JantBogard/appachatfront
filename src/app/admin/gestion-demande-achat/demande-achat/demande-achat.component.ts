@@ -1,3 +1,4 @@
+import { LigneDemandeAchat } from './../../../Model/ligne-demande-achat.model';
 import { DemandeAchat } from './../../../Model/demande-achat.model';
 import { LoginService } from './../../../service/LoginService';
 import { Validators } from '@angular/forms';
@@ -16,12 +17,11 @@ export class DemandeAchatComponent implements OnInit {
 
   public isLoading: boolean = false;
   public modalRef!: BsModalRef;
-  public formAddDemandeAchat!: FormGroup;
+  public formAddDemandeAchat!: DemandeAchat;
   public demandeAchat: DemandeAchat = new DemandeAchat();
 
   constructor(
     public demandeAchatService: DemandeAchatService,
-    private formBuilder: FormBuilder,
     private loginService: LoginService,
     private modalSerivce: BsModalService
   ) { }
@@ -32,9 +32,8 @@ export class DemandeAchatComponent implements OnInit {
   }
 
   public initForm() {
-    this.formAddDemandeAchat = this.formBuilder.group({
-      prixestimatif: ['', [Validators.required]]
-    });
+    this.formAddDemandeAchat = new DemandeAchat();
+    this.formAddDemandeAchat.lignedemandeachats = [new LigneDemandeAchat()];
   }
 
   public getAllDemandeAchat() {
@@ -51,18 +50,29 @@ export class DemandeAchatComponent implements OnInit {
   public openModal(template: TemplateRef<any>, demandeAchat?: DemandeAchat) {
     if (demandeAchat) {
       this.demandeAchat = demandeAchat;
+    } else {
+      this.initForm();
     }
     this.modalRef = this.modalSerivce.show(template);
   }
 
+  onAddLigneDemandeAchat() {
+    this.formAddDemandeAchat.lignedemandeachats.push(new LigneDemandeAchat());
+  }
+
+  onRemoveLigneDemandeAchat(index: number) {
+    this.formAddDemandeAchat.lignedemandeachats.splice(index, 1);
+  }
+
   public onSaveDemandeAchat() {
     this.isLoading = true;
-    if (this.formAddDemandeAchat.invalid) {
+    if (!this.formAddDemandeAchat) {
       this.isLoading = false;
       this.loginService.toastr.error('Veuillez remplir tous les champs');
       return;
     }
-    this.demandeAchatService.save(this.formAddDemandeAchat.value).subscribe(
+    this.formAddDemandeAchat.matriculeAcheteurmetier = this.loginService.utilisateur.matricule;
+    this.demandeAchatService.save(this.formAddDemandeAchat).subscribe(
       data => {
         this.isLoading = false;
         this.demandeAchatService.demandeAchats.push(data);

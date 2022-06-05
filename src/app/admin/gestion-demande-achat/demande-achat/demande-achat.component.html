@@ -48,17 +48,42 @@
     </button>
   </div>
   <div class="modal-body">
-    <form class="forms-sample" [formGroup]="formAddDemandeAchat" (ngSubmit)="onSaveDemandeAchat()">
+    <div class="forms-sample">
       <div class="form-group">
         <label for="exampleInputUsername1">Prix estimatif</label>
-        <input formControlName="prixestimatif" type="text" class="form-control rounded-0" placeholder="Prix estimatif">
+        <input [(ngModel)]="formAddDemandeAchat.prixestimatif" type="text" class="form-control rounded-0" placeholder="Prix estimatif">
       </div>
-      <button type="submit" class="btn btn-gradient-primary me-2 rounded-0">
+      <button (click)="onAddLigneDemandeAchat()" type="button" class="btn btn-gradient-success me-2 rounded-0">
+        Ajouter une ligne
+      </button>
+      <button (click)="onSaveDemandeAchat()" type="submit" class="btn btn-gradient-primary me-2 rounded-0">
         Enregistrer
         <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </button>
       <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
-    </form>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>pu</th>
+            <th>pt</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ligneDemandeAchat of formAddDemandeAchat.lignedemandeachats; index as i">
+            <td>
+              <input [(ngModel)]="ligneDemandeAchat.pu" type="number" class="form-control rounded-0" placeholder="Prix Unitaire">
+            </td>
+            <td>
+              <input [(ngModel)]="ligneDemandeAchat.pt" type="number" class="form-control rounded-0" placeholder="Prix Total">
+            </td>
+            <td>
+              <button *ngIf="i != 0" class="btn btn-inverse-danger btn-icon" (click)="onRemoveLigneDemandeAchat(i)"><i class="mdi mdi-delete-forever"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </ng-template>
 

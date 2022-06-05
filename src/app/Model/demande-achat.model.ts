@@ -10,6 +10,8 @@ export class DemandeAchat {
     reference!: string;
     lignedemandeachats!: LigneDemandeAchat[];
     acheteurMetier!: Utilisateur;
+    matriculeAcheteurmetier!: string;
     directeurDachat!: Utilisateur;
+    matriculeDirecteurAchat!: string;
     deviFournisseur!: DevisFournisseur;
 }

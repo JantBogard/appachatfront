@@ -13,10 +13,13 @@ export class AdminComponent implements OnInit {
   menuLogindirecteur=[
     {routerLink:"periodebudgetaire",type:"Periode budgetaire",icone:"menu-icon"},
     { routerLink: "demandeachat", type: "Demande Achat", icone: "menu-icon" },
-  ]
+  ];
   menuLoginadmin=[
     {routerLink:"utilisateur",type:"Utilisateurs",icone:"menu-icon"},
-  ]
+  ];
+  menuLoginAcheteurMetier = [
+    { routerLink: "demandeachat", type: "Demande Achat", icone: "menu-icon" },
+  ];
   constructor(public loginService: LoginService) { }
 
   ngOnInit(): void {
@@ -31,8 +34,10 @@ export class AdminComponent implements OnInit {
         this.loginService.utilisateur=data;
         if (data.fonction=="ADMIN"){
           this.menu=this.menuLoginadmin;
-        }else if (data.fonction=="DIRECTEUR ACHAT"){
+        } else if (data.fonction=="DIRECTEUR ACHAT"){
           this.menu=this.menuLogindirecteur
+        } else if (data.fonction=="ACHETEUR METIER"){
+          this.menu=this.menuLoginAcheteurMetier
         }
       },error => {
         this.loginService.router.navigateByUrl("/")
