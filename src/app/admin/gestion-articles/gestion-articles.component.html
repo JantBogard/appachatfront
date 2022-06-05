@@ -1,0 +1,96 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-10">
+        <h4 class="card-title">Article</h4>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addArticle)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
+      </div>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Denomination</th>
+          <th>Caractéristique</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="articleService.articles.length != 0; else emptyTable">
+          <tr *ngFor="let article of articleService.articles">
+            <td>{{ article.denomination }}</td>
+            <td>{{ article.caracteristique }}</td>
+            <td>{{ article.date }}</td>
+            <td>
+              <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editArticle, article)"> <i class="mdi mdi-pencil"></i></button>
+              <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deleteArticle, article)"><i class="mdi mdi-delete-forever"></i></button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #emptyTable>
+  <tr>
+    <td class="text-center" colspan="4">Aucun article enregistrer 😥!</td>
+  </tr>
+</ng-template>
+
+<ng-template #addArticle>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Ajouter un Article</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="forms-sample" [formGroup]="formAddArticle" (ngSubmit)="onSaveArticle()">
+      <div class="form-group">
+        <label for="exampleInputUsername1">Dénomination</label>
+        <input formControlName="denomination" type="text" class="form-control rounded-0" placeholder="Dénomination">
+      </div>
+      <div class="form-group">
+        <label>Caractéristique</label>
+        <input formControlName="caracteristique" type="text" class="form-control rounded-0" placeholder="Caractéristique">
+      </div>
+
+      <button type="submit" class="btn btn-gradient-primary me-2 rounded-0">
+        Enregistrer
+        <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      </button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #editArticle>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modifier un Article</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="forms-sample">
+      <div class="form-group">
+        <label for="exampleInputUsername1">Nom</label>
+        <input [(ngModel)]="article.denomination" type="text" class="form-control" id="exampleInputUsername1" placeholder="Dénomination">
+      </div>
+      <div class="form-group">
+        <label >Caractéristique</label>
+        <input [(ngModel)]="article.caracteristique" type="text" class="form-control" placeholder="Caractéristique">
+      </div>
+      <button (click)="onUpdate()" class="btn btn-gradient-primary me-2">
+        Enregistrer
+        <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      </button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #deleteArticle></ng-template>
+

@@ -1,3 +1,4 @@
+import { GestionArticlesComponent } from './admin/gestion-articles/gestion-articles.component';
 import { DemandeAchatComponent } from './admin/gestion-demande-achat/demande-achat/demande-achat.component';
 import { GestionDemandeAchatComponent } from './admin/gestion-demande-achat/gestion-demande-achat.component';
 import {UtilisateursComponent} from './admin/utilisateurs/utilisateurs.component';
@@ -39,7 +40,8 @@ const routes: Routes = [
         children:[
           { path: "demandeachat", component: DemandeAchatComponent }
         ]
-      }
+      },
+      { path: 'article', component: GestionArticlesComponent }
     ]
   }
 ];

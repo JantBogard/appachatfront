@@ -13,12 +13,14 @@ export class AdminComponent implements OnInit {
   menuLogindirecteur=[
     {routerLink:"periodebudgetaire",type:"Periode budgetaire",icone:"menu-icon"},
     { routerLink: "demandeachat", type: "Demande Achat", icone: "menu-icon" },
+    { routerLink: "article", type: "Article", icone: "menu-icon" },
   ];
   menuLoginadmin=[
     {routerLink:"utilisateur",type:"Utilisateurs",icone:"menu-icon"},
   ];
   menuLoginAcheteurMetier = [
     { routerLink: "demandeachat", type: "Demande Achat", icone: "menu-icon" },
+    { routerLink: "article", type: "Article", icone: "menu-icon" }
   ];
   constructor(public loginService: LoginService) { }
 
@@ -39,7 +41,8 @@ export class AdminComponent implements OnInit {
         } else if (data.fonction=="ACHETEUR METIER"){
           this.menu=this.menuLoginAcheteurMetier
         }
-      },error => {
+      },
+      error => {
         this.loginService.router.navigateByUrl("/")
       }
     )
