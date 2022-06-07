@@ -77,7 +77,7 @@ export class PeriodebudgetaireComponent implements OnInit {
       data => {
         this.periodeBudgetaireService.periodeBudgetaires.push(data);
         this.isLoading = false;
-        this.modalRef.hide();
+        this.modalRefadd.hide();
         this.loginService.toastr.success('Période budgétaire ajoutée avec succès');
       }, error => {
         console.log(error);

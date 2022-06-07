@@ -16,6 +16,7 @@ export class DemandeAchatComponent implements OnInit {
 
   public isLoading: boolean = false;
   public modalRef!: BsModalRef;
+  public modalRefDevisFournisseur!: BsModalRef;
   public formAddDemandeAchat!: DemandeAchat;
   public demandeAchat: DemandeAchat = new DemandeAchat();
   public articleName: string = "";
@@ -67,7 +68,13 @@ export class DemandeAchatComponent implements OnInit {
     } else {
       this.initForm();
     }
-    this.modalRef = this.modalSerivce.show(template);
+    this.modalRef = this.modalSerivce.show(template,{class:"modal-lg"});
+  }
+  public openModalDevisFournisseur(template: TemplateRef<any>, demandeAchat?: DemandeAchat) {
+    if (demandeAchat) {
+      this.demandeAchat = demandeAchat;
+    }
+    this.modalRefDevisFournisseur = this.modalSerivce.show(template,{class:"modal-lg"});
   }
 
   onAddLigneDemandeAchat() {

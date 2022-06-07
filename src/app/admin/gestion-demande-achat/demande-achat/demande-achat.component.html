@@ -20,12 +20,13 @@
       <tbody>
         <ng-container *ngIf="demandeAchatService.demandeAchats.length != 0; else emptyTable">
           <tr *ngFor="let demandeAchat of demandeAchatService.demandeAchats">
-            <td>{{ demandeAchat.date }}</td>
+            <td>{{ demandeAchat.date| date:'dd/MM/yy à HH:mm' }}</td>
             <td><strong [class]="demandeAchat.statut=='VALIDE'?'text-success':'text-danger'">{{ demandeAchat.statut }}</strong></td>
             <td>{{ demandeAchat.prixestimatif }}</td>
             <td>
               <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editDemandeAchat, demandeAchat)"> <i class="mdi mdi-pencil"></i></button>
               <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deleteDemandeAchat, demandeAchat)"><i class="mdi mdi-delete-forever"></i></button>
+              <button class="btn btn-inverse-danger btn-icon" (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat)"><i class="mdi mdi-access-point"></i></button>
             </td>
           </tr>
         </ng-container>
@@ -53,14 +54,6 @@
         <label for="exampleInputUsername1">Prix estimatif</label>
         <input [(ngModel)]="formAddDemandeAchat.prixestimatif" type="text" class="form-control rounded-0" placeholder="Prix estimatif">
       </div>
-      <button (click)="onAddLigneDemandeAchat()" type="button" class="btn btn-gradient-success me-2 rounded-0">
-        Ajouter une ligne
-      </button>
-      <button (click)="onSaveDemandeAchat()" type="submit" class="btn btn-gradient-primary me-2 rounded-0">
-        Enregistrer
-        <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-      </button>
-      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -73,8 +66,7 @@
         <tbody>
           <tr *ngFor="let ligneDemandeAchat of formAddDemandeAchat.lignedemandeachats; index as i">
             <td>
-              <select [(ngModel)]="ligneDemandeAchat.article.denomination" class="form-control rounded-0" >
-                <option>Article</option>
+              <select [(ngModel)]="ligneDemandeAchat.article.denomination" class="form-control w-100 rounded-0" >
                 <option *ngFor="let article of articleService.articles" [value]="article.denomination">{{ article.denomination }}</option>
               </select>
             </td>
@@ -91,6 +83,14 @@
         </tbody>
       </table>
     </div>
+    <button (click)="onAddLigneDemandeAchat()" type="button" class="btn btn-gradient-success me-2 rounded-0">
+      Ajouter une ligne
+    </button>
+    <button (click)="onSaveDemandeAchat()" type="submit" class="btn btn-gradient-primary me-2 rounded-0">
+      Enregistrer
+      <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+    </button>
+    <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
   </div>
 </ng-template>
 
@@ -113,6 +113,17 @@
       </button>
       <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
     </div>
+  </div>
+</ng-template>
+<ng-template #devisfournisseur>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">DevisFournisser</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRefDevisFournisseur?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-devisfournisseur [referencedemandeachat]="demandeAchat.reference"></app-devisfournisseur>
   </div>
 </ng-template>
 <ng-template #deleteDemandeAchat></ng-template>

@@ -2,6 +2,7 @@ import { Adresse } from './Adresse';
 import { DemandeAchat } from './../Model/demande-achat.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {DevisFournisseur} from "../Model/DevisFournisseur";
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,8 @@ export class DemandeAchatService {
    */
   public getByReference(reference: string) {
     return this.httpClient.get<DemandeAchat>(Adresse.host + 'demandeachat/reference/' + reference);
+  }
+  public saveDevisFournisseur(devisfournisseurs:DevisFournisseur[],referencedemandeachat: string) {
+    return this.httpClient.post<DevisFournisseur>(Adresse.host + 'devis/save/' + referencedemandeachat,devisfournisseurs);
   }
 }

@@ -11,6 +11,7 @@ import { GestionBonCommandeComponent } from './gestion-bon-commande/gestion-bon-
 import { GestionDemandeAchatComponent } from './gestion-demande-achat/gestion-demande-achat.component';
 import { DemandeAchatComponent } from './gestion-demande-achat/demande-achat/demande-achat.component';
 import { GestionArticlesComponent } from './gestion-articles/gestion-articles.component';
+import { DevisfournisseurComponent } from './gestion-demande-achat/devisfournisseur/devisfournisseur.component';
 
 
 
@@ -22,6 +23,7 @@ import { GestionArticlesComponent } from './gestion-articles/gestion-articles.co
     GestionDemandeAchatComponent,
     DemandeAchatComponent,
     GestionArticlesComponent,
+    DevisfournisseurComponent,
   ],
   imports: [
     CommonModule,
