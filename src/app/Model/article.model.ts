@@ -1,7 +1,7 @@
 export class Article {
   id!: number;
   denomination!: string;
-  caracteristique!: string;
+  caracteristiques!: string;
   date!: Date;
   active!: boolean;
 }

@@ -34,7 +34,7 @@ export class GestionArticlesComponent implements OnInit {
   public initForm() {
     this.formAddArticle = this.formBuilder.group({
       denomination: ['', Validators.required],
-      carateristique: ['', Validators.required],
+      caracteristiques: ['', Validators.required],
     });
   }
 
@@ -58,11 +58,16 @@ export class GestionArticlesComponent implements OnInit {
       return;
     }
     this.article = this.formAddArticle.value;
+    this.article.date = new Date();
     this.articleService.save(this.article).subscribe(
       data => {
         this.isLoading = false;
         this.loginService.toastr.success('Sauvegarde effectuée avec succès');
+        if (!data.date) {
+          data.date = new Date();
+        }
         this.articleService.articles.push(data);
+        this.modalRef.hide();
       },
       error => {
         console.log(error);

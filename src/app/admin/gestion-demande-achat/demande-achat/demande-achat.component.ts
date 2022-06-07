@@ -1,12 +1,11 @@
+import { ArticleService } from './../../../service/article.service';
 import { LigneDemandeAchat } from './../../../Model/ligne-demande-achat.model';
 import { DemandeAchat } from './../../../Model/demande-achat.model';
 import { LoginService } from './../../../service/LoginService';
-import { Validators } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DemandeAchatService } from './../../../service/demande-achat.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Article } from 'src/app/Model/article.model';
 
 @Component({
   selector: 'app-demande-achat',
@@ -19,21 +18,25 @@ export class DemandeAchatComponent implements OnInit {
   public modalRef!: BsModalRef;
   public formAddDemandeAchat!: DemandeAchat;
   public demandeAchat: DemandeAchat = new DemandeAchat();
+  public articleName: string = "";
 
   constructor(
     public demandeAchatService: DemandeAchatService,
-    private loginService: LoginService,
+    public articleService: ArticleService,
+    public loginService: LoginService,
     private modalSerivce: BsModalService
   ) { }
 
   ngOnInit(): void {
     this.getAllDemandeAchat();
+    this.getAllArticle();
     this.initForm();
   }
 
   public initForm() {
     this.formAddDemandeAchat = new DemandeAchat();
     this.formAddDemandeAchat.lignedemandeachats = [new LigneDemandeAchat()];
+    this.formAddDemandeAchat.lignedemandeachats[0].article = new Article();
   }
 
   public getAllDemandeAchat() {
@@ -47,6 +50,17 @@ export class DemandeAchatComponent implements OnInit {
     )
   }
 
+  public getAllArticle() {
+    this.articleService.getAll().subscribe(
+      data => {
+        this.articleService.articles = data;
+      }, error => {
+        console.log(error);
+        this.loginService.toastr.error('Erreur de chargement des articles');
+      }
+    );
+  }
+
   public openModal(template: TemplateRef<any>, demandeAchat?: DemandeAchat) {
     if (demandeAchat) {
       this.demandeAchat = demandeAchat;
@@ -57,7 +71,9 @@ export class DemandeAchatComponent implements OnInit {
   }
 
   onAddLigneDemandeAchat() {
-    this.formAddDemandeAchat.lignedemandeachats.push(new LigneDemandeAchat());
+    let ligneDemandeAchat = new LigneDemandeAchat();
+    ligneDemandeAchat.article = new Article();
+    this.formAddDemandeAchat.lignedemandeachats.push(ligneDemandeAchat);
   }
 
   onRemoveLigneDemandeAchat(index: number) {
@@ -71,8 +87,12 @@ export class DemandeAchatComponent implements OnInit {
       this.loginService.toastr.error('Veuillez remplir tous les champs');
       return;
     }
+    this.formAddDemandeAchat.lignedemandeachats.forEach(element => {
+      let article = this.articleService.articles.find(x => x.denomination == element.article.denomination);
+      element.article = article? article : element.article;
+    });
     this.formAddDemandeAchat.matriculeAcheteurmetier = this.loginService.utilisateur.matricule;
-    this.demandeAchatService.save(this.formAddDemandeAchat).subscribe(
+    this.demandeAchatService.saveWithLigne(this.formAddDemandeAchat).subscribe(
       data => {
         this.isLoading = false;
         this.demandeAchatService.demandeAchats.push(data);

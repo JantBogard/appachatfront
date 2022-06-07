@@ -31,6 +31,15 @@ export class DemandeAchatService {
   }
 
   /**
+   * Cette fonction permet de créer une demande d'achat avec ses lignes de demande d'achat
+   * @param demandeAchat DemandeAchat
+   * @returns DemandeAchat
+   */
+  public saveWithLigne(demandeAchat: DemandeAchat) {
+    return this.httpClient.post<DemandeAchat>(Adresse.host + 'demandeachat/saveWithLigne', demandeAchat);
+  }
+
+  /**
    * Cette fonction permet de recuperer une demande d'achat par sa reference
    * @param reference string
    * @returns DemandeAchat

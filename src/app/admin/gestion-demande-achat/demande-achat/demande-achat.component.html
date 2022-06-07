@@ -64,6 +64,7 @@
       <table class="table table-hover">
         <thead>
           <tr>
+            <th>Article</th>
             <th>pu</th>
             <th>pt</th>
             <th>Action</th>
@@ -71,6 +72,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let ligneDemandeAchat of formAddDemandeAchat.lignedemandeachats; index as i">
+            <td>
+              <select [(ngModel)]="ligneDemandeAchat.article.denomination" class="form-control rounded-0" >
+                <option>Article</option>
+                <option *ngFor="let article of articleService.articles" [value]="article.denomination">{{ article.denomination }}</option>
+              </select>
+            </td>
             <td>
               <input [(ngModel)]="ligneDemandeAchat.pu" type="number" class="form-control rounded-0" placeholder="Prix Unitaire">
             </td>

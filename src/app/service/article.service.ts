@@ -16,14 +16,14 @@ export class ArticleService {
   ) { }
 
   public getAll() {
-    return this.httpClient.get<Article[]>(Adresse.host + '/article/allarticle');
+    return this.httpClient.get<Article[]>(Adresse.host + 'article/allarticle');
   }
 
   public getByDenomination(denomination: string) {
-    return this.httpClient.get<Article>(Adresse.host + '/article/bydenomination/' + denomination);
+    return this.httpClient.get<Article>(Adresse.host + 'article/bydenomination/' + denomination);
   }
 
   public save(article: Article) {
-    return this.httpClient.post<Article>(Adresse.host + '/article/save', article);
+    return this.httpClient.post<Article>(Adresse.host + 'article/save', article);
   }
 }
