@@ -1,3 +1,4 @@
+import { DemandeAchat } from './demande-achat.model';
 export class BonCommande {
 	id!: number;
 	date!: Date;

@@ -1,3 +1,5 @@
+import { LoginService } from './../../service/LoginService';
+import { BonCommandeService } from './../../service/bon-commande.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GestionBonCommandeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public bonCommandeService: BonCommandeService,
+    private loginService: LoginService
+  ) { }
 
   ngOnInit(): void {
+    this.getAllBonCommande();
   }
+
+  public getAllBonCommande() {
+    this.bonCommandeService.getAll().subscribe(
+      data => {
+        this.bonCommandeService.bonCommandes = data;
+      },
+      error => {
+        console.log(error);
+        this.loginService.toastr.error('Erreur de chargement des bon commandes');
+      }
+    );
+  }
+
 
 }
