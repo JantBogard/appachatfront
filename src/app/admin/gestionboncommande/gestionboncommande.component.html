@@ -1,1 +1,39 @@
-<p>gestionboncommande works!</p>
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-10">
+        <h4 class="card-title">Bon de commande</h4>
+      </div>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Montant</th>
+          <th>Statut</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="bonCommandeService.bonCommandes.length != 0; else emptyTable">
+          <tr *ngFor="let bonCommande of bonCommandeService.bonCommandes">
+            <td>{{ bonCommande.montant }}</td>
+            <td>{{ bonCommande.statut }}</td>
+            <td>{{ bonCommande.date }}</td>
+            <td>
+              <button class="btn btn-inverse-warning btn-icon"> <i class="mdi mdi-pencil"></i></button>
+              <button class="btn btn-inverse-danger btn-icon"><i class="mdi mdi-delete-forever"></i></button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #emptyTable>
+  <tr>
+    <td class="text-center" colspan="6">Aucun bon de commande enregistrer 😥!</td>
+  </tr>
+</ng-template>
+

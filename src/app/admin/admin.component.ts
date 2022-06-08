@@ -20,7 +20,8 @@ export class AdminComponent implements OnInit {
   ];
   menuLoginAcheteurMetier = [
     { routerLink: "demandeachat", type: "Demande Achat", icone: "menu-icon" },
-    { routerLink: "article", type: "Article", icone: "menu-icon" }
+    { routerLink: "article", type: "Article", icone: "menu-icon" },
+    { routerLink: "bondecommande", type: "Bon de Commande", icone: "menu-icon" },
   ];
   constructor(public loginService: LoginService) { }
 

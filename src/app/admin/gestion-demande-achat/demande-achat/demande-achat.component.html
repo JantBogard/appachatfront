@@ -24,8 +24,7 @@
             <td><strong [class]="demandeAchat.statut=='VALIDE'?'text-success':'text-danger'">{{ demandeAchat.statut }}</strong></td>
             <td>{{ demandeAchat.prixestimatif }}</td>
             <td>
-              <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editDemandeAchat, demandeAchat)"> <i class="mdi mdi-pencil"></i></button>
-              <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deleteDemandeAchat, demandeAchat)"><i class="mdi mdi-delete-forever"></i></button>
+              <button class="btn btn-inverse-primary btn-icon" (click)="openModal(detailDemandeAchat, demandeAchat)"> <i class="mdi mdi-eye"></i></button>
               <button class="btn btn-inverse-danger btn-icon" (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat)"><i class="mdi mdi-access-point"></i></button>
             </td>
           </tr>
@@ -124,6 +123,32 @@
   </div>
   <div class="modal-body">
     <app-devisfournisseur [referencedemandeachat]="demandeAchat.reference"></app-devisfournisseur>
+  </div>
+</ng-template>
+<ng-template #detailDemandeAchat>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Ajouter une demande d'achat</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Article</th>
+          <th>pu</th>
+          <th>pt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ligneDemandeAchat of demandeAchat.lignedemandeachats">
+          <td>{{ ligneDemandeAchat.article.denomination }}</td>
+          <td>{{ ligneDemandeAchat.pu }}</td>
+          <td>{{ ligneDemandeAchat.pt }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </ng-template>
 <ng-template #deleteDemandeAchat></ng-template>

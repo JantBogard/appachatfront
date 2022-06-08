@@ -65,8 +65,6 @@ export class DemandeAchatComponent implements OnInit {
   public openModal(template: TemplateRef<any>, demandeAchat?: DemandeAchat) {
     if (demandeAchat) {
       this.demandeAchat = demandeAchat;
-    } else {
-      this.initForm();
     }
     this.modalRef = this.modalSerivce.show(template,{class:"modal-lg"});
   }

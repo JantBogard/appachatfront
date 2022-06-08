@@ -1,3 +1,4 @@
+import { GestionBonCommandeComponent } from './admin/gestion-bon-commande/gestion-bon-commande.component';
 import { GestionArticlesComponent } from './admin/gestion-articles/gestion-articles.component';
 import { DemandeAchatComponent } from './admin/gestion-demande-achat/demande-achat/demande-achat.component';
 import { GestionDemandeAchatComponent } from './admin/gestion-demande-achat/gestion-demande-achat.component';
@@ -41,7 +42,8 @@ const routes: Routes = [
           { path: "demandeachat", component: DemandeAchatComponent }
         ]
       },
-      { path: 'article', component: GestionArticlesComponent }
+      { path: 'article', component: GestionArticlesComponent },
+      { path: 'bondecommande', component: GestionBonCommandeComponent }
     ]
   }
 ];
