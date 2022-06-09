@@ -95,6 +95,7 @@ export class DemandeAchatComponent implements OnInit {
     this.formAddDemandeAchat.lignedemandeachats.forEach(element => {
       let article = this.articleService.articles.find(x => x.denomination == element.article.denomination);
       element.article = article? article : element.article;
+      element.pt = element.pu * element.quantite;
     });
     this.formAddDemandeAchat.matriculeAcheteurmetier = this.loginService.utilisateur.matricule;
     this.demandeAchatService.saveWithLigne(this.formAddDemandeAchat).subscribe(

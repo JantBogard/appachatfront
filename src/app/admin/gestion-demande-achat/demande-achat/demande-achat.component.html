@@ -57,6 +57,7 @@
         <thead>
           <tr>
             <th>Article</th>
+            <th>qte</th>
             <th>pu</th>
             <th>pt</th>
             <th>Action</th>
@@ -70,10 +71,13 @@
               </select>
             </td>
             <td>
+              <input [(ngModel)]="ligneDemandeAchat.quantite" type="number" class="form-control rounded-0" placeholder="Quantite">
+            </td>
+            <td>
               <input [(ngModel)]="ligneDemandeAchat.pu" type="number" class="form-control rounded-0" placeholder="Prix Unitaire">
             </td>
             <td>
-              <input [(ngModel)]="ligneDemandeAchat.pt" type="number" class="form-control rounded-0" placeholder="Prix Total">
+              {{ ligneDemandeAchat.pu * ligneDemandeAchat.quantite }}
             </td>
             <td>
               <button *ngIf="i != 0" class="btn btn-inverse-danger btn-icon" (click)="onRemoveLigneDemandeAchat(i)"><i class="mdi mdi-delete-forever"></i></button>
@@ -137,6 +141,7 @@
       <thead>
         <tr>
           <th>Article</th>
+          <th>qte</th>
           <th>pu</th>
           <th>pt</th>
         </tr>
@@ -144,6 +149,7 @@
       <tbody>
         <tr *ngFor="let ligneDemandeAchat of demandeAchat.lignedemandeachats">
           <td>{{ ligneDemandeAchat.article.denomination }}</td>
+          <td>{{ ligneDemandeAchat.quantite }}</td>
           <td>{{ ligneDemandeAchat.pu }}</td>
           <td>{{ ligneDemandeAchat.pt }}</td>
         </tr>

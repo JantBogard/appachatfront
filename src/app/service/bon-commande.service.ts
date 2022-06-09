@@ -15,6 +15,10 @@ export class BonCommandeService {
     private httpClient: HttpClient
   ) { }
 
+  /**
+   * Cette fonction permet de récupérer tous les bon commandes
+   * @returns BonCommande[]
+   */
   public getAll() {
     return this.httpClient.get<BonCommande[]>(Adresse.host + 'bondecommande/allactive');
   }

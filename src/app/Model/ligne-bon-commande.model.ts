@@ -1,12 +1,10 @@
 import { Article } from './article.model';
-import { DemandeAchat } from './demande-achat.model';
-export class LigneDemandeAchat {
+export class LigneBonCommande {
   id!: number;
   pu!: number;
   pt!: number;
   quantite!: number;
   date!: Date;
-  reference!: string;
-  demandeachat!: DemandeAchat;
+  referencedemandeachat!: string;
   article!: Article;
 }
