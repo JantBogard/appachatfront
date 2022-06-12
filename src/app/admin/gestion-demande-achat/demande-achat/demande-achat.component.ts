@@ -115,4 +115,24 @@ export class DemandeAchatComponent implements OnInit {
     console.log("update demande d'achat coming soon ...");
   }
 
+  onValideDemandeAchat(demandeAchat: DemandeAchat) {
+    this.isLoading = true;
+    this.demandeAchatService.valider('VALIDE', demandeAchat.reference).subscribe(
+      data => {
+        this.isLoading = false;
+        if (data) {
+          this.loginService.toastr.success('Demande d\'achat validée avec succès');
+        } else {
+          this.loginService.toastr.error('Erreur de validation de la demande d\'achat');
+        }
+        demandeAchat.statut = data?'VALIDE':demandeAchat.statut;
+      },
+      error => {
+        console.log(error);
+        this.loginService.toastr.error('Erreur de validation de la demande d\'achat');
+        this.isLoading = false;
+      }
+    )
+  }
+
 }

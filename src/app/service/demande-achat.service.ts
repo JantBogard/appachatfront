@@ -51,4 +51,14 @@ export class DemandeAchatService {
   public saveDevisFournisseur(devisfournisseurs:DevisFournisseur[],referencedemandeachat: string) {
     return this.httpClient.post<DevisFournisseur>(Adresse.host + 'devis/save/' + referencedemandeachat,devisfournisseurs);
   }
+
+  /**
+   * Cette fonction permet de valider la demande d'achat
+   * @param reference string
+   * @param statut string
+   * @returns boolean
+   */
+  public valider(reference: string, statut: string) {
+    return this.httpClient.get<boolean>(Adresse.host + 'demandeachat/updatestatut/' + reference + '/' + statut);
+  }
 }

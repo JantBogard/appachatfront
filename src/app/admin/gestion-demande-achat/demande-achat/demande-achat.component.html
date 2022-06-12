@@ -24,8 +24,9 @@
             <td><strong [class]="demandeAchat.statut=='VALIDE'?'text-success':'text-danger'">{{ demandeAchat.statut }}</strong></td>
             <td>{{ demandeAchat.prixestimatif }}</td>
             <td>
-              <button class="btn btn-inverse-primary btn-icon" (click)="openModal(detailDemandeAchat, demandeAchat)"> <i class="mdi mdi-eye"></i></button>
-              <button class="btn btn-inverse-danger btn-icon" (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat)"><i class="mdi mdi-access-point"></i></button>
+              <button tooltip="Voir les details" class="btn btn-inverse-primary btn-icon" (click)="openModal(detailDemandeAchat, demandeAchat)"> <i class="mdi mdi-eye"></i></button>
+              <button tooltip="Uploader les devis" class="btn btn-inverse-danger btn-icon" (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat)"><i class="mdi mdi-access-point"></i></button>
+              <button *ngIf="loginService.utilisateur.fonction == 'DIRECTEUR ACHAT'" [disabled]="demandeAchat.statut=='VALIDE'" tooltip="Valider la demande d'achat" class="btn btn-inverse-success btn-icon" (click)="onValideDemandeAchat(demandeAchat)"><i [class]="!isLoading?'mdi mdi-check':'spinner-grow spinner-grow-sm'"></i></button>
             </td>
           </tr>
         </ng-container>
