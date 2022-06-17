@@ -20,6 +20,7 @@ export class DemandeAchatComponent implements OnInit {
   public formAddDemandeAchat!: DemandeAchat;
   public demandeAchat: DemandeAchat = new DemandeAchat();
   public articleName: string = "";
+  public typeOpenDevisModal: 'SHOW' | 'ADD' = 'SHOW';
 
   constructor(
     public demandeAchatService: DemandeAchatService,
@@ -68,10 +69,11 @@ export class DemandeAchatComponent implements OnInit {
     }
     this.modalRef = this.modalSerivce.show(template,{class:"modal-lg"});
   }
-  public openModalDevisFournisseur(template: TemplateRef<any>, demandeAchat?: DemandeAchat) {
+  public openModalDevisFournisseur(template: TemplateRef<any>, demandeAchat?: DemandeAchat, typeOpen: 'SHOW' | 'ADD' = 'SHOW') {
     if (demandeAchat) {
       this.demandeAchat = demandeAchat;
     }
+    this.typeOpenDevisModal = typeOpen;
     this.modalRefDevisFournisseur = this.modalSerivce.show(template,{class:"modal-lg"});
   }
 

@@ -1,9 +1,39 @@
-<div class="row">
-  <div class="col-12"><input class="form-control rounded-0 small" type="file" accept="image/*" (change)="updatefile($event)"></div>
-  <div class="col-12 text-center" > <button class="btn btn-primary rounded-0" (click)="valider()">Valider</button> </div>
-</div>
-<div class="row mt-1">
-  <div class="col-3" *ngFor="let i of devisfournisseurs"><img [src]="i.imagedevis" alt="Aucune image disponible" width="100"></div>
-</div>
+<ng-container *ngIf="typeOpenModalDevis === 'ADD'">
+  <div class="row">
+    <div class="col-12"><input class="form-control rounded-0 small" type="file" accept="image/*" (change)="updatefile($event)"></div>
+    <div class="col-12 text-center" > <button class="btn btn-primary rounded-0" (click)="valider()">Valider</button> </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-3" *ngFor="let i of devisfournisseurs"><img [src]="i.imagedevis" alt="Aucune image disponible" width="100"></div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="typeOpenModalDevis === 'SHOW'">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Date</th>
+        <th>Statut</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let devisFournisseur of devisFournisseurService.devisFournisseurs">
+        <td>
+          <img [src]="devisFournisseur.imagedevis" alt="Image devis fournisseur">
+        </td>
+        <td>{{ devisFournisseur.date | date: "dd/MM/yyyy à HH:mm" }}</td>
+        <td>
+          <span class="font-weight-bold" [class]="devisFournisseur.statut === 'VALIDE' ? 'text-success' : 'text-danger'">{{ devisFournisseur.statut }}</span>
+        </td>
+        <td>
+          <button [disabled]="isLoading" (click)="onChooseDevisFournisseur(devisFournisseur)" class="btn btn-gradient-success btn-icon-text">Choisir <i [class]="!isLoading?'mdi mdi-check':'spinner-grow spinner-grow-sm'"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
 
 

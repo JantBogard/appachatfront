@@ -25,8 +25,8 @@
             <td>{{ demandeAchat.prixestimatif }}</td>
             <td>
               <button tooltip="Voir les details" class="btn btn-inverse-primary btn-icon" (click)="openModal(detailDemandeAchat, demandeAchat)"> <i class="mdi mdi-eye"></i></button>
-              <button tooltip="Uploader les devis" class="btn btn-inverse-danger btn-icon" (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat)"><i class="mdi mdi-access-point"></i></button>
-              <button *ngIf="loginService.utilisateur.fonction == 'DIRECTEUR ACHAT'" [disabled]="demandeAchat.statut=='VALIDE'" tooltip="Valider la demande d'achat" class="btn btn-inverse-success btn-icon" (click)="onValideDemandeAchat(demandeAchat)"><i [class]="!isLoading?'mdi mdi-check':'spinner-grow spinner-grow-sm'"></i></button>
+              <button tooltip="Uploader les devis" class="btn btn-inverse-danger btn-icon" (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat, 'ADD')"><i class="mdi mdi-access-point"></i></button>
+              <button *ngIf="loginService.utilisateur.fonction == 'DIRECTEUR ACHAT'" [disabled]="demandeAchat.statut=='VALIDE'" tooltip="Valider la demande d'achat" class="btn btn-inverse-success btn-icon" (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat)"><i class="mdi mdi-check"></i></button>
             </td>
           </tr>
         </ng-container>
@@ -127,7 +127,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-devisfournisseur [referencedemandeachat]="demandeAchat.reference"></app-devisfournisseur>
+    <app-devisfournisseur [modalRef]="modalRef" [referencedemandeachat]="demandeAchat.reference" [typeOpenModalDevis]="typeOpenDevisModal"></app-devisfournisseur>
   </div>
 </ng-template>
 <ng-template #detailDemandeAchat>

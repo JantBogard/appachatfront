@@ -1,9 +1,10 @@
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { DevisFournisseurService } from './../../../service/devis-fournisseur.service';
 import {Component, Input, OnInit} from '@angular/core';
 import {DevisFournisseur} from "../../../Model/DevisFournisseur";
 import {DemandeAchatService} from "../../../service/demande-achat.service";
 import {ArticleService} from "../../../service/article.service";
 import {LoginService} from "../../../service/LoginService";
-import {BsModalService} from "ngx-bootstrap/modal";
 
 @Component({
   selector: 'app-devisfournisseur',
@@ -13,16 +14,34 @@ import {BsModalService} from "ngx-bootstrap/modal";
 export class DevisfournisseurComponent implements OnInit {
 
   @Input() referencedemandeachat!:string;
+  @Input() typeOpenModalDevis!: 'SHOW' | 'ADD';
+  @Input() modalRef!: BsModalRef;
   devisfournisseurs:DevisFournisseur[]=[];
-  constructor(  public demandeAchatService: DemandeAchatService,
-                public articleService: ArticleService,
-                public loginService: LoginService,
-                private modalSerivce: BsModalService) { }
+  public isLoading: boolean = false;
+  constructor(
+    public demandeAchatService: DemandeAchatService,
+    public articleService: ArticleService,
+    public loginService: LoginService,
+    public devisFournisseurService: DevisFournisseurService,
+  ) { }
 
   ngOnInit(): void {
+    if (this.typeOpenModalDevis === 'SHOW') {
+      this.getAllDevisFournisseur();
+    }
   }
 
-
+  getAllDevisFournisseur(){
+    this.devisFournisseurService.getAll(this.referencedemandeachat).subscribe(
+      data => {
+        this.devisFournisseurService.devisFournisseurs = data;
+      },
+      error => {
+        console.log(error);
+        this.loginService.toastr.error('Erreur de chargement des devis fournisseur');
+      }
+    )
+  }
 
 
   updatefile(fileInput: any) {
@@ -64,6 +83,23 @@ export class DevisfournisseurComponent implements OnInit {
     this.demandeAchatService.saveDevisFournisseur(this.devisfournisseurs,this.referencedemandeachat).subscribe(
       data=>{
         console.log(data)
+      }
+    )
+  }
+
+  onChooseDevisFournisseur(devisFournisseur: DevisFournisseur) {
+    this.isLoading = true;
+    this.devisFournisseurService.chooseDevisFournisseur(this.referencedemandeachat, devisFournisseur).subscribe(
+      data => {
+        this.isLoading = false;
+        this.loginService.toastr.success('Devis fournisseur choisi');
+        this.devisFournisseurService.devisFournisseur = data;
+        this.modalRef.hide();
+      },
+      error => {
+        this.isLoading = false;
+        this.loginService.toastr.error('Erreur de chargement des devis fournisseur');
+        console.log(error);
       }
     )
   }
