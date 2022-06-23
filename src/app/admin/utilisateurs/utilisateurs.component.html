@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="row">
       <div class="col-10">
-        <h4 class="card-title">Utilisateur</h4>
+        <h4 class="card-title">Liste des utilisateurs</h4>
       </div>
       <div class="col-2">
         <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addUser)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
@@ -12,11 +12,12 @@
       <thead>
         <tr>
           <th>Nom</th>
-          <th>Prenom</th>
-          <th>Telephone</th>
+          <th>Prénom</th>
+          <th>Téléphone</th>
           <th>Email</th>
+          <th>Login</th>
           <th>Fonction</th>
-          <th>Action</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -26,7 +27,13 @@
             <td>{{ utilisateur.prenom }}</td>
             <td>{{ utilisateur.telephone }}</td>
             <td>{{ utilisateur.email }}</td>
-            <td>{{ utilisateur.fonction }}</td>
+            <td>{{ utilisateur.login }}</td>
+            <td>
+              <span *ngIf="utilisateur.fonction === 'DIRECTEUR ACHAT'" class="badge badge-gradient-info">Directeur des achats</span>
+              <span *ngIf="utilisateur.fonction === 'ADMIN'" class="badge badge-gradient-info">Administrateur</span>
+              <span *ngIf="utilisateur.fonction === 'ACHETEUR METIER'" class="badge badge-gradient-info">Acheteur métier</span>
+              <span *ngIf="utilisateur.fonction === 'RESPONSABLE STOCK'" class="badge badge-gradient-info">Responsable des stocks</span>
+            </td>
             <td>
               <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editUser, utilisateur)"> <i class="mdi mdi-pencil"></i></button>
               <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deleteUser, utilisateur)"><i class="mdi mdi-delete-forever"></i></button>
@@ -46,7 +53,7 @@
 
 <ng-template #addUser>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Ajouter un Utilisateur</h4>
+    <h4 class="modal-title pull-left">Ajouter un utilisateur</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
@@ -57,10 +64,10 @@
         <label for="exampleSelectGender">Fonction</label>
         <select formControlName="fonction" class="form-control rounded-0" >
           <option></option>
-          <option value="DIRECTEUR ACHAT">DIRECTEUR ACHAT</option>
-          <option value="ADMIN">ADMIN</option>
-          <option value="ACHETEUR METIER">ACHETEUR METIER</option>
-          <option value="RESPONSABLE STOCK">RESPONSABLE STOCK</option>
+          <option value="DIRECTEUR ACHAT">Directeur des achats</option>
+          <option value="ADMIN">Administrateur</option>
+          <option value="ACHETEUR METIER">Acheteur métier</option>
+          <option value="RESPONSABLE STOCK">Responsable des stocks</option>
         </select>
       </div>
       <div class="form-group">
@@ -68,11 +75,11 @@
         <input formControlName="nom" type="text" class="form-control rounded-0" placeholder="Nom">
       </div>
       <div class="form-group">
-        <label>Prenom</label>
+        <label>Prénom</label>
         <input formControlName="prenom" type="email" class="form-control rounded-0" placeholder="Prenom">
       </div>
       <div class="form-group">
-        <label>Telephone</label>
+        <label>Téléphone</label>
         <input formControlName="telephone" type="text" class="form-control rounded-0"  placeholder="Telephone">
       </div>
       <div class="form-group">
@@ -84,18 +91,18 @@
         <input formControlName="login" type="email" class="form-control rounded-0"  placeholder="Login">
       </div>
 
-      <button type="submit" class="btn btn-gradient-primary me-2 rounded-0">
+      <button type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
         Enregistrer
         <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </button>
-      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold">Annuler</button>
     </form>
   </div>
 </ng-template>
 
 <ng-template #editUser>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modifier un Utilisateur</h4>
+    <h4 class="modal-title pull-left font-weight-bold">Modifier un utilisateur</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
@@ -107,11 +114,11 @@
         <input [(ngModel)]="utilisateur.nom" type="text" class="form-control" id="exampleInputUsername1" placeholder="Nom">
       </div>
       <div class="form-group">
-        <label >Prenom</label>
+        <label >Prénom</label>
         <input [(ngModel)]="utilisateur.prenom" type="email" class="form-control" placeholder="Prenom">
       </div>
       <div class="form-group">
-        <label >Telephone</label>
+        <label >Téléphone</label>
         <input [(ngModel)]="utilisateur.telephone" type="text" class="form-control"  placeholder="Telephone">
       </div>
       <div class="form-group">
@@ -122,7 +129,7 @@
         <label >login</label>
         <input [(ngModel)]="utilisateur.login" type="email" class="form-control" placeholder="Email">
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="exampleSelectGender">Fonction</label>
         <select [(ngModel)]="utilisateur.fonction" class="form-control" id="exampleSelectGender">
           <option></option>
@@ -131,12 +138,12 @@
           <option value="ACHETEUR METIER">ACHETEUR METIER</option>
           <option value="RESPONSABLE STOCK">RESPONSABLE STOCK</option>
         </select>
-      </div>
-      <button (click)="onUpdate()" class="btn btn-gradient-primary me-2">
+      </div> -->
+      <button (click)="onUpdate()" class="btn btn-gradient-primary me-2 remove-bold">
         Enregistrer
         <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </button>
-      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold">Annuler</button>
     </div>
   </div>
 </ng-template>

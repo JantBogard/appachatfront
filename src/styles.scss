@@ -8,3 +8,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+.modal-title {
+  font-weight: 500 !important;
+}
+
+.remove-bold {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: normal !important;
+}

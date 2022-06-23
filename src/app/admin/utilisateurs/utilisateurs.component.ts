@@ -86,13 +86,25 @@ export class UtilisateursComponent implements OnInit {
 
   onUpdate() {
     this.isLoading = true;
-    if (this.utilisateur.nom === '' || this.utilisateur.prenom === '' || this.utilisateur.email === '' || this.utilisateur.telephone === '' || this.utilisateur.login === '' || this.utilisateur.fonction === '') {
+    if (this.utilisateur.nom === '' || this.utilisateur.prenom === '' || this.utilisateur.email === '' || this.utilisateur.telephone === '' || this.utilisateur.login === '') {
       this.isLoading = false;
       this.loginService.toastr.error('Veuillez verifier les champs');
       return;
     }
 
-    console.log('update comming soon ...');
+    this.utilisateurService.updateUser(this.utilisateur).subscribe(
+      data => {
+        this.isLoading = false;
+        this.getAllUtilisateur();
+        this.loginService.toastr.success('Utilisateur modifié avec succès');
+        this.modalRef?.hide();
+      },
+      error => {
+        this.isLoading = false;
+        console.log(error);
+        this.loginService.toastr.error('Erreur de modification des utilisateurs');
+      }
+    )
   }
 
 }

@@ -90,11 +90,11 @@
     <button (click)="onAddLigneDemandeAchat()" type="button" class="btn btn-gradient-success me-2 rounded-0">
       Ajouter une ligne
     </button>
-    <button (click)="onSaveDemandeAchat()" type="submit" class="btn btn-gradient-primary me-2 rounded-0">
+    <button (click)="onSaveDemandeAchat()" type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
       Enregistrer
       <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
     </button>
-    <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+    <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold">Annuler</button>
   </div>
 </ng-template>
 
@@ -111,11 +111,11 @@
         <label for="exampleInputUsername1">Prix estimatif</label>
         <input [(ngModel)]="demandeAchat.prixestimatif" type="text" class="form-control" id="exampleInputUsername1" placeholder="Prix estimatif">
       </div>
-      <button (click)="onUpdate()" class="btn btn-gradient-primary me-2">
+      <button (click)="onUpdate()" class="btn btn-gradient-primary me-2 remove-bold">
         Enregistrer
         <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </button>
-      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold">Annuler</button>
     </div>
   </div>
 </ng-template>

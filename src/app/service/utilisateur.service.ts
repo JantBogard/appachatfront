@@ -19,4 +19,8 @@ export class UtilisateurService {
   saveUtilisateur(utilisateur: Utilisateur) {
     return this.httpClient.post<Utilisateur>(Adresse.host + 'utilisateur/save', utilisateur, { observe: 'response' });
   }
+
+  updateUser(utilisateur: Utilisateur) {
+    return this.httpClient.put<Utilisateur>(Adresse.host + 'utilisateur/update', utilisateur, { observe: 'response' });
+  }
 }

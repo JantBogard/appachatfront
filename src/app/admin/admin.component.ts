@@ -10,18 +10,19 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 export class AdminComponent implements OnInit {
 
   menu:any[]=[];
+  isToggle: boolean = false;
   menuLogindirecteur=[
     {routerLink:"periodebudgetaire",type:"Periode budgetaire",icone:"menu-icon"},
     { routerLink: "demandeachat", type: "Demande Achat", icone: "menu-icon" },
     { routerLink: "article", type: "Article", icone: "menu-icon" },
   ];
   menuLoginadmin=[
-    {routerLink:"utilisateur",type:"Utilisateurs",icone:"menu-icon"},
+    {routerLink:"utilisateur",type:"Gestion des utilisateurs",icone:"menu-icon"},
   ];
   menuLoginAcheteurMetier = [
-    { routerLink: "demandeachat", type: "Demande Achat", icone: "menu-icon" },
-    { routerLink: "article", type: "Article", icone: "menu-icon" },
-    { routerLink: "bondecommande", type: "Bon de Commande", icone: "menu-icon" },
+    { routerLink: "demandeachat", type: "Demandes d'achat", icone: "menu-icon" },
+    { routerLink: "bondecommande", type: "Bons de commande", icone: "menu-icon" },
+    { routerLink: "article", type: "Articles", icone: "menu-icon" },
   ];
   constructor(public loginService: LoginService) { }
 
@@ -47,5 +48,15 @@ export class AdminComponent implements OnInit {
         this.loginService.router.navigateByUrl("/")
       }
     )
+  }
+
+  toggleSideBar() {
+    let body = document.querySelector('body');
+    this.isToggle = !this.isToggle;
+    if (this.isToggle && body !== null) {
+      body.classList.add('sidebar-icon-only');
+    } else if (body !== null) {
+      body.classList.remove('sidebar-icon-only');
+    }
   }
 }

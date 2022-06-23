@@ -45,7 +45,7 @@
 
 <ng-template #addArticle>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Ajouter un Article</h4>
+    <h4 class="modal-title pull-left">Ajouter un article</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
@@ -61,18 +61,18 @@
         <input formControlName="caracteristiques" type="text" class="form-control rounded-0" placeholder="Caractéristique">
       </div>
 
-      <button type="submit" class="btn btn-gradient-primary me-2 rounded-0">
+      <button type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
         Enregistrer
         <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </button>
-      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold">Annuler</button>
     </form>
   </div>
 </ng-template>
 
 <ng-template #editArticle>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modifier un Article</h4>
+    <h4 class="modal-title pull-left">Modifier un article</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
@@ -87,11 +87,11 @@
         <label >Caractéristique</label>
         <input [(ngModel)]="article.caracteristiques" type="text" class="form-control" placeholder="Caractéristique">
       </div>
-      <button (click)="onUpdate()" class="btn btn-gradient-primary me-2">
+      <button (click)="onUpdate()" class="btn btn-gradient-primary me-2 remove-bold">
         Enregistrer
         <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </button>
-      <button type="reset" (click)="modalRef?.hide()" class="btn btn-light">Annuler</button>
+      <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold">Annuler</button>
     </div>
   </div>
 </ng-template>
