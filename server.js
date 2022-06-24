@@ -9,9 +9,9 @@ http.createServer(app).listen(app.get('port'), function() {
 });
 // Serve only the static files form the dist directory
 // https://medium.com/@ryanchenkie_40935/angular-cli-deployment-host-your-angular-2-app-on-heroku-3f266f13f352
-app.use(express.static('./dist/appachatfront'));
+app.use(express.static('./dist/apachatfront'));
 app.get('/*', (req, res) =>
-  res.sendFile('index.html', {root: 'dist/appachatfront'}),
+  res.sendFile('index.html', {root: 'dist/apachatfront'}),
 );
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 4200, () => {
