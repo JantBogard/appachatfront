@@ -35,6 +35,7 @@ export class GestionArticlesComponent implements OnInit {
     this.formAddArticle = this.formBuilder.group({
       denomination: ['', Validators.required],
       caracteristiques: ['', Validators.required],
+      marque: ['', Validators.required],
     });
   }
 
@@ -84,6 +85,8 @@ export class GestionArticlesComponent implements OnInit {
   public openModal(template: TemplateRef<any>, article?: Article) {
     if (article) {
       this.article = article;
+    } else {
+      this.initForm();
     }
     this.modalRef = this.modalService.show(template);
   }

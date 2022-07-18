@@ -54,6 +54,8 @@ export class UtilisateursComponent implements OnInit {
   openModal(template: TemplateRef<any>, utilisateur?: Utilisateur) {
     if (utilisateur) {
       this.utilisateur = utilisateur;
+    } else {
+      this.initForm();
     }
     this.modalRef = this.modalService.show(template);
   }

@@ -54,6 +54,7 @@ export class PeriodebudgetaireComponent implements OnInit {
   }
 
   openModaladd(template: TemplateRef<any>) {
+    this.initForm();
     this.modalRefadd = this.modalService.show(template);
   }
 

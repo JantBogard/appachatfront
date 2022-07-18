@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="row">
       <div class="col-9">
-        <h4 class="card-title">Article</h4>
+        <h4 class="card-title">Liste des articles</h4>
       </div>
       <div class="col-1">
         <button class="btn btn-inverse-success btn-icon" (click)="getAllArticle()"> <i class="mdi mdi-24px mdi-refresh"></i></button>
@@ -15,6 +15,7 @@
       <thead>
         <tr>
           <th>Denomination</th>
+          <th>Fabriquant</th>
           <th>Caractéristiques </th>
           <th>Date</th>
           <th>Action</th>
@@ -25,6 +26,7 @@
           <tr *ngFor="let article of articleService.articles">
             <td>{{ article.denomination }}</td>
             <td>{{ article.caracteristiques }}</td>
+            <td>{{ article.marque }}</td>
             <td>{{ article.date | date: 'dd/MM/yyyy à HH:mm' }}</td>
             <td>
               <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editArticle, article)"> <i class="mdi mdi-pencil"></i></button>
@@ -60,6 +62,10 @@
         <label>Caractéristiques </label>
         <input formControlName="caracteristiques" type="text" class="form-control rounded-0" placeholder="">
       </div>
+      <div class="form-group">
+        <label>Fabriquant</label>
+        <input formControlName="marque" type="text" class="form-control rounded-0">
+      </div>
 
       <button type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
         Enregistrer
@@ -86,6 +92,10 @@
       <div class="form-group">
         <label >Caractéristiques </label>
         <input [(ngModel)]="article.caracteristiques" type="text" class="form-control" placeholder=" ">
+      </div>
+      <div class="form-group">
+        <label>Fabriquant</label>
+        <input [(ngModel)]="article.marque" type="text" class="form-control">
       </div>
       <button (click)="onUpdate()" class="btn btn-gradient-primary me-2 remove-bold">
         Enregistrer
