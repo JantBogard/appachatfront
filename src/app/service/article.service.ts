@@ -28,6 +28,6 @@ export class ArticleService {
   }
 
   public update(article: Article) {
-    return this.httpClient.put<Article>(Adresse.host + 'article/update', article);
+    return this.httpClient.put<Article>(Adresse.host + 'article/update/'+article.id, article);
   }
 }

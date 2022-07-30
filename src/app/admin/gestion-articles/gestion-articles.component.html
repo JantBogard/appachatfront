@@ -16,8 +16,8 @@
         <tr>
           <th>Code Article</th>
           <th>Denomination</th>
-          <th>Fabriquant</th>
           <th>Caractéristiques </th>
+          <th>Fabriquant</th>
           <th>Date de création</th>
           <th>Action</th>
         </tr>
@@ -25,10 +25,10 @@
       <tbody>
         <ng-container *ngIf="articleService.articles.length != 0; else emptyTable">
           <tr *ngFor="let article of articleService.articles">
-            <td>{{ article.codeArticle }}</td>
+            <td>{{ article.reference }}</td>
             <td>{{ article.denomination }}</td>
             <td>{{ article.caracteristiques }}</td>
-            <td>{{ article.marque }}</td>
+            <td>{{ article.fabriquant }}</td>
             <td>{{ article.date | date: 'dd/MM/yyyy à HH:mm' }}</td>
             <td>
               <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editArticle, article)"> <i class="mdi mdi-pencil"></i></button>
@@ -65,8 +65,12 @@
         <input formControlName="caracteristiques" type="text" class="form-control rounded-0" placeholder="">
       </div>
       <div class="form-group">
+        <label>Reference </label>
+        <input formControlName="reference" type="text" class="form-control rounded-0" placeholder="">
+      </div>
+      <div class="form-group">
         <label>Fabriquant</label>
-        <input formControlName="marque" type="text" class="form-control rounded-0">
+        <input formControlName="fabriquant" type="text" class="form-control rounded-0">
       </div>
 
       <button type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
@@ -97,7 +101,11 @@
       </div>
       <div class="form-group">
         <label>Fabriquant</label>
-        <input [(ngModel)]="article.marque" type="text" class="form-control">
+        <input [(ngModel)]="article.fabriquant" type="text" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Reference</label>
+        <input [(ngModel)]="article.reference" type="text" class="form-control">
       </div>
       <button (click)="onUpdate()" class="btn btn-gradient-primary me-2 remove-bold">
         Enregistrer

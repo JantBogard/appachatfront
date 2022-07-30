@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
 import { Article } from './../../Model/article.model';
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import {RandomGenerator} from "../../RandomGenerator";
 
 @Component({
   selector: 'app-gestion-articles',
@@ -35,7 +36,8 @@ export class GestionArticlesComponent implements OnInit {
     this.formAddArticle = this.formBuilder.group({
       denomination: ['', Validators.required],
       caracteristiques: ['', Validators.required],
-      marque: ['', Validators.required],
+      reference: [RandomGenerator.RandomString(10), Validators.required],
+      fabriquant: ['', Validators.required],
     });
   }
 
@@ -83,6 +85,9 @@ export class GestionArticlesComponent implements OnInit {
     this.articleService.update(this.article).subscribe(
       data => {
         this.isLoading = false;
+        const index =this.articleService.articles.findIndex(i=>i.id==data.id);
+        this.articleService.articles.splice(index,1);
+        this.articleService.articles.push(data);
         this.loginService.toastr.success('Modification effectuée avec succès');
         this.modalRef.hide();
       },
