@@ -26,4 +26,8 @@ export class ArticleService {
   public save(article: Article) {
     return this.httpClient.post<Article>(Adresse.host + 'article/save', article);
   }
+
+  public update(article: Article) {
+    return this.httpClient.put<Article>(Adresse.host + 'article/update', article);
+  }
 }

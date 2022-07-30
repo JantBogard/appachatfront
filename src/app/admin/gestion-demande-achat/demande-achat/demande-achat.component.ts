@@ -139,4 +139,17 @@ export class DemandeAchatComponent implements OnInit {
     )
   }
 
+  calculPrix() {
+    let total = 0;
+    this.formAddDemandeAchat.lignedemandeachats.forEach(element => {
+      element.pt = element.pu * element.quantite;
+      total += element.pt;
+    });
+
+    if (total != NaN) {
+      this.formAddDemandeAchat.prixestimatif = total;
+    }
+
+  }
+
 }

@@ -79,7 +79,19 @@ export class GestionArticlesComponent implements OnInit {
   }
 
   public onUpdate() {
-    console.log("update is coming soon");
+    this.isLoading = true;
+    this.articleService.update(this.article).subscribe(
+      data => {
+        this.isLoading = false;
+        this.loginService.toastr.success('Modification effectuée avec succès');
+        this.modalRef.hide();
+      },
+      error => {
+        console.log(error);
+        this.isLoading = false;
+        this.loginService.toastr.error('Erreur de modification');
+      }
+    );
   }
 
   public openModal(template: TemplateRef<any>, article?: Article) {

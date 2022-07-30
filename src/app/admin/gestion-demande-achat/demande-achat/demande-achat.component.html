@@ -51,16 +51,16 @@
   <div class="modal-body">
     <div class="forms-sample">
       <div class="form-group">
-        <label for="exampleInputUsername1">Prix estimatif</label>
-        <input [(ngModel)]="formAddDemandeAchat.prixestimatif" type="text" class="form-control rounded-0" placeholder="Prix estimatif">
+        <label for="numeroDa">Numéro DA</label>
+        <input type="text" id="numeroDa" class="form-control" disabled>
       </div>
       <table class="table table-hover">
         <thead>
-          <tr>
+          <tr class="text-center">
             <th>Article</th>
-            <th>qte</th>
-            <th>pu</th>
-            <th>pt</th>
+            <th>Qte</th>
+            <th>PU (en FCFA)</th>
+            <th>PT (en FCFA)</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -72,13 +72,13 @@
               </select>
             </td>
             <td>
-              <input [(ngModel)]="ligneDemandeAchat.quantite" type="number" class="form-control rounded-0" placeholder="Quantite">
+              <input (keyup)="calculPrix()" [(ngModel)]="ligneDemandeAchat.quantite" type="number" class="form-control rounded-0" placeholder="Quantite">
             </td>
             <td>
-              <input [(ngModel)]="ligneDemandeAchat.pu" type="number" class="form-control rounded-0" placeholder="Prix Unitaire">
+              <input (keyup)="calculPrix()" [(ngModel)]="ligneDemandeAchat.pu" type="number" class="form-control rounded-0" placeholder="Prix Unitaire">
             </td>
             <td>
-              {{ ligneDemandeAchat.pu * ligneDemandeAchat.quantite }}
+              {{ ligneDemandeAchat.pt==undefined||ligneDemandeAchat.pt==undefined?0:ligneDemandeAchat.pt }}
             </td>
             <td>
               <button *ngIf="i != 0" class="btn btn-inverse-danger btn-icon" (click)="onRemoveLigneDemandeAchat(i)"><i class="mdi mdi-delete-forever"></i></button>
@@ -86,12 +86,16 @@
           </tr>
         </tbody>
       </table>
+      <div class="form-group">
+        <label for="exampleInputUsername1">Grand total</label>
+        <input [(ngModel)]="formAddDemandeAchat.prixestimatif" type="text" class="form-control rounded-0" placeholder="Prix estimatif">
+      </div>
     </div>
     <button (click)="onAddLigneDemandeAchat()" type="button" class="btn btn-gradient-success me-2 rounded-0">
       Ajouter une ligne
     </button>
     <button (click)="onSaveDemandeAchat()" type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
-      Enregistrer
+      Suivant
       <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
     </button>
     <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold">Annuler</button>
@@ -132,19 +136,33 @@
 </ng-template>
 <ng-template #detailDemandeAchat>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Ajouter une demande d'achat</h4>
+    <h4 class="modal-title pull-left">Afficher une demande d'achat</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
   </div>
   <div class="modal-body">
+    <div class="row text-start font-weight-bold">
+      <div class="col-3">
+        Acheteur metier:
+      </div>
+      <div class="col-9">
+        <span class="badge badge-info">{{ demandeAchat.acheteurMetier.nom }} {{ demandeAchat.acheteurMetier.prenom }}</span>
+      </div>
+      <div class="col-3">
+        Date de creation:
+      </div>
+      <div class="col-9">
+        <span class="badge badge-info">{{ demandeAchat.date | date:'dd/MM/yyyy' }}</span>
+      </div>
+    </div>
     <table class="table table-hover">
       <thead>
         <tr>
           <th>Article</th>
-          <th>qte</th>
-          <th>pu</th>
-          <th>pt</th>
+          <th>Qte</th>
+          <th>PU (en FCFA)</th>
+          <th>PT (en FCFA)</th>
         </tr>
       </thead>
       <tbody>
@@ -155,6 +173,12 @@
           <td>{{ ligneDemandeAchat.pt }}</td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Prix total</td>
+          <td>{{ demandeAchat.prixestimatif }}</td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </ng-template>

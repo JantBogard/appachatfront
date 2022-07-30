@@ -3,6 +3,7 @@ import { DevisFournisseur } from './devis-fournisseur.model';
 import { Utilisateur } from './Utilisateur';
 export class DemandeAchat {
     id!: number;
+    numeroDA!: string;
     date!: Date;
     prixestimatif!: number;
     statut!: string;

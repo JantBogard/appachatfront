@@ -14,16 +14,18 @@
     <table class="table table-hover">
       <thead>
         <tr>
+          <th>Code Article</th>
           <th>Denomination</th>
           <th>Fabriquant</th>
           <th>Caractéristiques </th>
-          <th>Date</th>
+          <th>Date de création</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngIf="articleService.articles.length != 0; else emptyTable">
           <tr *ngFor="let article of articleService.articles">
+            <td>{{ article.codeArticle }}</td>
             <td>{{ article.denomination }}</td>
             <td>{{ article.caracteristiques }}</td>
             <td>{{ article.marque }}</td>
@@ -78,7 +80,7 @@
 
 <ng-template #editArticle>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modifier un article</h4>
+    <h4 class="modal-title pull-left">Modifier l'article {{ article.codeArticle }}</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
