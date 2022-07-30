@@ -36,7 +36,7 @@ export class GestionArticlesComponent implements OnInit {
     this.formAddArticle = this.formBuilder.group({
       denomination: ['', Validators.required],
       caracteristiques: ['', Validators.required],
-      reference: [RandomGenerator.RandomString(10), Validators.required],
+      reference: [''],
       fabriquant: ['', Validators.required],
     });
   }
