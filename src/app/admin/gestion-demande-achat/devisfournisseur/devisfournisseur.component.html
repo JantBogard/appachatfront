@@ -21,7 +21,7 @@
     <tbody>
       <tr *ngFor="let devisFournisseur of devisFournisseurService.devisFournisseurs">
         <td>
-          <img [src]="devisFournisseur.imagedevis" alt="Image devis fournisseur">
+          <img [src]="devisFournisseur.imagedevis" alt="Image devis fournisseur" (click)="voirdetail(imagedevisfournisseur,devisFournisseur)">
         </td>
         <td>{{ devisFournisseur.date | date: "dd/MM/yyyy à HH:mm" }}</td>
         <td>
@@ -34,6 +34,16 @@
     </tbody>
   </table>
 </ng-container>
-
+<ng-template #imagedevisfournisseur>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Devis</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRefimageDevisFournisseur?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img [src]="devisFourni.imagedevis">
+  </div>
+</ng-template>
 
 

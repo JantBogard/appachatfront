@@ -117,11 +117,19 @@ export class PeriodebudgetaireComponent implements OnInit {
   }
 
   updateligne(p:LigneBudgetaire) {
-    this.periodeBudgetaireService.updateLigneBudgetaire(p).subscribe(
-      data=>{
-        this.findByActiveIsTrueLigneBudgetaire();
-      }
-    )
+    if (p.montantinitial>0){
+      this.periodeBudgetaireService.updateLigneBudgetaire(p).subscribe(
+        data=>{
+          if (data){
+            const index =this.lignePeriodebudgetaires.findIndex(i=>i.reference==p.reference);
+            this.lignePeriodebudgetaires[index].statut="VALIDE";
+          }
+        }
+      )
+    }else {
+      this.loginService.toastr.error('Le montant doit être >0');
+    }
+
 
   }
 

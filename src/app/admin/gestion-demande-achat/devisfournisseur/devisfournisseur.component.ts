@@ -1,10 +1,11 @@
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import { DevisFournisseurService } from './../../../service/devis-fournisseur.service';
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {DevisFournisseur} from "../../../Model/DevisFournisseur";
 import {DemandeAchatService} from "../../../service/demande-achat.service";
 import {ArticleService} from "../../../service/article.service";
 import {LoginService} from "../../../service/LoginService";
+import {DemandeAchat} from "../../../Model/demande-achat.model";
 
 @Component({
   selector: 'app-devisfournisseur',
@@ -16,12 +17,15 @@ export class DevisfournisseurComponent implements OnInit {
   @Input() referencedemandeachat!:string;
   @Input() typeOpenModalDevis!: 'SHOW' | 'ADD';
   @Input() modalRef!: BsModalRef;
+  modalRefimageDevisFournisseur!: BsModalRef;
   devisfournisseurs:DevisFournisseur[]=[];
   public isLoading: boolean = false;
+  public devisFourni!: DevisFournisseur;
   constructor(
     public demandeAchatService: DemandeAchatService,
     public articleService: ArticleService,
     public loginService: LoginService,
+    private modalSerivce: BsModalService,
     public devisFournisseurService: DevisFournisseurService,
   ) { }
 
@@ -31,6 +35,9 @@ export class DevisfournisseurComponent implements OnInit {
     }
   }
 
+  public openModal(demandeAchat?: DemandeAchat){
+
+  }
   getAllDevisFournisseur(){
     this.devisFournisseurService.getAll(this.referencedemandeachat).subscribe(
       data => {
@@ -104,4 +111,8 @@ export class DevisfournisseurComponent implements OnInit {
     )
   }
 
+  voirdetail(template: TemplateRef<any>,devisFournisseur:DevisFournisseur) {
+   this.devisFourni= devisFournisseur;
+    this.modalRefimageDevisFournisseur = this.modalSerivce.show(template,{class:"modal-lg"});
+  }
 }
