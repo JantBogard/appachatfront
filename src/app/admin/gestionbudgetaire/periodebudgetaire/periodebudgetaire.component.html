@@ -45,7 +45,7 @@
 
 <ng-template #addPeriodeBudgetaireadd>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Ajouter une période budgetaire</h4>
+    <h4 class="modal-title pull-left"> Enregistrer un budget</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRefadd?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
@@ -53,12 +53,12 @@
   <div class="modal-body">
     <form class="forms-sample" [formGroup]="formAddPeriodeBudgetaire" (ngSubmit)="onAddPeriodeBudgetaire()">
       <div class="form-group">
-        <label for="exampleInputEmail1">Année budgetaire</label>
+        <label for="exampleInputEmail1">Année budgétaire</label>
         <input formControlName="anneebugetaire" type="text" class="form-control rounded-0" id="exampleInputEmail1" placeholder="Année Budgetaire">
       </div>
       <div class="form-group">
-        <label>Montant</label>
-        <input formControlName="montant" type="text" class="form-control rounded-0" placeholder="Montant">
+        <label>Montant du budget (en FCFA)</label>
+        <input formControlName="Montant du budget (en FCFA)" type="text" class="form-control rounded-0" placeholder="Montant">
       </div>
       <button type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
         Enregistrer
@@ -119,7 +119,7 @@
 
 <ng-template #editPeriodeBudgetaire>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modifier une période budgetaire</h4>
+    <h4 class="modal-title pull-left">Modifier un budget</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
@@ -127,16 +127,12 @@
   <div class="modal-body">
     <div class="forms-sample">
       <div class="form-group">
-        <label >Date</label>
-        <input [(ngModel)]="periodeBudgetaire.date" type="date" class="form-control"  placeholder="Date">
-      </div>
-      <div class="form-group">
         <label>Année budgetaire</label>
-        <input [(ngModel)]="periodeBudgetaire.anneebugetaire" type="text" class="form-control"  placeholder="Année Budgetaire">
+        <input disabled [(ngModel)]="periodeBudgetaire.anneebugetaire" type="text" class="form-control"  placeholder="Année Budgetaire">
       </div>
       <div class="form-group">
         <label>Statut</label>
-        <select [(ngModel)]="periodeBudgetaire.statut" class="form-control">
+        <select disabled [(ngModel)]="periodeBudgetaire.statut" class="form-control">
           <option></option>
           <option value="NON VALIDE">NON VALIDE</option>
           <option value="VALIDE">VALIDE</option>
@@ -144,8 +140,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Montant</label>
-        <input [(ngModel)]="periodeBudgetaire.montant" type="text" class="form-control" placeholder="Montant">
+        <label>Montant du budget</label>
+        <input [(ngModel)]="periodeBudgetaire.montant" type="text" class="form-control" placeholder="Montant du budget">
       </div>
       <button (click)="onUpdatePeriodeBudgetaire()" class="btn btn-gradient-primary me-2 remove-bold">
         Enregistrer

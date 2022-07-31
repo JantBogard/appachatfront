@@ -21,7 +21,8 @@ export class DemandeAchatComponent implements OnInit {
   public demandeAchat: DemandeAchat = new DemandeAchat();
   public articleName: string = "";
   public typeOpenDevisModal: 'SHOW' | 'ADD' = 'SHOW';
-
+  public numeroda!:string;
+  public referencesessionbudgetaire!: string;
   constructor(
     public demandeAchatService: DemandeAchatService,
     public articleService: ArticleService,
@@ -65,11 +66,29 @@ export class DemandeAchatComponent implements OnInit {
 
   public openModal(template: TemplateRef<any>, demandeAchat?: DemandeAchat) {
     if (demandeAchat) {
+      console.log(demandeAchat)
       this.demandeAchat = demandeAchat;
+      this.modalRef = this.modalSerivce.show(template,{class:"modal-lg"});
     } else {
-      this.initForm();
+      if (this.loginService.utilisateur.fonction=="ACHETEUR METIER"){
+
+        this.initForm();
+        this.demandeAchatService.generenumero(this.loginService.utilisateur.matricule).subscribe(
+          data=>{
+            this.numeroda=data.numeroda;
+            this.referencesessionbudgetaire=data.referencesessionbudgetaire;
+            this.modalRef = this.modalSerivce.show(template,{class:"modal-lg"});
+          },error => {
+            console.log(error)
+            this.loginService.toastr.error(error.error?.trace);
+          }
+        )
+      }else {
+        this.loginService.toastr.error('Seule un ACHETEUR METIER a droit à cette action ');
+      }
     }
-    this.modalRef = this.modalSerivce.show(template,{class:"modal-lg"});
+
+
   }
   public openModalDevisFournisseur(template: TemplateRef<any>, demandeAchat?: DemandeAchat, typeOpen: 'SHOW' | 'ADD' = 'SHOW') {
     if (demandeAchat) {
@@ -102,6 +121,7 @@ export class DemandeAchatComponent implements OnInit {
       element.pt = element.pu * element.quantite;
     });
     this.formAddDemandeAchat.matriculeAcheteurmetier = this.loginService.utilisateur.matricule;
+    this.formAddDemandeAchat.numeroda=this.numeroda;
     this.demandeAchatService.saveWithLigne(this.formAddDemandeAchat).subscribe(
       data => {
         this.isLoading = false;

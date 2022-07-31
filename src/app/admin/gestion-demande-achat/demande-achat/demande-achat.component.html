@@ -51,8 +51,8 @@
   <div class="modal-body">
     <div class="forms-sample">
       <div class="form-group">
-        <label for="numeroDa">Numéro DA</label>
-        <input type="text" id="numeroDa" class="form-control" disabled>
+        <label >Reference Année budgetaire: {{referencesessionbudgetaire}}  </label>
+        <p >Numéro DA: {{numeroda}}  </p>
       </div>
       <table class="table table-hover">
         <thead>
@@ -143,12 +143,6 @@
   </div>
   <div class="modal-body">
     <div class="row text-start font-weight-bold">
-      <div class="col-3">
-        Acheteur metier:
-      </div>
-      <div class="col-9">
-        <span class="badge badge-info">{{ demandeAchat.acheteurMetier.nom }} {{ demandeAchat.acheteurMetier.prenom }}</span>
-      </div>
       <div class="col-3">
         Date de creation:
       </div>

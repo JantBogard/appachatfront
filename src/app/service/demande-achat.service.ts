@@ -39,6 +39,9 @@ export class DemandeAchatService {
   public saveWithLigne(demandeAchat: DemandeAchat) {
     return this.httpClient.post<DemandeAchat>(Adresse.host + 'demandeachat/saveWithLigne', demandeAchat);
   }
+  public generenumero(matriculeAcheteurmetier: string) {
+    return this.httpClient.get<DemandeAchat>(Adresse.host + 'demandeachat/generenumero/'+matriculeAcheteurmetier);
+  }
 
   /**
    * Cette fonction permet de recuperer une demande d'achat par sa reference
