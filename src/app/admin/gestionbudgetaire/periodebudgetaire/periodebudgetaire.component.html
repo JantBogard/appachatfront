@@ -24,8 +24,7 @@
           <tr *ngFor="let periodeBudgetaire of periodeBudgetaireService.periodeBudgetaires">
             <td>{{ periodeBudgetaire.date | date:'dd/MM/yyyy' }}</td>
             <td>{{ periodeBudgetaire.anneebugetaire }}</td>
-            <td><strong class="text-capitalize"
-                [class]="periodeBudgetaire.statut=='VALIDE'?'text-success':'text-danger'">{{
+            <td><strong [class]="periodeBudgetaire.statut=='VALIDE'?'text-success':'text-danger'">{{
                 periodeBudgetaire.statut }}</strong></td>
             <td>{{ periodeBudgetaire.montant }}</td>
             <td>
@@ -115,7 +114,7 @@
             <td>{{ p.denomination}}</td>
             <td> <input [class]="p.statut=='VALIDE'?'border-0':''" [disabled]="p.statut=='VALIDE'"
                 [(ngModel)]="p.montantinitial"> </td>
-            <td [class]="p.statut=='VALIDE'?'text-success':'text-danger'"><strong class="text-capitalize">{{ p.statut
+            <td [class]="p.statut=='VALIDE'?'text-success':'text-danger'"><strong>{{ p.statut
                 }}</strong> </td>
             <td><button [disabled]="p.statut=='VALIDE'" (click)="updateligne(p)"
                 [class]="p.statut=='VALIDE'? 'btn btn-inverse-success':'btn btn-inverse-danger'"><i
@@ -156,9 +155,9 @@
         <label>Statut</label>
         <select disabled [(ngModel)]="periodeBudgetaire.statut" class="form-control">
           <option></option>
-          <option value="NON VALIDE">Non Valide</option>
-          <option value="VALIDE">Valide</option>
-          <option value="CLOS">Clos</option>
+          <option value="Non_valide">Non Valide</option>
+          <option value="Valide">Valide</option>
+          <option value="Clos">Clos</option>
         </select>
       </div>
       <div class="form-group">

@@ -5,7 +5,8 @@
         <h4 class="card-title">Liste des utilisateurs</h4>
       </div>
       <div class="col-2">
-        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addUser)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
+        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addUser)">Ajouter <i
+            class="mdi mdi-plus btn-icon-append"></i></button>
       </div>
     </div>
     <table class="table table-hover">
@@ -29,14 +30,21 @@
             <td>{{ utilisateur.email }}</td>
             <td>{{ utilisateur.login }}</td>
             <td>
-              <span *ngIf="utilisateur.fonction === 'DIRECTEUR ACHAT'" class="badge badge-gradient-info">Directeur des achats</span>
+              <span *ngIf="utilisateur.fonction === 'DIRECTEUR ACHAT'" class="badge badge-gradient-info">Directeur des
+                achats</span>
               <span *ngIf="utilisateur.fonction === 'ADMIN'" class="badge badge-gradient-info">Administrateur</span>
-              <span *ngIf="utilisateur.fonction === 'ACHETEUR METIER'" class="badge badge-gradient-info">Acheteur métier</span>
-              <span *ngIf="utilisateur.fonction === 'RESPONSABLE STOCK'" class="badge badge-gradient-info">Responsable des stocks</span>
+              <span *ngIf="utilisateur.fonction === 'ACHETEUR METIER'" class="badge badge-gradient-info">Acheteur
+                métier</span>
+              <span *ngIf="utilisateur.fonction === 'RESPONSABLE STOCK'" class="badge badge-gradient-info">Responsable
+                des stocks</span>
             </td>
             <td>
-              <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editUser, utilisateur)"> <i class="mdi mdi-pencil"></i></button>
-              <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deleteUser, utilisateur)"><i class="mdi mdi-delete-forever"></i></button>
+              <button class="btn btn-inverse-warning btn-icon" data-toggle="tooltip" data-placement="bottom"
+                title="Modifier l'utilisateur {{ utilisateur.login }}" (click)="openModal(editUser, utilisateur)"> <i
+                  class="mdi mdi-pencil"></i></button>
+              <button class="btn btn-inverse-danger btn-icon" data-toggle="tooltip" data-placement="bottom"
+                title="Supprimer l'utilisateur {{ utilisateur.login }}" (click)="openModal(deleteUser, utilisateur)"><i
+                  class="mdi mdi-delete-forever"></i></button>
             </td>
           </tr>
         </ng-container>
@@ -62,7 +70,7 @@
     <form class="forms-sample" [formGroup]="formAddUser" (ngSubmit)="onSaveUser()">
       <div class="form-group">
         <label for="exampleSelectGender">Fonction</label>
-        <select formControlName="fonction" class="form-control rounded-0" >
+        <select formControlName="fonction" class="form-control rounded-0">
           <option></option>
           <option value="DIRECTEUR ACHAT">Directeur des achats</option>
           <option value="ADMIN">Administrateur</option>
@@ -80,15 +88,15 @@
       </div>
       <div class="form-group">
         <label>Téléphone</label>
-        <input formControlName="telephone" type="text" class="form-control rounded-0"  placeholder="Téléphone">
+        <input formControlName="telephone" type="text" class="form-control rounded-0" placeholder="Téléphone">
       </div>
       <div class="form-group">
-        <label >Email</label>
-        <input formControlName="email" type="email" class="form-control rounded-0"  placeholder="Email">
+        <label>Email</label>
+        <input formControlName="email" type="email" class="form-control rounded-0" placeholder="Email">
       </div>
       <div class="form-group">
         <label>Login</label>
-        <input formControlName="login" type="email" class="form-control rounded-0"  placeholder="Login">
+        <input formControlName="login" type="email" class="form-control rounded-0" placeholder="Login">
       </div>
 
       <button type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
@@ -111,22 +119,23 @@
     <div class="forms-sample">
       <div class="form-group">
         <label for="exampleInputUsername1">Nom</label>
-        <input [(ngModel)]="utilisateur.nom" type="text" class="form-control" id="exampleInputUsername1" placeholder="Nom">
+        <input [(ngModel)]="utilisateur.nom" type="text" class="form-control" id="exampleInputUsername1"
+          placeholder="Nom">
       </div>
       <div class="form-group">
-        <label >Prénom</label>
+        <label>Prénom</label>
         <input [(ngModel)]="utilisateur.prenom" type="text" class="form-control" placeholder="Prénom">
       </div>
       <div class="form-group">
-        <label >Téléphone</label>
-        <input [(ngModel)]="utilisateur.telephone" type="text" class="form-control"  placeholder="Téléphone">
+        <label>Téléphone</label>
+        <input [(ngModel)]="utilisateur.telephone" type="text" class="form-control" placeholder="Téléphone">
       </div>
       <div class="form-group">
-        <label >Email</label>
-        <input [(ngModel)]="utilisateur.email" type="email" class="form-control"  placeholder="Email">
+        <label>Email</label>
+        <input [(ngModel)]="utilisateur.email" type="email" class="form-control" placeholder="Email">
       </div>
       <div class="form-group">
-        <label >login</label>
+        <label>login</label>
         <input [(ngModel)]="utilisateur.login" type="email" class="form-control" placeholder="Email">
       </div>
       <!-- <div class="form-group">
@@ -148,4 +157,3 @@
   </div>
 </ng-template>
 <ng-template #deleteUser></ng-template>
-
