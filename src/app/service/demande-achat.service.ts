@@ -2,7 +2,7 @@ import { Adresse } from './Adresse';
 import { DemandeAchat } from './../Model/demande-achat.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {DevisFournisseur} from "../Model/DevisFournisseur";
+import { DevisFournisseur } from "../Model/DevisFournisseur";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,15 @@ export class DemandeAchatService {
   }
 
   /**
+   * This function get all "demandes d'achat" by reference "Acheteur Metier"
+   * @param reference
+   * @returns DemandeAchat[]
+   */
+  public getAllByReferenceAcheteurMetier(reference: string) {
+    return this.httpClient.get<DemandeAchat[]>(Adresse.host + 'demandeachat/allByAcheteurMetier/' + reference);
+  }
+
+  /**
    * Cette fonction permet de créer une demande d'achat
    * @param demandeAchat DemandeAchat
    * @returns DemandeAchat
@@ -40,7 +49,7 @@ export class DemandeAchatService {
     return this.httpClient.post<DemandeAchat>(Adresse.host + 'demandeachat/saveWithLigne', demandeAchat);
   }
   public generenumero(matriculeAcheteurmetier: string) {
-    return this.httpClient.get<DemandeAchat>(Adresse.host + 'demandeachat/generenumero/'+matriculeAcheteurmetier);
+    return this.httpClient.get<DemandeAchat>(Adresse.host + 'demandeachat/generenumero/' + matriculeAcheteurmetier);
   }
 
   /**
@@ -51,8 +60,8 @@ export class DemandeAchatService {
   public getByReference(reference: string) {
     return this.httpClient.get<DemandeAchat>(Adresse.host + 'demandeachat/reference/' + reference);
   }
-  public saveDevisFournisseur(devisfournisseurs:DevisFournisseur[],referencedemandeachat: string) {
-    return this.httpClient.post<DevisFournisseur>(Adresse.host + 'devis/save/' + referencedemandeachat,devisfournisseurs);
+  public saveDevisFournisseur(devisfournisseurs: DevisFournisseur[], referencedemandeachat: string) {
+    return this.httpClient.post<DevisFournisseur>(Adresse.host + 'devis/save/' + referencedemandeachat, devisfournisseurs);
   }
 
   /**

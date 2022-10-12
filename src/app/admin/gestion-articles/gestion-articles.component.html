@@ -5,17 +5,19 @@
         <h4 class="card-title">Liste des articles</h4>
       </div>
       <div class="col-1">
-        <button class="btn btn-inverse-success btn-icon" (click)="getAllArticle()"> <i class="mdi mdi-24px mdi-refresh"></i></button>
+        <button class="btn btn-inverse-success btn-icon" (click)="getAllArticle()"> <i
+            class="mdi mdi-24px mdi-refresh"></i></button>
       </div>
       <div class="col-2">
-        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addArticle)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
+        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addArticle)">Ajouter <i
+            class="mdi mdi-plus btn-icon-append"></i></button>
       </div>
     </div>
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>Code Article</th>
-          <th>Denomination</th>
+          <th>Code article</th>
+          <th>Dénomination</th>
           <th>Caractéristiques </th>
           <th>Fabriquant</th>
           <th>Date de création</th>
@@ -31,8 +33,10 @@
             <td>{{ article.fabriquant }}</td>
             <td>{{ article.date | date: 'dd/MM/yyyy à HH:mm' }}</td>
             <td>
-              <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editArticle, article)"> <i class="mdi mdi-pencil"></i></button>
-              <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deleteArticle, article)"><i class="mdi mdi-delete-forever"></i></button>
+              <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editArticle, article)"> <i
+                  class="mdi mdi-pencil"></i></button>
+              <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deleteArticle, article)"><i
+                  class="mdi mdi-delete-forever"></i></button>
             </td>
           </tr>
         </ng-container>
@@ -89,10 +93,11 @@
     <div class="forms-sample">
       <div class="form-group">
         <label for="exampleInputUsername1">Nom</label>
-        <input [(ngModel)]="article.denomination" type="text" class="form-control" id="exampleInputUsername1" placeholder="">
+        <input [(ngModel)]="article.denomination" type="text" class="form-control" id="exampleInputUsername1"
+          placeholder="">
       </div>
       <div class="form-group">
-        <label >Caractéristiques </label>
+        <label>Caractéristiques </label>
         <input [(ngModel)]="article.caracteristiques" type="text" class="form-control" placeholder=" ">
       </div>
       <div class="form-group">
@@ -112,4 +117,3 @@
   </div>
 </ng-template>
 <ng-template #deleteArticle></ng-template>
-

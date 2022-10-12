@@ -5,28 +5,40 @@
         <h4 class="card-title">Liste des demandes d'achat</h4>
       </div>
       <div class="col-2">
-        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addDemandeAchat)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
+        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(addDemandeAchat)">Ajouter <i
+            class="mdi mdi-plus btn-icon-append"></i></button>
       </div>
     </div>
     <table class="table table-hover">
       <thead>
         <tr>
+          <th>reference</th>
           <th>Date</th>
           <th>Statut</th>
-          <th>Prix estimatif</th>
+          <!-- <th>Prix estimatif</th> -->
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngIf="demandeAchatService.demandeAchats.length != 0; else emptyTable">
           <tr *ngFor="let demandeAchat of demandeAchatService.demandeAchats">
+            <td>{{ demandeAchat.reference }}</td>
             <td>{{ demandeAchat.date| date:'dd/MM/yy à HH:mm' }}</td>
-            <td><strong [class]="demandeAchat.statut=='VALIDE'?'text-success':'text-danger'">{{ demandeAchat.statut }}</strong></td>
-            <td>{{ demandeAchat.prixestimatif }}</td>
+            <td class="text-capitalize"><strong [class]="demandeAchat.statut=='VALIDE'?'text-success':'text-danger'">{{
+                demandeAchat.statut
+                }}</strong></td>
+            <!-- <td>{{ demandeAchat.prixestimatif }}</td> -->
             <td>
-              <button tooltip="Voir les details" class="btn btn-inverse-primary btn-icon" (click)="openModal(detailDemandeAchat, demandeAchat)"> <i class="mdi mdi-eye"></i></button>
-              <button tooltip="Uploader les devis" class="btn btn-inverse-danger btn-icon" (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat, 'ADD')"><i class="mdi mdi-access-point"></i></button>
-              <button *ngIf="loginService.utilisateur.fonction == 'DIRECTEUR ACHAT'" [disabled]="demandeAchat.statut=='VALIDE'" tooltip="Valider la demande d'achat" class="btn btn-inverse-success btn-icon" (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat)"><i class="mdi mdi-check"></i></button>
+              <button tooltip="Voir les details" class="btn btn-inverse-primary btn-icon"
+                (click)="openModal(detailDemandeAchat, demandeAchat)"> <i class="mdi mdi-eye"></i></button>
+              <button tooltip="Uploader les devis" class="btn btn-inverse-danger btn-icon"
+                (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat, 'ADD')"><i
+                  class="mdi mdi-access-point"></i></button>
+              <button *ngIf="loginService.utilisateur.fonction == 'DIRECTEUR ACHAT'"
+                [disabled]="demandeAchat.statut=='VALIDE'" tooltip="Valider la demande d'achat"
+                class="btn btn-inverse-success btn-icon"
+                (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat)"><i
+                  class="mdi mdi-check"></i></button>
             </td>
           </tr>
         </ng-container>
@@ -51,51 +63,56 @@
   <div class="modal-body">
     <div class="forms-sample">
       <div class="form-group">
-        <label >Reference Année budgetaire: {{referencesessionbudgetaire}}  </label>
-        <p >Numéro DA: {{numeroda}}  </p>
+        <label>Reference année budgetaire: {{referencesessionbudgetaire}} </label>
+        <p>Numéro DA: {{numeroda}} </p>
       </div>
       <table class="table table-hover">
         <thead>
           <tr class="text-center">
-            <th>Article</th>
             <th>Qte</th>
-            <th>PU (en FCFA)</th>
-            <th>PT (en FCFA)</th>
+            <th>Article</th>
+            <!-- <th>PU (en FCFA)</th>
+            <th>PT (en FCFA)</th> -->
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let ligneDemandeAchat of formAddDemandeAchat.lignedemandeachats; index as i">
             <td>
-              <select [(ngModel)]="ligneDemandeAchat.article.denomination" class="form-control w-100 rounded-0" >
-                <option *ngFor="let article of articleService.articles" [value]="article.denomination">{{ article.denomination }}</option>
+              <input (keyup)="calculPrix()" [(ngModel)]="ligneDemandeAchat.quantite" type="number"
+                class="form-control rounded-0" placeholder="Quantite">
+            </td>
+            <td>
+              <select [(ngModel)]="ligneDemandeAchat.article.denomination" class="form-control w-100 rounded-0">
+                <option *ngFor="let article of articleService.articles" [value]="article.denomination">{{
+                  article.denomination }}</option>
               </select>
             </td>
-            <td>
-              <input (keyup)="calculPrix()" [(ngModel)]="ligneDemandeAchat.quantite" type="number" class="form-control rounded-0" placeholder="Quantite">
-            </td>
-            <td>
-              <input (keyup)="calculPrix()" [(ngModel)]="ligneDemandeAchat.pu" type="number" class="form-control rounded-0" placeholder="Prix Unitaire">
+            <!-- <td>
+              <input (keyup)="calculPrix()" [(ngModel)]="ligneDemandeAchat.pu" type="number"
+                class="form-control rounded-0" placeholder="Prix Unitaire">
             </td>
             <td>
               {{ ligneDemandeAchat.pt==undefined||ligneDemandeAchat.pt==undefined?0:ligneDemandeAchat.pt }}
-            </td>
+            </td> -->
             <td>
-              <button *ngIf="i != 0" class="btn btn-inverse-danger btn-icon" (click)="onRemoveLigneDemandeAchat(i)"><i class="mdi mdi-delete-forever"></i></button>
+              <button *ngIf="i != 0" class="btn btn-inverse-danger btn-icon" (click)="onRemoveLigneDemandeAchat(i)"><i
+                  class="mdi mdi-delete-forever"></i></button>
             </td>
           </tr>
         </tbody>
       </table>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="exampleInputUsername1">Grand total</label>
-        <input [(ngModel)]="formAddDemandeAchat.prixestimatif" type="text" class="form-control rounded-0" placeholder="Prix estimatif">
-      </div>
+        <input [(ngModel)]="formAddDemandeAchat.prixestimatif" type="text" class="form-control rounded-0"
+          placeholder="Prix estimatif">
+      </div> -->
     </div>
     <button (click)="onAddLigneDemandeAchat()" type="button" class="btn btn-gradient-success me-2 rounded-0">
       Ajouter une ligne
     </button>
     <button (click)="onSaveDemandeAchat()" type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
-      Suivant
+      créer
       <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
     </button>
     <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold">Annuler</button>
@@ -113,7 +130,8 @@
     <div class="forms-sample">
       <div class="form-group">
         <label for="exampleInputUsername1">Prix estimatif</label>
-        <input [(ngModel)]="demandeAchat.prixestimatif" type="text" class="form-control" id="exampleInputUsername1" placeholder="Prix estimatif">
+        <input [(ngModel)]="demandeAchat.prixestimatif" type="text" class="form-control" id="exampleInputUsername1"
+          placeholder="Prix estimatif">
       </div>
       <button (click)="onUpdate()" class="btn btn-gradient-primary me-2 remove-bold">
         Enregistrer
@@ -126,12 +144,14 @@
 <ng-template #devisfournisseur>
   <div class="modal-header">
     <h4 class="modal-title pull-left">DevisFournisser</h4>
-    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRefDevisFournisseur?.hide()">
+    <button type="button" class="btn-close close pull-right" aria-label="Close"
+      (click)="modalRefDevisFournisseur?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <app-devisfournisseur [modalRef]="modalRef" [referencedemandeachat]="demandeAchat.reference" [typeOpenModalDevis]="typeOpenDevisModal"></app-devisfournisseur>
+    <app-devisfournisseur [modalRef]="modalRef" [referencedemandeachat]="demandeAchat.reference"
+      [typeOpenModalDevis]="typeOpenDevisModal"></app-devisfournisseur>
   </div>
 </ng-template>
 
@@ -155,28 +175,27 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>Article</th>
           <th>Qte</th>
-          <th>PU (en FCFA)</th>
-          <th>PT (en FCFA)</th>
+          <th>Article</th>
+          <!-- <th>PU (en FCFA)</th>
+          <th>PT (en FCFA)</th> -->
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let ligneDemandeAchat of demandeAchat.lignedemandeachats">
-          <td>{{ ligneDemandeAchat.article.denomination }}</td>
           <td>{{ ligneDemandeAchat.quantite }}</td>
-          <td>{{ ligneDemandeAchat.pu }}</td>
-          <td>{{ ligneDemandeAchat.pt }}</td>
+          <td>{{ ligneDemandeAchat.article.denomination }}</td>
+          <!-- <td>{{ ligneDemandeAchat.pu }}</td>
+          <td>{{ ligneDemandeAchat.pt }}</td> -->
         </tr>
       </tbody>
-      <tfoot>
+      <!-- <tfoot>
         <tr>
           <td colspan="3">Prix total</td>
           <td>{{ demandeAchat.prixestimatif }}</td>
         </tr>
-      </tfoot>
+      </tfoot> -->
     </table>
   </div>
 </ng-template>
 <ng-template #deleteDemandeAchat></ng-template>
-

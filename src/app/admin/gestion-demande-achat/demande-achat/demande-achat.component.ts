@@ -21,7 +21,7 @@ export class DemandeAchatComponent implements OnInit {
   public demandeAchat: DemandeAchat = new DemandeAchat();
   public articleName: string = "";
   public typeOpenDevisModal: 'SHOW' | 'ADD' = 'SHOW';
-  public numeroda!:string;
+  public numeroda!: string;
   public referencesessionbudgetaire!: string;
   constructor(
     public demandeAchatService: DemandeAchatService,
@@ -43,14 +43,25 @@ export class DemandeAchatComponent implements OnInit {
   }
 
   public getAllDemandeAchat() {
-    this.demandeAchatService.getAll().subscribe(
-      data => {
-        this.demandeAchatService.demandeAchats = data;
-      }, error => {
-        console.log(error);
-        this.loginService.toastr.error('Erreur de chargement des demande d\'achat');
-      }
-    )
+    if (this.loginService.utilisateur.fonction == "ACHETEUR METIER") {
+      this.demandeAchatService.getAllByReferenceAcheteurMetier(this.loginService.utilisateur.reference).subscribe(
+        data => {
+          this.demandeAchatService.demandeAchats = data;
+        }, error => {
+          console.log(error);
+          this.loginService.toastr.error('Erreur de chargement des demande d\'achat');
+        }
+      )
+    } else if (this.loginService.utilisateur.fonction == "DIRECTEUR ACHAT") {
+      this.demandeAchatService.getAll().subscribe(
+        data => {
+          this.demandeAchatService.demandeAchats = data;
+        }, error => {
+          console.log(error);
+          this.loginService.toastr.error('Erreur de chargement des demande d\'achat');
+        }
+      )
+    }
   }
 
   public getAllArticle() {
@@ -68,22 +79,22 @@ export class DemandeAchatComponent implements OnInit {
     if (demandeAchat) {
       console.log(demandeAchat)
       this.demandeAchat = demandeAchat;
-      this.modalRef = this.modalSerivce.show(template,{class:"modal-lg"});
+      this.modalRef = this.modalSerivce.show(template, { class: "modal-lg" });
     } else {
-      if (this.loginService.utilisateur.fonction=="ACHETEUR METIER"){
+      if (this.loginService.utilisateur.fonction == "ACHETEUR METIER") {
 
         this.initForm();
         this.demandeAchatService.generenumero(this.loginService.utilisateur.matricule).subscribe(
-          data=>{
-            this.numeroda=data.numeroda;
-            this.referencesessionbudgetaire=data.referencesessionbudgetaire;
-            this.modalRef = this.modalSerivce.show(template,{class:"modal-lg"});
-          },error => {
+          data => {
+            this.numeroda = data.numeroda;
+            this.referencesessionbudgetaire = data.referencesessionbudgetaire;
+            this.modalRef = this.modalSerivce.show(template, { class: "modal-lg" });
+          }, error => {
             console.log(error)
             this.loginService.toastr.error(error.error?.trace);
           }
         )
-      }else {
+      } else {
         this.loginService.toastr.error('Seule un ACHETEUR METIER a droit à cette action ');
       }
     }
@@ -95,7 +106,7 @@ export class DemandeAchatComponent implements OnInit {
       this.demandeAchat = demandeAchat;
     }
     this.typeOpenDevisModal = typeOpen;
-    this.modalRefDevisFournisseur = this.modalSerivce.show(template,{class:"modal-lg"});
+    this.modalRefDevisFournisseur = this.modalSerivce.show(template, { class: "modal-lg" });
   }
 
   onAddLigneDemandeAchat() {
@@ -117,11 +128,11 @@ export class DemandeAchatComponent implements OnInit {
     }
     this.formAddDemandeAchat.lignedemandeachats.forEach(element => {
       let article = this.articleService.articles.find(x => x.denomination == element.article.denomination);
-      element.article = article? article : element.article;
+      element.article = article ? article : element.article;
       element.pt = element.pu * element.quantite;
     });
     this.formAddDemandeAchat.matriculeAcheteurmetier = this.loginService.utilisateur.matricule;
-    this.formAddDemandeAchat.numeroda=this.numeroda;
+    this.formAddDemandeAchat.numeroda = this.numeroda;
     this.demandeAchatService.saveWithLigne(this.formAddDemandeAchat).subscribe(
       data => {
         this.isLoading = false;
@@ -149,7 +160,7 @@ export class DemandeAchatComponent implements OnInit {
         } else {
           this.loginService.toastr.error('Erreur de validation de la demande d\'achat');
         }
-        demandeAchat.statut = data?'VALIDE':demandeAchat.statut;
+        demandeAchat.statut = data ? 'VALIDE' : demandeAchat.statut;
       },
       error => {
         console.log(error);

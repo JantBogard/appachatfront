@@ -5,33 +5,41 @@
         <h4 class="card-title">Période budgetaire</h4>
       </div>
       <div class="col-2">
-        <button class="btn btn-gradient-primary btn-icon-text rounded-0" (click)="openModaladd(addPeriodeBudgetaireadd)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
+        <button class="btn btn-gradient-primary btn-icon-text rounded-0"
+          (click)="openModaladd(addPeriodeBudgetaireadd)">Ajouter <i class="mdi mdi-plus btn-icon-append"></i></button>
       </div>
     </div>
     <table class="table table-hover">
       <thead>
-      <tr>
-        <th>Date</th>
-        <th>Année Budgetaire</th>
-        <th>statut</th>
-        <th>montant</th>
-        <th>Action</th>
-      </tr>
+        <tr>
+          <th>Date</th>
+          <th>Année budgetaire</th>
+          <th>Statut</th>
+          <th>Montant</th>
+          <th>Action</th>
+        </tr>
       </thead>
       <tbody>
-      <ng-container *ngIf="periodeBudgetaireService.periodeBudgetaires.length != 0; else emptyTable">
-        <tr *ngFor="let periodeBudgetaire of periodeBudgetaireService.periodeBudgetaires">
-          <td>{{ periodeBudgetaire.date | date:'dd/MM/yyyy' }}</td>
-          <td>{{ periodeBudgetaire.anneebugetaire }}</td>
-          <td><strong [class]="periodeBudgetaire.statut=='VALIDE'?'text-success':'text-danger'">{{ periodeBudgetaire.statut }}</strong></td>
-          <td>{{ periodeBudgetaire.montant }}</td>
-          <td>
-            <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editPeriodeBudgetaire, periodeBudgetaire)"> <i class="mdi mdi-pencil"></i></button>
-            <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deletePeriodeBudgetaire, periodeBudgetaire)"><i class="mdi mdi-delete-forever"></i></button>
-            <button class="btn btn-inverse-success btn-icon" (click)="openModaladdExcel(addlignebudgetaire, periodeBudgetaire)"><i class="mdi mdi-file-excel"></i></button>
-          </td>
-        </tr>
-      </ng-container>
+        <ng-container *ngIf="periodeBudgetaireService.periodeBudgetaires.length != 0; else emptyTable">
+          <tr *ngFor="let periodeBudgetaire of periodeBudgetaireService.periodeBudgetaires">
+            <td>{{ periodeBudgetaire.date | date:'dd/MM/yyyy' }}</td>
+            <td>{{ periodeBudgetaire.anneebugetaire }}</td>
+            <td><strong class="text-capitalize"
+                [class]="periodeBudgetaire.statut=='VALIDE'?'text-success':'text-danger'">{{
+                periodeBudgetaire.statut }}</strong></td>
+            <td>{{ periodeBudgetaire.montant }}</td>
+            <td>
+              <button class="btn btn-inverse-warning btn-icon"
+                (click)="openModal(editPeriodeBudgetaire, periodeBudgetaire)"> <i class="mdi mdi-pencil"></i></button>
+              <button class="btn btn-inverse-danger btn-icon"
+                (click)="openModal(deletePeriodeBudgetaire, periodeBudgetaire)"><i
+                  class="mdi mdi-delete-forever"></i></button>
+              <button class="btn btn-inverse-success btn-icon"
+                (click)="openModaladdExcel(addlignebudgetaire, periodeBudgetaire)"><i
+                  class="mdi mdi-file-excel"></i></button>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>
@@ -54,17 +62,20 @@
     <form class="forms-sample" [formGroup]="formAddPeriodeBudgetaire" (ngSubmit)="onAddPeriodeBudgetaire()">
       <div class="form-group">
         <label for="exampleInputEmail1">Année budgétaire</label>
-        <input formControlName="anneebugetaire" type="text" class="form-control rounded-0" id="exampleInputEmail1" placeholder="Année Budgetaire">
+        <input formControlName="anneebugetaire" type="text" class="form-control rounded-0" id="exampleInputEmail1"
+          placeholder="Année Budgetaire">
       </div>
       <div class="form-group">
         <label>Montant du budget (en FCFA)</label>
-        <input formControlName="Montant du budget (en FCFA)" type="text" class="form-control rounded-0" placeholder="Montant">
+        <input formControlName="Montant du budget (en FCFA)" type="text" class="form-control rounded-0"
+          placeholder="Montant">
       </div>
       <button type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
         Enregistrer
         <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </button>
-      <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold rounded-0">Annuler</button>
+      <button type="reset" (click)="modalRef?.hide()"
+        class="btn btn-gradient-light remove-bold rounded-0">Annuler</button>
     </form>
   </div>
 </ng-template>
@@ -80,36 +91,46 @@
   <div class="modal-body">
     <div class="row" *ngIf="lignePeriodebudgetaires.length== 0">
       <div class="col-md-3"></div>
-      <div class="col-md-3 text-center"><button class="btn btn-success rounded-0" [disabled]="isLoading==true">Via Excel<i class="mdi mdi-file-excel"></i>  <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span></button> </div>
-      <div class="col-md-3 text-center"><button class="btn btn-warning rounded-0" [disabled]="isLoading==true" (click)="saveAllLigneBudgetaire()">Via system<i class="mdi mdi-backup-restore"></i>  <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span></button></div>
+      <div class="col-md-3 text-center"><button class="btn btn-success rounded-0" [disabled]="isLoading==true">Via
+          excel<i class="mdi mdi-file-excel"></i> <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm"
+            role="status" aria-hidden="true"></span></button> </div>
+      <div class="col-md-3 text-center"><button class="btn btn-warning rounded-0" [disabled]="isLoading==true"
+          (click)="saveAllLigneBudgetaire()">Via system<i class="mdi mdi-backup-restore"></i> <span *ngIf="isLoading"
+            class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span></button></div>
       <div class="col-md-3"></div>
     </div>
 
     <table class="table table-hover" *ngIf="lignePeriodebudgetaires.length != 0; else emptyTable">
       <thead>
-      <tr>
-        <th>Denomination</th>
-        <th>Montant</th>
-        <th>Statut</th>
-        <th>Action</th>
-      </tr>
+        <tr>
+          <th>Denomination</th>
+          <th>Montant</th>
+          <th>Statut</th>
+          <th>Action</th>
+        </tr>
       </thead>
       <tbody>
-      <ng-container *ngIf="lignePeriodebudgetaires.length != 0; else emptyTable">
-        <tr *ngFor="let p of lignePeriodebudgetaires">
-          <td>{{ p.denomination}}</td>
-          <td> <input [class]="p.statut=='VALIDE'?'border-0':''" [disabled]="p.statut=='VALIDE'" [(ngModel)]="p.montantinitial"> </td>
-          <td [class]="p.statut=='VALIDE'?'text-success':'text-danger'"><strong>{{ p.statut }}</strong> </td>
-          <td><button [disabled]="p.statut=='VALIDE'" (click)="updateligne(p)" [class]="p.statut=='VALIDE'? 'btn btn-inverse-success':'btn btn-inverse-danger'"><i [class]="p.montantinitial? 'text-success mdi mdi-check': 'text-danger mdi mdi-minus-circle'"></i></button></td>
-        </tr>
-      </ng-container>
+        <ng-container *ngIf="lignePeriodebudgetaires.length != 0; else emptyTable">
+          <tr *ngFor="let p of lignePeriodebudgetaires">
+            <td>{{ p.denomination}}</td>
+            <td> <input [class]="p.statut=='VALIDE'?'border-0':''" [disabled]="p.statut=='VALIDE'"
+                [(ngModel)]="p.montantinitial"> </td>
+            <td [class]="p.statut=='VALIDE'?'text-success':'text-danger'"><strong class="text-capitalize">{{ p.statut
+                }}</strong> </td>
+            <td><button [disabled]="p.statut=='VALIDE'" (click)="updateligne(p)"
+                [class]="p.statut=='VALIDE'? 'btn btn-inverse-success':'btn btn-inverse-danger'"><i
+                  [class]="p.montantinitial? 'text-success mdi mdi-check': 'text-danger mdi mdi-minus-circle'"></i></button>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
     <div class="row text-center">
       <div class="col-4"></div>
       <div class="col-3"></div>
       <div class="col">
-        <button *ngIf="!periodeBudgetaire.active" (click)="valide()" [disabled]="isLoading" class="btn btn-success rounded-0 small" >VALIDER LE BUDGET
+        <button *ngIf="!periodeBudgetaire.active" (click)="valide()" [disabled]="isLoading"
+          class="btn btn-success rounded-0 small">Valider le Budget
           <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
         </button>
       </div>
@@ -128,15 +149,16 @@
     <div class="forms-sample">
       <div class="form-group">
         <label>Année budgetaire</label>
-        <input disabled [(ngModel)]="periodeBudgetaire.anneebugetaire" type="text" class="form-control"  placeholder="Année Budgetaire">
+        <input disabled [(ngModel)]="periodeBudgetaire.anneebugetaire" type="text" class="form-control"
+          placeholder="Année Budgetaire">
       </div>
       <div class="form-group">
         <label>Statut</label>
         <select disabled [(ngModel)]="periodeBudgetaire.statut" class="form-control">
           <option></option>
-          <option value="NON VALIDE">NON VALIDE</option>
-          <option value="VALIDE">VALIDE</option>
-          <option value="CLOS">CLOS</option>
+          <option value="NON VALIDE">Non Valide</option>
+          <option value="VALIDE">Valide</option>
+          <option value="CLOS">Clos</option>
         </select>
       </div>
       <div class="form-group">
@@ -151,6 +173,6 @@
     </div>
   </div>
 </ng-template>
-<ng-template #deletePeriodeBudgetaire><p>Comming soon ...</p></ng-template>
-
-
+<ng-template #deletePeriodeBudgetaire>
+  <p>Comming soon ...</p>
+</ng-template>
