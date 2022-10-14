@@ -17,6 +17,7 @@
           <th>Statut</th>
           <th>Montant</th>
           <th>Action</th>
+          <th>Validé</th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +39,9 @@
                 (click)="openModaladdExcel(addlignebudgetaire, periodeBudgetaire)"><i
                   class="mdi mdi-file-excel"></i></button>
             </td>
+            <td>
+              <button class="btn btn-inverse-warning btn-icon"
+                (click)="validAnneBudgetary()"> <i class="mdi mdi-power-settings"></i></button>
           </tr>
         </ng-container>
       </tbody>
@@ -113,13 +117,18 @@
         <ng-container *ngIf="lignePeriodebudgetaires.length != 0; else emptyTable">
           <tr *ngFor="let p of lignePeriodebudgetaires">
             <td>{{ p.denomination}}</td>
-            <td> <input [class]="p.statut=='VALIDE'?'border-0':''" [disabled]="p.statut=='VALIDE'"
+            <td> <input [class]="p.statut=='Valide'?'border-0':''" [disabled]="p.statut=='Valide'"
                 [(ngModel)]="p.montantinitial"> </td>
-            <td [class]="p.statut=='VALIDE'?'text-success':'text-danger'"><strong class="text-capitalize">{{ p.statut
+            <td [class]="p.statut=='Valide'?'text-success':'text-danger'"><strong class="text-capitalize">{{ p.statut
                 }}</strong> </td>
-            <td><button [disabled]="p.statut=='VALIDE'" (click)="updateligne(p)"
-                [class]="p.statut=='VALIDE'? 'btn btn-inverse-success':'btn btn-inverse-danger'"><i
+            <td>
+              <button [disabled]="p.statut=='Valide'" (click)="updateligne(p)"
+                [class]="p.statut=='Valide'? 'btn btn-inverse-success':'btn btn-inverse-danger'"><i
                   [class]="p.montantinitial? 'text-success mdi mdi-check': 'text-danger mdi mdi-minus-circle'"></i></button>
+
+              <button [disabled]="p.statut!='Valide'" (click)="changeLigneBudg(p)"
+                [class]="p.statut=='Valide'? 'btn btn-inverse-success':'btn btn-inverse-danger'"><i
+                  class='text-warning mdi mdi-border-color'></i></button>
             </td>
           </tr>
         </ng-container>

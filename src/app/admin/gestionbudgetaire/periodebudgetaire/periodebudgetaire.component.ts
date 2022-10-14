@@ -116,13 +116,18 @@ export class PeriodebudgetaireComponent implements OnInit {
     console.log('update coming soon ...');
   }
 
+  changeLigneBudg(p:LigneBudgetaire){
+    const index =this.lignePeriodebudgetaires.findIndex(i=>i.reference==p.reference);
+    this.lignePeriodebudgetaires[index].statut="InValide";
+  }
+
   updateligne(p:LigneBudgetaire) {
     if (p.montantinitial>0){
       this.periodeBudgetaireService.updateLigneBudgetaire(p).subscribe(
         data=>{
           if (data){
             const index =this.lignePeriodebudgetaires.findIndex(i=>i.reference==p.reference);
-            this.lignePeriodebudgetaires[index].statut="VALIDE";
+            this.lignePeriodebudgetaires[index].statut="Valide";
           }
         }
       )
@@ -146,6 +151,10 @@ export class PeriodebudgetaireComponent implements OnInit {
         this.isLoading=false;
       }
     )
+
+  }
+
+  validAnneBudgetary() {
 
   }
 }

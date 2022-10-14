@@ -4,8 +4,9 @@ import { DemandeAchat } from './../../../Model/demande-achat.model';
 import { LoginService } from './../../../service/LoginService';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DemandeAchatService } from './../../../service/demande-achat.service';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { Article } from 'src/app/Model/article.model';
+import {DevisFournisseurService} from "../../../service/devis-fournisseur.service";
 
 @Component({
   selector: 'app-demande-achat',
@@ -17,17 +18,22 @@ export class DemandeAchatComponent implements OnInit {
   public isLoading: boolean = false;
   public modalRef!: BsModalRef;
   public modalRefDevisFournisseur!: BsModalRef;
+  public modaldeviFournisseur!: BsModalRef;
   public formAddDemandeAchat!: DemandeAchat;
   public demandeAchat: DemandeAchat = new DemandeAchat();
   public articleName: string = "";
-  public typeOpenDevisModal: 'SHOW' | 'ADD' = 'SHOW';
+  public typeOpenDevisModal: 'SHOW' | 'ADD'| 'DETAILS' = 'SHOW';
   public numeroda!: string;
+
   public referencesessionbudgetaire!: string;
+   isShowDetaits!: boolean;
+
   constructor(
     public demandeAchatService: DemandeAchatService,
     public articleService: ArticleService,
     public loginService: LoginService,
-    private modalSerivce: BsModalService
+    private modalSerivce: BsModalService,
+    public devisFournisseurService: DevisFournisseurService,
   ) { }
 
   ngOnInit(): void {
@@ -101,7 +107,7 @@ export class DemandeAchatComponent implements OnInit {
 
 
   }
-  public openModalDevisFournisseur(template: TemplateRef<any>, demandeAchat?: DemandeAchat, typeOpen: 'SHOW' | 'ADD' = 'SHOW') {
+  public openModalDevisFournisseur(template: TemplateRef<any>, demandeAchat?: DemandeAchat, typeOpen: 'SHOW' | 'ADD'| 'DETAILS' = 'SHOW') {
     if (demandeAchat) {
       this.demandeAchat = demandeAchat;
     }
@@ -181,6 +187,18 @@ export class DemandeAchatComponent implements OnInit {
       this.formAddDemandeAchat.prixestimatif = total;
     }
 
+  }
+
+  closeModal(event: boolean) {
+    this.modalRefDevisFournisseur.hide();
+  }
+
+
+
+
+
+  showDetaisFournisseur() {
+      this.typeOpenDevisModal='DETAILS'
   }
 
 }
