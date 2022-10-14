@@ -22,11 +22,13 @@
         <ng-container *ngIf="bonCommandeService.bonCommandes.length != 0; else emptyTable">
           <tr *ngFor="let bonCommande of bonCommandeService.bonCommandes">
             <td>{{ bonCommande.montant }}</td>
-            <td class="text-capitalize">{{ bonCommande.statut }}</td>
+            <td class="text-small text-capitalize">{{ bonCommande.statut }}</td>
             <td>{{ bonCommande.date }}</td>
             <td>
-              <button class="btn btn-inverse-warning btn-icon"> <i class="mdi mdi-pencil"></i></button>
-              <button class="btn btn-inverse-danger btn-icon"><i class="mdi mdi-delete-forever"></i></button>
+              <button class="btn btn-inverse-warning btn-icon" data-toggle="tooltip" data-placement="bottom"
+                title="Modifier le bon de commande"> <i class="mdi mdi-pencil"></i></button>
+              <button class="btn btn-inverse-danger btn-icon" data-toggle="tooltip" data-placement="bottom"
+                title="Supprimer le bon de commande"><i class="mdi mdi-delete-forever"></i></button>
             </td>
           </tr>
         </ng-container>

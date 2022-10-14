@@ -25,19 +25,21 @@
           <tr *ngFor="let demandeAchat of demandeAchatService.demandeAchats">
             <td>{{ demandeAchat.reference }}</td>
             <td>{{ demandeAchat.date| date:'dd/MM/yy à HH:mm' }}</td>
-            <td class="text-capitalize"><strong [class]="demandeAchat.statut=='VALIDE'?'text-success':'text-danger'">{{
+            <td><strong [class]="demandeAchat.statut=='VALIDE'?'text-success':'text-danger'">{{
                 demandeAchat.statut
                 }}</strong></td>
             <!-- <td>{{ demandeAchat.prixestimatif }}</td> -->
             <td>
-              <button tooltip="Voir les details" class="btn btn-inverse-primary btn-icon"
-                (click)="openModal(detailDemandeAchat, demandeAchat)"> <i class="mdi mdi-eye"></i></button>
-              <button tooltip="Uploader les devis" class="btn btn-inverse-danger btn-icon"
+              <button data-toggle="tooltip" data-placement="bottom" title="Voir les details"
+                class="btn btn-inverse-primary btn-icon" (click)="openModal(detailDemandeAchat, demandeAchat)"> <i
+                  class="mdi mdi-eye"></i></button>
+              <button data-toggle="tooltip" data-placement="bottom" title="Uploader les devis"
+                class="btn btn-inverse-danger btn-icon"
                 (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat, 'ADD')"><i
                   class="mdi mdi-access-point"></i></button>
-              <button *ngIf="loginService.utilisateur.fonction == 'DIRECTEUR ACHAT'"
-                [disabled]="demandeAchat.statut=='VALIDE'" tooltip="Valider la demande d'achat"
-                class="btn btn-inverse-success btn-icon"
+              <button data-toggle="tooltip" data-placement="bottom" title="Valider la demande d'achat"
+                *ngIf="loginService.utilisateur.fonction == 'DIRECTEUR ACHAT'"
+                [disabled]="demandeAchat.statut=='VALIDE'" class="btn btn-inverse-success btn-icon"
                 (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat)"><i
                   class="mdi mdi-check"></i></button>
             </td>

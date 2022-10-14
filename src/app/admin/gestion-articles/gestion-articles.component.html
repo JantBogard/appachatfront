@@ -33,9 +33,11 @@
             <td>{{ article.fabriquant }}</td>
             <td>{{ article.date | date: 'dd/MM/yyyy à HH:mm' }}</td>
             <td>
-              <button class="btn btn-inverse-warning btn-icon" (click)="openModal(editArticle, article)"> <i
+              <button class="btn btn-inverse-warning btn-icon" data-toggle="tooltip" data-placement="bottom"
+                title="Modifier l'artlcle {{ article.denomination }}" (click)="openModal(editArticle, article)"> <i
                   class="mdi mdi-pencil"></i></button>
-              <button class="btn btn-inverse-danger btn-icon" (click)="openModal(deleteArticle, article)"><i
+              <button class="btn btn-inverse-danger btn-icon" data-toggle="tooltip" data-placement="bottom"
+                title="Supprimer l'article {{ article.denomination }}" (click)="openModal(deleteArticle, article)"><i
                   class="mdi mdi-delete-forever"></i></button>
             </td>
           </tr>
