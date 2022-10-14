@@ -41,6 +41,9 @@ export class PeriodeBudgetaireService {
   validerBudget(referencebudget: string) {
     return this.httpClient.get<PeriodeBudgetaire>(Adresse.host + 'budget/valider/'+referencebudget);
   }
+  updateBudget(periodeBudgetaire: PeriodeBudgetaire) {
+    return this.httpClient.put<PeriodeBudgetaire>(Adresse.host + 'budget/update/status',periodeBudgetaire);
+  }
 
   findByActiveIsTrueLigneBudgetaire() {
     return this.httpClient.get<LigneBudgetaire[]>(Adresse.host + 'lignebudgetaire/allactive/');

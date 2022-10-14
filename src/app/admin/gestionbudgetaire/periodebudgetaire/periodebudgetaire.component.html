@@ -40,8 +40,12 @@
                   class="mdi mdi-file-excel"></i></button>
             </td>
             <td>
-              <button class="btn btn-inverse-warning btn-icon"
-                (click)="validAnneBudgetary()"> <i class="mdi mdi-power-settings"></i></button>
+              <select class="btn btn-inverse-warning btn-icon" (change)="validAnneBudgetary($event,periodeBudgetaire)">
+                <option class="mdi mdi-power-settings"></option>
+                <option class="mdi mdi-power-settings">Valide</option>
+                <option class="mdi mdi-power-settings">Clos</option>
+                <option class="mdi mdi-power-settings">Non_valide</option>
+              </select>
           </tr>
         </ng-container>
       </tbody>
