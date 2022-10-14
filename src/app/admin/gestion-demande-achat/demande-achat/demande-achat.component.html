@@ -17,6 +17,7 @@
           <th>Statut</th>
           <!-- <th>Prix estimatif</th> -->
           <th>Action</th>
+          <th>Details devis</th>
         </tr>
       </thead>
       <tbody>
@@ -41,6 +42,10 @@
                 [disabled]="demandeAchat.statut=='VALIDE'" class="btn btn-inverse-success btn-icon"
                 (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat)"><i
                   class="mdi mdi-check"></i></button>
+            </td>
+            <td>
+              <button tooltip="Voir les details" class="btn btn-inverse-primary btn-icon"
+                (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat, 'DETAILS')"> <i class="mdi mdi-eye"></i></button>
             </td>
           </tr>
         </ng-container>
@@ -152,7 +157,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-devisfournisseur [modalRef]="modalRef" [referencedemandeachat]="demandeAchat.reference"
+    <app-devisfournisseur (closeModalEmintter)="closeModal($event)" [modalRef]="modalRef" [referencedemandeachat]="demandeAchat.reference"
       [typeOpenModalDevis]="typeOpenDevisModal"></app-devisfournisseur>
   </div>
 </ng-template>
@@ -200,4 +205,5 @@
     </table>
   </div>
 </ng-template>
-<ng-template #deleteDemandeAchat></ng-template>
+
+

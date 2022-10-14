@@ -60,6 +60,9 @@ export class DemandeAchatService {
   public getByReference(reference: string) {
     return this.httpClient.get<DemandeAchat>(Adresse.host + 'demandeachat/reference/' + reference);
   }
+  public getDevisValideByReferenceDA(reference: string) {
+    return this.httpClient.get<DemandeAchat>(Adresse.host + 'demandeachat/reference/' + reference);
+  }
   public saveDevisFournisseur(devisfournisseurs: DevisFournisseur[], referencedemandeachat: string) {
     return this.httpClient.post<DevisFournisseur>(Adresse.host + 'devis/save/' + referencedemandeachat, devisfournisseurs);
   }
