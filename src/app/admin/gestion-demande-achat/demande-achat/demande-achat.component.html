@@ -15,7 +15,6 @@
           <th>reference</th>
           <th>Date</th>
           <th>Statut</th>
-          <!-- <th>Prix estimatif</th> -->
           <th>Action</th>
           <th>Associer les devis</th>
           <th>Details devis</th>
@@ -27,13 +26,12 @@
           <tr *ngFor="let demandeAchat of demandeAchatService.demandeAchats">
             <td>{{ demandeAchat.reference }}</td>
             <td>{{ demandeAchat.date| date:'dd/MM/yy à HH:mm' }}</td>
-            <td><strong [class]="demandeAchat.statut=='VALIDE'?'text-success':'text-danger'">{{
-                demandeAchat.statut
-                }}</strong></td>
-            <!-- <td>{{ demandeAchat.prixestimatif }}</td> -->
+            <td><strong
+                [class]="demandeAchat.statut=='VALIDE'?'text-success':'text-danger'">{{demandeAchat.statut}}</strong>
+            </td>
             <td>
               <button data-toggle="tooltip" data-placement="bottom" title="Voir les details"
-                class="btn btn-inverse-primary btn-icon" (click)="openModal(detailDemandeAchat, demandeAchat)"> <i
+                class="btn btn-inverse-primary btn-icon" (click)="openModal(detailDemandeAchat, demandeAchat)"><i
                   class="mdi mdi-eye"></i></button>
               <button data-toggle="tooltip" data-placement="bottom" title="Valider la demande d'achat"
                 *ngIf="loginService.utilisateur.fonction == 'DIRECTEUR ACHAT'"
@@ -49,12 +47,13 @@
             </td>
             <td>
               <button tooltip="Voir les details" class="btn btn-inverse-primary btn-icon"
-                (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat, 'DETAILS')"> <i
+                (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat, 'DETAILS')"><i
                   class="mdi mdi-eye"></i></button>
             </td>
             <td>
               <button tooltip="Voir les details" class="btn btn-inverse-primary btn-icon"
-                (click)="openModaSoumettreDemandeAchat(soumettreDemandeAchat, demandeAchat)">Soumettre</button>
+                (click)="openModaSoumettreDemandeAchat(soumettreDemandeAchat, demandeAchat)">Soumettre
+              </button>
             </td>
           </tr>
         </ng-container>
@@ -87,8 +86,6 @@
           <tr class="text-center">
             <th>Qte</th>
             <th>Article</th>
-            <!-- <th>PU (en FCFA)</th>
-            <th>PT (en FCFA)</th> -->
             <th>Action</th>
           </tr>
         </thead>
@@ -104,13 +101,6 @@
                   article.denomination }}</option>
               </select>
             </td>
-            <!-- <td>
-              <input (keyup)="calculPrix()" [(ngModel)]="ligneDemandeAchat.pu" type="number"
-                class="form-control rounded-0" placeholder="Prix Unitaire">
-            </td>
-            <td>
-              {{ ligneDemandeAchat.pt==undefined||ligneDemandeAchat.pt==undefined?0:ligneDemandeAchat.pt }}
-            </td> -->
             <td>
               <button *ngIf="i != 0" class="btn btn-inverse-danger btn-icon" (click)="onRemoveLigneDemandeAchat(i)"><i
                   class="mdi mdi-delete-forever"></i></button>
@@ -144,7 +134,7 @@
         <label>Type d'action</label>
         <select [(ngModel)]="demandeAchat.statut" class="form-control">
           <option [value]="'En_attente_de_validation'">En attente de validation</option>
-          <option [value]="'Rejeter_a_completer'">Rejeter a completer</option>
+          <option [value]="'Rejeter_a_completer'">Rejeter à completer</option>
           <option [value]="'Rejeter_definitivement'">Rejeter definitivement</option>
           <option [value]="'Valide'">Valide</option>
           <option [value]="'Cloture'">Cloture</option>
@@ -161,16 +151,15 @@
         <label>Commentaire</label>
         <textarea [(ngModel)]="demandeAchat.commentaire" class="form-control"></textarea>
       </div>
-
     </div>
     <button (click)="updateStatutDa(demandeAchat)" class="btn btn-gradient-primary me-2 remove-bold">
       Enregistrer
       <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
     </button>
-
-
   </div>
 </ng-template>
+
+
 <ng-template #devisfournisseur>
   <div class="modal-header">
     <h4 class="modal-title pull-left">DevisFournisser</h4>
