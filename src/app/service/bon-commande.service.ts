@@ -22,4 +22,8 @@ export class BonCommandeService {
   public getAll() {
     return this.httpClient.get<BonCommande[]>(Adresse.host + 'bondecommande/allactive');
   }
+
+  public generateBonCommande(bonCommande: BonCommande) {
+    return this.httpClient.post<BonCommande>(Adresse.host + 'bondecommande/save', bonCommande);
+  }
 }

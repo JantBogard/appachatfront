@@ -8,6 +8,10 @@
         <button class="btn btn-inverse-success btn-icon" (click)="getAllBonCommande()"> <i
             class="mdi mdi-refresh"></i></button>
       </div>
+      <div class="col-2">
+        <button class="btn btn-gradient-primary btn-icon-text" (click)="openModal(generateBc)">Ajouter <i
+            class="mdi mdi-plus btn-icon-append"></i></button>
+      </div>
     </div>
     <table class="table table-hover">
       <thead>
@@ -41,4 +45,28 @@
   <tr>
     <td class="text-center" colspan="6">Aucun bon de commande enregistrer 😥!</td>
   </tr>
+</ng-template>
+
+<ng-template #generateBc>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Générer un bon de commande</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Demandes d'achat</label>
+      <select [(ngModel)]="formBonCommande.demandeachat.reference">
+        <option *ngFor="let demandeAchat of demandeAchatService.demandeAchats" [value]="demandeAchat.reference">{{
+          demandeAchat.reference }}</option>
+      </select>
+    </div>
+
+    <button (click)="generateBonCommande()" type="button" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
+      Enregistrer
+      <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+    </button>
+    <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold">Annuler</button>
+  </div>
 </ng-template>

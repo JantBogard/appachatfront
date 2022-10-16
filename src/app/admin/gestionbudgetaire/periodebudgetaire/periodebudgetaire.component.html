@@ -31,12 +31,15 @@
                 periodeBudgetaire.statut }}</strong></td>
             <td>{{ periodeBudgetaire.montant }}</td>
             <td>
-              <button class="btn btn-inverse-warning btn-icon"
+              <button class="btn btn-inverse-warning btn-icon" data-toggle="tooltip" data-placement="bottom"
+                title="Modifier la période budgetaire {{ periodeBudgetaire.reference}}"
                 (click)="openModal(editPeriodeBudgetaire, periodeBudgetaire)"> <i class="mdi mdi-pencil"></i></button>
-              <button class="btn btn-inverse-danger btn-icon"
+              <button class="btn btn-inverse-danger btn-icon" data-toggle="tooltip" data-placement="bottom"
+                title="Supprimer la période budgetaire {{ periodeBudgetaire.reference}}"
                 (click)="openModal(deletePeriodeBudgetaire, periodeBudgetaire)"><i
                   class="mdi mdi-delete-forever"></i></button>
-              <button class="btn btn-inverse-success btn-icon"
+              <button class="btn btn-inverse-success btn-icon" data-toggle="tooltip" data-placement="bottom"
+                title="Ajouter les ligne budgetaire"
                 (click)="openModaladdExcel(addlignebudgetaire, periodeBudgetaire)"><i
                   class="mdi mdi-file-excel"></i></button>
             </td>
@@ -76,12 +79,7 @@
       </div>
       <div class="form-group">
         <label>Montant du budget (en FCFA)</label>
-<<<<<<< HEAD
         <input formControlName="montant" type="text" class="form-control rounded-0" placeholder="Montant">
-=======
-        <input formControlName="montant" type="text" class="form-control rounded-0"
-          placeholder="Montant">
->>>>>>> a5bb7201d76e8c5b83a59d36604e075ec60d3e04
       </div>
       <button type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
         Enregistrer

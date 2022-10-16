@@ -1,3 +1,4 @@
+import { ChangeStatut } from './../Model/ChangeStatut';
 import { Adresse } from './Adresse';
 import { DemandeAchat } from './../Model/demande-achat.model';
 import { HttpClient } from '@angular/common/http';
@@ -63,8 +64,8 @@ export class DemandeAchatService {
   public getDevisValideByReferenceDA(reference: string) {
     return this.httpClient.get<DemandeAchat>(Adresse.host + 'demandeachat/reference/' + reference);
   }
-  public chooseDevis(referencedevis:string, referencedemandeachat: string) {
-    return this.httpClient.get<DevisFournisseur>(Adresse.host + 'devis/choosedevis/'+referencedevis+'/' + referencedemandeachat);
+  public chooseDevis(referencedevis: string, referencedemandeachat: string) {
+    return this.httpClient.get<DevisFournisseur>(Adresse.host + 'devis/choosedevis/' + referencedevis + '/' + referencedemandeachat);
   }
   public saveDevisFournisseur(devisfournisseurs: DevisFournisseur[], referencedemandeachat: string) {
     return this.httpClient.post<DevisFournisseur>(Adresse.host + 'devis/save/' + referencedemandeachat, devisfournisseurs);
@@ -72,11 +73,10 @@ export class DemandeAchatService {
 
   /**
    * Cette fonction permet de valider la demande d'achat
-   * @param reference string
-   * @param statut string
+   * @param changeStatut ChangeStatut
    * @returns boolean
    */
-  public valider(demandeAchat: DemandeAchat) {
-    return this.httpClient.put<boolean>(Adresse.host + 'demandeachat/updatestatut',demandeAchat);
+  public valider(changeStatut: ChangeStatut) {
+    return this.httpClient.put<boolean>(Adresse.host + 'demandeachat/updatestatut', changeStatut);
   }
 }

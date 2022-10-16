@@ -1,12 +1,15 @@
+import { LigneBudgetaire } from './../../../Model/LigneBudgetaire';
+import { PeriodeBudgetaireService } from './../../../service/periode-budgetaire.service';
+import { ChangeStatut } from './../../../Model/ChangeStatut';
 import { ArticleService } from './../../../service/article.service';
 import { LigneDemandeAchat } from './../../../Model/ligne-demande-achat.model';
 import { DemandeAchat } from './../../../Model/demande-achat.model';
 import { LoginService } from './../../../service/LoginService';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DemandeAchatService } from './../../../service/demande-achat.service';
-import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Article } from 'src/app/Model/article.model';
-import {DevisFournisseurService} from "../../../service/devis-fournisseur.service";
+import { DevisFournisseurService } from "../../../service/devis-fournisseur.service";
 
 @Component({
   selector: 'app-demande-achat',
@@ -23,11 +26,14 @@ export class DemandeAchatComponent implements OnInit {
   public formAddDemandeAchat!: DemandeAchat;
   public demandeAchat: DemandeAchat = new DemandeAchat();
   public articleName: string = "";
-  public typeOpenDevisModal: 'SHOW' | 'ADD'| 'DETAILS' = 'SHOW';
+  public typeOpenDevisModal: 'SHOW' | 'ADD' | 'DETAILS' = 'SHOW';
   public numeroda!: string;
 
   public referencesessionbudgetaire!: string;
-   isShowDetaits!: boolean;
+  public isShowDetaits!: boolean;
+
+  public changeStatut!: ChangeStatut;
+  public lignePeriodebudgetaires!: LigneBudgetaire[];
 
   constructor(
     public demandeAchatService: DemandeAchatService,
@@ -35,11 +41,13 @@ export class DemandeAchatComponent implements OnInit {
     public loginService: LoginService,
     private modalSerivce: BsModalService,
     public devisFournisseurService: DevisFournisseurService,
+    public periodeBudgetaireService: PeriodeBudgetaireService
   ) { }
 
   ngOnInit(): void {
     this.getAllDemandeAchat();
     this.getAllArticle();
+    this.getPeriodeBudgetaire();
     this.initForm();
   }
 
@@ -81,6 +89,18 @@ export class DemandeAchatComponent implements OnInit {
     );
   }
 
+  public getPeriodeBudgetaire() {
+    this.periodeBudgetaireService.findByActiveIsTrueLigneBudgetaire().subscribe(
+      data => {
+        this.lignePeriodebudgetaires = data;
+      },
+      error => {
+        console.log(error);
+        this.loginService.toastr.error('Erreur de chargement de la periode budgetaire');
+      }
+    )
+  }
+
   public openModal(template: TemplateRef<any>, demandeAchat?: DemandeAchat) {
     if (demandeAchat) {
       this.demandeAchat = demandeAchat;
@@ -104,7 +124,7 @@ export class DemandeAchatComponent implements OnInit {
 
 
   }
-  public openModalDevisFournisseur(template: TemplateRef<any>, demandeAchat?: DemandeAchat, typeOpen: 'SHOW' | 'ADD'| 'DETAILS' = 'SHOW') {
+  public openModalDevisFournisseur(template: TemplateRef<any>, demandeAchat?: DemandeAchat, typeOpen: 'SHOW' | 'ADD' | 'DETAILS' = 'SHOW') {
     if (demandeAchat) {
       this.demandeAchat = demandeAchat;
     }
@@ -163,7 +183,10 @@ export class DemandeAchatComponent implements OnInit {
 
   updateStatutDa(demandeAchat: DemandeAchat) {
     this.isLoading = true;
-    this.demandeAchatService.valider(demandeAchat).subscribe(
+    this.changeStatut.commentaire = demandeAchat.commentaire;
+    this.changeStatut.reference = demandeAchat.reference;
+    this.changeStatut.statut = demandeAchat.statut;
+    this.demandeAchatService.valider(this.changeStatut).subscribe(
       data => {
         this.isLoading = false;
         if (data) {
@@ -202,10 +225,10 @@ export class DemandeAchatComponent implements OnInit {
 
 
   showDetaisFournisseur() {
-      this.typeOpenDevisModal='DETAILS'
+    this.typeOpenDevisModal = 'DETAILS'
   }
 
   selectAction(event: any) {
-    this.demandeAchat.statut=event.target.value;
+    this.demandeAchat.statut = event.target.value;
   }
 }

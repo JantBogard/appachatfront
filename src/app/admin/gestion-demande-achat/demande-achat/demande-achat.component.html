@@ -49,7 +49,8 @@
             </td>
             <td>
               <button tooltip="Voir les details" class="btn btn-inverse-primary btn-icon"
-                (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat, 'DETAILS')"> <i class="mdi mdi-eye"></i></button>
+                (click)="openModalDevisFournisseur(devisfournisseur, demandeAchat, 'DETAILS')"> <i
+                  class="mdi mdi-eye"></i></button>
             </td>
             <td>
               <button tooltip="Voir les details" class="btn btn-inverse-primary btn-icon"
@@ -142,19 +143,26 @@
       <div class="col-md-12 my-2">
         <label>Type d'action</label>
         <select [(ngModel)]="demandeAchat.statut" class="form-control">
-          <option [value]="'En_attente_de_validation'">En_attente_de_validation</option>
-          <option [value]="'Rejeter_a_completer'">Rejeter_a_completer</option>
-          <option [value]="'Rejeter_definitivement'">Rejeter_definitivement</option>
+          <option [value]="'En_attente_de_validation'">En attente de validation</option>
+          <option [value]="'Rejeter_a_completer'">Rejeter a completer</option>
+          <option [value]="'Rejeter_definitivement'">Rejeter definitivement</option>
           <option [value]="'Valide'">Valide</option>
           <option [value]="'Cloture'">Cloture</option>
         </select>
       </div>
+      <!-- <div class="col-md-12" *ngIf="demandeAchat.statut == 'Valide'">
+        <label>Lignes budgetaire</label>
+        <select [(ngModel)]="changeStatut.referenceLigne" class="form-control">
+          <option *ngFor="let lignebugetaire of lignePeriodebudgetaires" [value]="lignebugetaire.reference">{{
+            lignebugetaire.denomination }}</option>
+        </select>
+      </div> -->
       <div class="col-md-12">
         <label>Commentaire</label>
         <textarea [(ngModel)]="demandeAchat.commentaire" class="form-control"></textarea>
       </div>
 
-      </div>
+    </div>
     <button (click)="updateStatutDa(demandeAchat)" class="btn btn-gradient-primary me-2 remove-bold">
       Enregistrer
       <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
@@ -172,8 +180,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-devisfournisseur (closeModalEmintter)="closeModal($event)" [modalRef]="modalRef" [referencedemandeachat]="demandeAchat.reference"
-      [typeOpenModalDevis]="typeOpenDevisModal"></app-devisfournisseur>
+    <app-devisfournisseur (closeModalEmintter)="closeModal($event)" [modalRef]="modalRef"
+      [referencedemandeachat]="demandeAchat.reference" [typeOpenModalDevis]="typeOpenDevisModal"></app-devisfournisseur>
   </div>
 </ng-template>
 
@@ -211,5 +219,3 @@
     </table>
   </div>
 </ng-template>
-
-
