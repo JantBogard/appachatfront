@@ -1,10 +1,10 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {PeriodeBudgetaire} from "../../../Model/periode-budgetaire.model";
-import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PeriodeBudgetaireService} from "../../../service/periode-budgetaire.service";
-import {LoginService} from "../../../service/LoginService";
-import {LigneBudgetaire} from "../../../Model/LigneBudgetaire";
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { PeriodeBudgetaire } from "../../../Model/periode-budgetaire.model";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { PeriodeBudgetaireService } from "../../../service/periode-budgetaire.service";
+import { LoginService } from "../../../service/LoginService";
+import { LigneBudgetaire } from "../../../Model/LigneBudgetaire";
 
 @Component({
   selector: 'app-periodebudgetaire',
@@ -14,7 +14,7 @@ import {LigneBudgetaire} from "../../../Model/LigneBudgetaire";
 export class PeriodebudgetaireComponent implements OnInit {
 
   public periodeBudgetaire: PeriodeBudgetaire = new PeriodeBudgetaire();
-  lignePeriodebudgetaires:LigneBudgetaire[]=[];
+  lignePeriodebudgetaires: LigneBudgetaire[] = [];
   public isLoading: boolean = false;
   public modalRef!: BsModalRef;
   public modalRefadd!: BsModalRef;
@@ -61,7 +61,7 @@ export class PeriodebudgetaireComponent implements OnInit {
   openModaladdExcel(template: TemplateRef<any>, periodeBudgetaire: PeriodeBudgetaire) {
     this.periodeBudgetaire = periodeBudgetaire;
     this.findByActiveIsTrueLigneBudgetaire();
-    this.modalRefexcel = this.modalService.show(template,{class:"modal-lg",ignoreBackdropClick:true});
+    this.modalRefexcel = this.modalService.show(template, { class: "modal-lg", ignoreBackdropClick: true });
 
   }
 
@@ -72,8 +72,9 @@ export class PeriodebudgetaireComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-   onAddPeriodeBudgetaire() {
+  onAddPeriodeBudgetaire() {
     this.isLoading = true;
+    console.log(this.formAddPeriodeBudgetaire.value);
     this.periodeBudgetaireService.savePeriodeBudgetaire(this.formAddPeriodeBudgetaire.value).subscribe(
       data => {
         this.periodeBudgetaireService.periodeBudgetaires.push(data);
@@ -94,7 +95,7 @@ export class PeriodebudgetaireComponent implements OnInit {
       data => {
         this.isLoading = false;
         this.loginService.toastr.success('Période budgétaire ajoutée avec succès');
-       this.findByActiveIsTrueLigneBudgetaire();
+        this.findByActiveIsTrueLigneBudgetaire();
       }, error => {
         console.log(error);
         this.isLoading = false;
@@ -103,10 +104,10 @@ export class PeriodebudgetaireComponent implements OnInit {
     )
   }
 
-  findByActiveIsTrueLigneBudgetaire(){
+  findByActiveIsTrueLigneBudgetaire() {
     this.periodeBudgetaireService.findByActiveIsTrueLigneBudgetaire().subscribe(
-      data=>{
-        this.lignePeriodebudgetaires=data;
+      data => {
+        this.lignePeriodebudgetaires = data;
       }
     )
   }
@@ -116,22 +117,22 @@ export class PeriodebudgetaireComponent implements OnInit {
     console.log('update coming soon ...');
   }
 
-  changeLigneBudg(p:LigneBudgetaire){
-    const index =this.lignePeriodebudgetaires.findIndex(i=>i.reference==p.reference);
-    this.lignePeriodebudgetaires[index].statut="InValide";
+  changeLigneBudg(p: LigneBudgetaire) {
+    const index = this.lignePeriodebudgetaires.findIndex(i => i.reference == p.reference);
+    this.lignePeriodebudgetaires[index].statut = "InValide";
   }
 
-  updateligne(p:LigneBudgetaire) {
-    if (p.montantinitial>0){
+  updateligne(p: LigneBudgetaire) {
+    if (p.montantinitial > 0) {
       this.periodeBudgetaireService.updateLigneBudgetaire(p).subscribe(
-        data=>{
-          if (data){
-            const index =this.lignePeriodebudgetaires.findIndex(i=>i.reference==p.reference);
-            this.lignePeriodebudgetaires[index].statut="Valide";
+        data => {
+          if (data) {
+            const index = this.lignePeriodebudgetaires.findIndex(i => i.reference == p.reference);
+            this.lignePeriodebudgetaires[index].statut = "Valide";
           }
         }
       )
-    }else {
+    } else {
       this.loginService.toastr.error('Le montant doit être >0');
     }
 
@@ -139,16 +140,16 @@ export class PeriodebudgetaireComponent implements OnInit {
   }
 
   valide() {
-    this.isLoading=true;
+    this.isLoading = true;
     this.periodeBudgetaireService.validerBudget(this.periodeBudgetaire.reference).subscribe(
-      data=>{
-        this.isLoading=false;
-        let index=this.periodeBudgetaireService.periodeBudgetaires.indexOf(this.periodeBudgetaire);
-        this.periodeBudgetaireService.periodeBudgetaires.splice(index,1);
+      data => {
+        this.isLoading = false;
+        let index = this.periodeBudgetaireService.periodeBudgetaires.indexOf(this.periodeBudgetaire);
+        this.periodeBudgetaireService.periodeBudgetaires.splice(index, 1);
         this.periodeBudgetaireService.periodeBudgetaires.push(data);
         this.modalRefexcel.hide();
-      },error => {
-        this.isLoading=false;
+      }, error => {
+        this.isLoading = false;
       }
     )
 

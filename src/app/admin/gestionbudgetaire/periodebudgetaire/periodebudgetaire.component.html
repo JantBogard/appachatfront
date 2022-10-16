@@ -12,6 +12,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
+          <th>Reférence</th>
           <th>Date</th>
           <th>Année budgetaire</th>
           <th>Statut</th>
@@ -23,6 +24,7 @@
       <tbody>
         <ng-container *ngIf="periodeBudgetaireService.periodeBudgetaires.length != 0; else emptyTable">
           <tr *ngFor="let periodeBudgetaire of periodeBudgetaireService.periodeBudgetaires">
+            <td>{{ periodeBudgetaire.reference }}</td>
             <td>{{ periodeBudgetaire.date | date:'dd/MM/yyyy' }}</td>
             <td>{{ periodeBudgetaire.anneebugetaire }}</td>
             <td><strong [class]="periodeBudgetaire.statut=='VALIDE'?'text-success':'text-danger'">{{
@@ -70,8 +72,7 @@
       </div>
       <div class="form-group">
         <label>Montant du budget (en FCFA)</label>
-        <input formControlName="Montant du budget (en FCFA)" type="text" class="form-control rounded-0"
-          placeholder="Montant">
+        <input formControlName="montant" type="text" class="form-control rounded-0" placeholder="Montant">
       </div>
       <button type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
         Enregistrer
