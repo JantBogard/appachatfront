@@ -9,6 +9,7 @@ export class DemandeAchat {
   date!: Date;
   prixestimatif!: number;
   statut!: string;
+  commentaire!: string;
   active!: boolean;
   reference!: string;
   lignedemandeachats!: LigneDemandeAchat[];

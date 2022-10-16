@@ -63,6 +63,9 @@ export class DemandeAchatService {
   public getDevisValideByReferenceDA(reference: string) {
     return this.httpClient.get<DemandeAchat>(Adresse.host + 'demandeachat/reference/' + reference);
   }
+  public chooseDevis(referencedevis:string, referencedemandeachat: string) {
+    return this.httpClient.get<DevisFournisseur>(Adresse.host + 'devis/choosedevis/'+referencedevis+'/' + referencedemandeachat);
+  }
   public saveDevisFournisseur(devisfournisseurs: DevisFournisseur[], referencedemandeachat: string) {
     return this.httpClient.post<DevisFournisseur>(Adresse.host + 'devis/save/' + referencedemandeachat, devisfournisseurs);
   }
@@ -73,7 +76,7 @@ export class DemandeAchatService {
    * @param statut string
    * @returns boolean
    */
-  public valider(reference: string, statut: string) {
-    return this.httpClient.get<boolean>(Adresse.host + 'demandeachat/updatestatut/' + reference + '/' + statut);
+  public valider(demandeAchat: DemandeAchat) {
+    return this.httpClient.put<boolean>(Adresse.host + 'demandeachat/updatestatut',demandeAchat);
   }
 }

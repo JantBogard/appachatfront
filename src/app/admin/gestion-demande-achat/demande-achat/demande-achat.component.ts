@@ -17,6 +17,7 @@ export class DemandeAchatComponent implements OnInit {
 
   public isLoading: boolean = false;
   public modalRef!: BsModalRef;
+  public modalRefSoumettreDA!: BsModalRef;
   public modalRefDevisFournisseur!: BsModalRef;
   public modaldeviFournisseur!: BsModalRef;
   public formAddDemandeAchat!: DemandeAchat;
@@ -54,7 +55,6 @@ export class DemandeAchatComponent implements OnInit {
         data => {
           this.demandeAchatService.demandeAchats = data;
         }, error => {
-          console.log(error);
           this.loginService.toastr.error('Erreur de chargement des demande d\'achat');
         }
       )
@@ -83,12 +83,10 @@ export class DemandeAchatComponent implements OnInit {
 
   public openModal(template: TemplateRef<any>, demandeAchat?: DemandeAchat) {
     if (demandeAchat) {
-      console.log(demandeAchat)
       this.demandeAchat = demandeAchat;
       this.modalRef = this.modalSerivce.show(template, { class: "modal-lg" });
     } else {
       if (this.loginService.utilisateur.fonction == "ACHETEUR METIER") {
-
         this.initForm();
         this.demandeAchatService.generenumero(this.loginService.utilisateur.matricule).subscribe(
           data => {
@@ -96,8 +94,7 @@ export class DemandeAchatComponent implements OnInit {
             this.referencesessionbudgetaire = data.referencesessionbudgetaire;
             this.modalRef = this.modalSerivce.show(template, { class: "modal-lg" });
           }, error => {
-            console.log(error)
-            this.loginService.toastr.error(error.error?.trace);
+            this.loginService.toastr.error(error.error?.message);
           }
         )
       } else {
@@ -113,6 +110,13 @@ export class DemandeAchatComponent implements OnInit {
     }
     this.typeOpenDevisModal = typeOpen;
     this.modalRefDevisFournisseur = this.modalSerivce.show(template, { class: "modal-lg" });
+  }
+
+  public openModaSoumettreDemandeAchat(template: TemplateRef<any>, demandeAchat?: DemandeAchat) {
+    if (demandeAchat) {
+      this.demandeAchat = demandeAchat;
+    }
+    this.modalRefSoumettreDA = this.modalSerivce.show(template, { class: "modal-lg" });
   }
 
   onAddLigneDemandeAchat() {
@@ -152,13 +156,14 @@ export class DemandeAchatComponent implements OnInit {
     )
   }
 
-  public onUpdate() {
+  onUpdate() {
     console.log("update demande d'achat coming soon ...");
   }
 
-  onValideDemandeAchat(demandeAchat: DemandeAchat) {
+
+  updateStatutDa(demandeAchat: DemandeAchat) {
     this.isLoading = true;
-    this.demandeAchatService.valider('VALIDE', demandeAchat.reference).subscribe(
+    this.demandeAchatService.valider(demandeAchat).subscribe(
       data => {
         this.isLoading = false;
         if (data) {
@@ -166,7 +171,6 @@ export class DemandeAchatComponent implements OnInit {
         } else {
           this.loginService.toastr.error('Erreur de validation de la demande d\'achat');
         }
-        demandeAchat.statut = data ? 'VALIDE' : demandeAchat.statut;
       },
       error => {
         console.log(error);
@@ -201,4 +205,7 @@ export class DemandeAchatComponent implements OnInit {
       this.typeOpenDevisModal='DETAILS'
   }
 
+  selectAction(event: any) {
+    this.demandeAchat.statut=event.target.value;
+  }
 }
