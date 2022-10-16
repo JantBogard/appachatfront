@@ -1,5 +1,5 @@
 <ng-container *ngIf="typeOpenModalDevis === 'ADD'">
-  <div class="row">
+  <div class="row my-3">
     <div class="col-9"><input class="form-control rounded-0 small" type="file" accept="application/pdf"
         (change)="onFileSelected($event)"></div>
     <div class="col-3 text-start"> <button class="btn btn-primary rounded-0" (click)="valider()">Valider</button> </div>
@@ -44,10 +44,13 @@
 </ng-container>
 
 <ng-container *ngIf="typeOpenModalDevis==='DETAILS'">
-  <div class="d-flex justify-content-center">
-    <select class="form-control mx-3 text-center" (change)="showDataDevis($event)">
-      <option *ngFor="let d of devisFournisseurService.devisFournisseurs">{{d.reference}}</option>
-    </select>
+  <div class="row d-flex justify-content-center my-3">
+    <div class="col-md-9">
+      <select class="form-control mx-3 text-center" (change)="showDataDevis($event)">
+        <option *ngFor="let d of devisFournisseurService.devisFournisseurs">{{d.reference}}</option>
+      </select>
+    </div>
+    <div class="col-3 text-start"> <button class="btn btn-primary rounded-0" (click)="chooseDevis()">Valider</button> </div>
   </div>
 
   <object #pdfviews

@@ -155,7 +155,13 @@ export class PeriodebudgetaireComponent implements OnInit {
 
   }
 
-  validAnneBudgetary() {
-
+  validAnneBudgetary(event:any,periodeBudetaire:PeriodeBudgetaire) {
+    console.log(event.target.value)
+    periodeBudetaire.statut=event.target.value;
+    this.periodeBudgetaireService.updateBudget(periodeBudetaire).subscribe(
+      data=>{
+        periodeBudetaire.statut=data.statut;
+      }
+    )
   }
 }

@@ -16,6 +16,7 @@ import {Observable, ReplaySubject} from "rxjs";
 export class DevisfournisseurComponent implements OnInit {
 
   @Input() referencedemandeachat!:string;
+  referencedevis!:string;
   @Input() isShowDevis!:boolean;
   @Input() typeOpenModalDevis!: 'SHOW' | 'ADD'| 'DETAILS';
   @Input() modalRef!: BsModalRef;
@@ -43,13 +44,11 @@ export class DevisfournisseurComponent implements OnInit {
     }
   }
 
-  public openModal(demandeAchat?: DemandeAchat){
-
-  }
   getAllDevisFournisseur(){
     this.devisFournisseurService.getAll(this.referencedemandeachat).subscribe(
       data => {
         this.devisFournisseurService.devisFournisseurs = data;
+        this.referencedevis=data[0].reference;
         this.showDataDetail(data[0].imagedevis)
       },
       error => {
@@ -60,6 +59,13 @@ export class DevisfournisseurComponent implements OnInit {
   }
 
 
+  public chooseDevis(){
+    this.demandeAchatService.chooseDevis(this.referencedevis,this.referencedemandeachat).subscribe(
+      data=>{
+        this.closeModalEmintter.emit(true);
+      }
+    )
+  }
   valider(){
     this.demandeAchatService.saveDevisFournisseur(this.devisfournisseurs,this.referencedemandeachat).subscribe(
       data=>{
@@ -90,7 +96,11 @@ export class DevisfournisseurComponent implements OnInit {
     this.modalRefimageDevisFournisseur = this.modalSerivce.show(template,{class:"modal-lg"});
   }
 
-
+  showDataDevis(event: any) {
+    this.referencedevis=event.target.value;
+    let val=this.devisFournisseurService.devisFournisseurs.find(devis =>devis.reference===this.referencedevis );
+    this.showDataDetail(val?val.imagedevis:'');
+  }
 
 
 
@@ -144,9 +154,5 @@ export class DevisfournisseurComponent implements OnInit {
     var blob = new Blob(byteArrays, { type: contentType });
     return blob;
   }
-  showDataDevis(event: any) {
-    let ref=event.target.value;
-    let val=this.devisFournisseurService.devisFournisseurs.find(devis =>devis.reference===ref );
-    this.showDataDetail(val?val.imagedevis:'');
-  }
+
 }
