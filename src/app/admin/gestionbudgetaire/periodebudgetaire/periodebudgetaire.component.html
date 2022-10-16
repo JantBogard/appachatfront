@@ -41,12 +41,10 @@
                   class="mdi mdi-file-excel"></i></button>
             </td>
             <td>
-              <select class="btn btn-inverse-warning btn-icon" (change)="validAnneBudgetary($event,periodeBudgetaire)">
-                <option class="mdi mdi-power-settings"></option>
-                <option class="mdi mdi-power-settings">Valide</option>
-                <option class="mdi mdi-power-settings">Clos</option>
-                <option class="mdi mdi-power-settings">Non_valide</option>
-              </select>
+              <button class="btn btn-inverse-success btn-icon"
+                      (click)="openModalaChangeStatusPeriodeBudgetaire(changeStatusPeriodeBudgetaire, periodeBudgetaire)">Changer
+                <i [class]="!isLoading?'mdi mdi-check':'spinner-grow spinner-grow-sm'"></i>
+              </button>
           </tr>
         </ng-container>
       </tbody>
@@ -76,12 +74,7 @@
       </div>
       <div class="form-group">
         <label>Montant du budget (en FCFA)</label>
-<<<<<<< HEAD
         <input formControlName="montant" type="text" class="form-control rounded-0" placeholder="Montant">
-=======
-        <input formControlName="montant" type="text" class="form-control rounded-0"
-          placeholder="Montant">
->>>>>>> a5bb7201d76e8c5b83a59d36604e075ec60d3e04
       </div>
       <button type="submit" class="btn btn-gradient-primary me-2 rounded-0 remove-bold">
         Enregistrer
@@ -189,6 +182,37 @@
       </button>
       <button type="reset" (click)="modalRef?.hide()" class="btn btn-gradient-light remove-bold">Annuler</button>
     </div>
+  </div>
+</ng-template>
+
+
+
+<ng-template #changeStatusPeriodeBudgetaire>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modifier un budget</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalChangeStatusPeriodeBudgetaire?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row my-3">
+      <div class="col-md-12 my-2">
+        <label>Type d'action</label>
+        <select [(ngModel)]="periodeBudgetaire.statut" class="form-control">
+          <option [value]="'Valide'">VALIDER</option>
+          <option [value]="'Clos'">CLOTURER</option>
+          <option [value]="'Non_valide'">NON VALIDER</option>
+        </select>
+      </div>
+      <div class="col-md-12">
+        <label>Commentaire</label>
+        <textarea [(ngModel)]="periodeBudgetaire.commentaire" class="form-control"></textarea>
+      </div>
+    </div>
+    <button (click)="validAnneBudgetary()" class="btn btn-gradient-primary me-2 remove-bold">
+      Enregistrer
+      <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+    </button>
   </div>
 </ng-template>
 <ng-template #deletePeriodeBudgetaire>

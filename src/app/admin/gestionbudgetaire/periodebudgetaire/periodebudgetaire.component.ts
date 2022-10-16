@@ -19,6 +19,7 @@ export class PeriodebudgetaireComponent implements OnInit {
   public modalRef!: BsModalRef;
   public modalRefadd!: BsModalRef;
   public modalRefexcel!: BsModalRef;
+  public modalChangeStatusPeriodeBudgetaire!: BsModalRef;
   public formAddPeriodeBudgetaire!: FormGroup;
   public date: Date = new Date();
 
@@ -62,7 +63,11 @@ export class PeriodebudgetaireComponent implements OnInit {
     this.periodeBudgetaire = periodeBudgetaire;
     this.findByActiveIsTrueLigneBudgetaire();
     this.modalRefexcel = this.modalService.show(template, { class: "modal-lg", ignoreBackdropClick: true });
+  }
 
+  openModalaChangeStatusPeriodeBudgetaire(template: TemplateRef<any>, periodeBudgetaire: PeriodeBudgetaire) {
+    this.periodeBudgetaire = periodeBudgetaire;
+    this.modalChangeStatusPeriodeBudgetaire = this.modalService.show(template, { class: "modal-lg", ignoreBackdropClick: true });
   }
 
   openModal(template: TemplateRef<any>, periodeBudgetaire: PeriodeBudgetaire) {
@@ -150,17 +155,20 @@ export class PeriodebudgetaireComponent implements OnInit {
         this.modalRefexcel.hide();
       }, error => {
         this.isLoading = false;
+        this.loginService.toastr.error(error.error.message);
       }
     )
-
   }
 
-  validAnneBudgetary(event:any,periodeBudetaire:PeriodeBudgetaire) {
-    console.log(event.target.value)
-    periodeBudetaire.statut=event.target.value;
-    this.periodeBudgetaireService.updateBudget(periodeBudetaire).subscribe(
+  validAnneBudgetary() {
+    this.isLoading = true;
+    this.periodeBudgetaireService.updateBudget(this.periodeBudgetaire).subscribe(
       data=>{
-        periodeBudetaire.statut=data.statut;
+        this.isLoading = false;
+        this.periodeBudgetaire.statut=data.statut;
+        this.modalChangeStatusPeriodeBudgetaire.hide();
+      }, error => {
+        this.isLoading = false;
       }
     )
   }

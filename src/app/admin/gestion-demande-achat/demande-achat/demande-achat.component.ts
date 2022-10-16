@@ -53,6 +53,7 @@ export class DemandeAchatComponent implements OnInit {
     if (this.loginService.utilisateur.fonction == "ACHETEUR METIER") {
       this.demandeAchatService.getAllByReferenceAcheteurMetier(this.loginService.utilisateur.reference).subscribe(
         data => {
+          data.map(da=>da.statut=da.statut.replace("_"," "));
           this.demandeAchatService.demandeAchats = data;
         }, error => {
           this.loginService.toastr.error('Erreur de chargement des demande d\'achat');

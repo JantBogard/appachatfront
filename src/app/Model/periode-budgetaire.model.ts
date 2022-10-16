@@ -4,6 +4,7 @@ export class PeriodeBudgetaire {
   date!: Date;
   anneebugetaire!: string;
   statut!: string;
+  commentaire!: string;
   reference!: string;
   active!: boolean;
   montant!: number;
